@@ -1,0 +1,103 @@
+{
+  "result": "celegans-neuropeptides follow-up (proximity)",
+  "mode": "full",
+  "plan": "METHODS-followup-proximity.md",
+  "seed": 20261125,
+  "n_bootstrap": 2000,
+  "n_null": 1000,
+  "network": "short_range_model",
+  "F1_proximity_stratified": {
+    "G_all": {
+      "value": -0.04696,
+      "ci95": [
+        -0.07588,
+        -0.01847
+      ],
+      "null_mean": -0.05403,
+      "null_95th": -0.05234,
+      "null_p": 0.001,
+      "excess": 0.00707,
+      "excess_ci95": [
+        -0.02186,
+        0.03555
+      ]
+    },
+    "G_none": {
+      "value": 0.03936,
+      "ci95": [
+        -0.00531,
+        0.08709
+      ],
+      "null_mean": 0.03654,
+      "null_95th": 0.0414,
+      "null_p": 0.15584,
+      "excess": 0.00282,
+      "excess_ci95": [
+        -0.04186,
+        0.05055
+      ]
+    }
+  },
+  "F2_proximity_preserving_shuffle": {
+    "G_all": {
+      "value": -0.04591,
+      "ci95": [
+        -0.0715,
+        -0.01807
+      ],
+      "null_mean": -0.05694,
+      "null_95th": -0.05557,
+      "null_p": 0.001,
+      "excess": 0.01103,
+      "excess_ci95": [
+        -0.01456,
+        0.03887
+      ]
+    },
+    "G_none": {
+      "value": 0.11092,
+      "ci95": [
+        0.06864,
+        0.15881
+      ],
+      "null_mean": 0.09101,
+      "null_95th": 0.09499,
+      "null_p": 0.001,
+      "excess": 0.01992,
+      "excess_ci95": [
+        -0.02236,
+        0.06781
+      ]
+    },
+    "mean_fraction_links_moved": 0.2134,
+    "mean_accepted_swaps": 302730.59,
+    "target_swaps": 312280
+  },
+  "survives_F1": false,
+  "survives_F2": true,
+  "verdict": "Mixed",
+  "exploratory": {
+    "auroc_nearness_all_pairs_with_positions": 0.73348,
+    "auroc_nearness_no_wired_path": 0.72194,
+    "peptide_link_share_by_distance_quintile": {
+      "quintile_1": 0.5149,
+      "quintile_2": 0.3996,
+      "quintile_3": 0.3356,
+      "quintile_4": 0.2261,
+      "quintile_5": 0.2645
+    },
+    "auroc_same_ganglion_no_wired_path": 0.62723
+  },
+  "neurons_without_position": [],
+  "pairs_in_class_minus1": 0,
+  "distance_quintile_edges": [
+    0.20008957834020683,
+    0.5432586701852905,
+    2.6408295378997613,
+    5.298067622507925
+  ],
+  "runtime_seconds": 1337.6,
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "platform": "Linux-6.18.44-fc-v880-x86_64-with-glibc2.39"
+}
