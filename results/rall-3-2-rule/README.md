@@ -14,6 +14,19 @@ Not run yet. If the download fails with `CERTIFICATE_VERIFY_FAILED`, fix
 the local certificate store (for example `pip install certifi` and
 `export SSL_CERT_FILE=$(python -m certifi)`); do not turn verification off.
 
+To run it from the repository root:
+
+```
+uv venv
+uv pip install -r requirements.txt
+cd results/rall-3-2-rule
+../../.venv/bin/python check.py
+```
+
+Server errors and timeouts are retried with backoff, and metadata pages are
+saved under `data/metadata-pages/` as they arrive, so if a run still stops,
+running it again resumes from the first missing page.
+
 The full run has not been done. The plan and decision rule (CLAIM.md, METHODS.md) were committed
 before any code read the data.
 

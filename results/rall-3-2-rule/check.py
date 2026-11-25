@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
 import json
 import platform
 import sys
@@ -265,21 +266,32 @@ def validate_estimator(n_cells: int, seed: int) -> dict:
 # ---------------------------------------------------------------- NeuroMorpho
 
 
-def fetch(url: str, retries: int = 4) -> bytes:
+def fetch(url: str, tries: int = 6, max_wait: float = 120.0) -> bytes:
+    """GET url, retrying server errors (5xx, 429), dropped connections and
+    timeouts with exponential backoff (2, 4, 8, 16, 32 s, or the server's
+    Retry-After). Other 4xx errors, such as 404, are raised at once."""
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     err: Exception | None = None
-    for attempt in range(retries):
+    for attempt in range(tries):
+        wait = min(2.0 ** (attempt + 1), max_wait)
         try:
             with urllib.request.urlopen(req, timeout=60) as r:
                 return r.read()
         except urllib.error.HTTPError as e:
-            if e.code == 404:
+            if e.code < 500 and e.code != 429:
                 raise
             err = e
-        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            retry_after = e.headers.get("Retry-After") if e.headers else None
+            if retry_after and retry_after.isdigit():
+                wait = min(float(retry_after), max_wait)
+        except (urllib.error.URLError, http.client.HTTPException, TimeoutError,
+                ConnectionError) as e:
             err = e
-        time.sleep(2 ** attempt)
-    raise RuntimeError(f"could not fetch {url}: {err}")
+        if attempt + 1 < tries:
+            print(f"fetch failed ({err}); retry {attempt + 1}/{tries - 1} in {wait:.0f} s",
+                  file=sys.stderr)
+            time.sleep(wait)
+    raise RuntimeError(f"could not fetch {url} after {tries} tries: {err}")
 
 
 def load_metadata(offline: bool) -> tuple[list[dict], dict]:
@@ -289,18 +301,36 @@ def load_metadata(offline: bool) -> tuple[list[dict], dict]:
         return cached["neurons"], cached["info"]
     if offline:
         raise SystemExit("no cached metadata in ./data; run without --offline first")
-    neurons, page, total_pages, total = [], 0, None, None
-    while total_pages is None or page < total_pages:
-        body = json.loads(fetch(f"{API}?page={page}&size=500&sort=neuron_id,asc"))
-        neurons.extend(body.get("_embedded", {}).get("neuronResources", []))
-        total_pages = body["page"]["totalPages"]
-        total = body["page"]["totalElements"]
-        page += 1
-        print(f"metadata page {page}/{total_pages}", file=sys.stderr)
-        time.sleep(0.2)
+    # Each page is saved as it arrives, so a run that stops part way (for
+    # example on a server error) resumes from the first missing page.
     keep = ["neuron_id", "neuron_name", "archive", "species", "cell_type", "brain_region",
             "attributes", "domain", "experiment_condition", "reference_pmid", "reference_doi"]
-    neurons = [{k: n.get(k) for k in keep} for n in neurons]
+    pages_dir = DATA / "metadata-pages"
+    pages_dir.mkdir(parents=True, exist_ok=True)
+    page, total_pages, total = 0, None, None
+    while total_pages is None or page < total_pages:
+        page_file = pages_dir / f"page-{page:05d}.json"
+        if page_file.exists():
+            saved = json.loads(page_file.read_text())
+        else:
+            body = json.loads(fetch(f"{API}?page={page}&size=500&sort=neuron_id,asc"))
+            saved = {"total_pages": body["page"]["totalPages"],
+                     "total_elements": body["page"]["totalElements"],
+                     "neurons": [{k: n.get(k) for k in keep}
+                                 for n in body.get("_embedded", {}).get("neuronResources", [])]}
+            tmp = page_file.with_suffix(".tmp")
+            tmp.write_text(json.dumps(saved))
+            tmp.replace(page_file)
+            time.sleep(0.2)
+        total_pages, total = saved["total_pages"], saved["total_elements"]
+        page += 1
+        print(f"metadata page {page}/{total_pages}", file=sys.stderr)
+    neurons, seen = [], set()
+    for page_file in sorted(pages_dir.glob("page-*.json"))[:total_pages]:
+        for n in json.loads(page_file.read_text())["neurons"]:
+            if n["neuron_id"] not in seen:
+                seen.add(n["neuron_id"])
+                neurons.append(n)
     info = {"download_date_utc": time.strftime("%Y-%m-%d", time.gmtime()),
             "api_total_elements": total, "neurons_listed": len(neurons)}
     DATA.mkdir(exist_ok=True)
