@@ -175,9 +175,12 @@ Remarks.
 - Theorem 1 is about one target pattern with Gaussian interference. In
   model G the interference patterns are not ±1 configurations, so "every
   stored pattern" has no meaning there.
-- The supremum A* = 0.1294900 coincides to all printed digits with Stojnic's
-  first-level α_c(NLT,1) ≈ 0.129490 (his closed form is checked against ours
-  in check.py), as expected: his first level of lifting is this comparison.
+- The supremum A* = 0.1294900 agrees with Stojnic's first-level value
+  α_c(NLT,1) ≈ 0.129490. His reported closed form
+  erf(x)²/(2x²) − 1 + erf(x)², evaluated at x = τ*/√2 ≈ 1.291085, matches
+  A(τ*) to about 3·10⁻⁹ in floating point (check.py prints both). Whether the
+  two expressions agree exactly at the optimum was not checked symbolically.
+  The agreement is expected: his first level of lifting is this comparison.
 
 ## 6. Binary patterns: Theorem 2 and the missing step
 
