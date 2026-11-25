@@ -76,7 +76,7 @@ the short-range model.
 - [fetch_data.py](fetch_data.py): downloads the public data from PyPI and checks SHA-256.
 - [check.py](check.py): `python check.py` (about 12 minutes on one core) or
   `python check.py --quick` (seconds; synthetic data if h5py is missing).
-  Needs [requirements.txt](requirements.txt); numba speeds up the null.
+  Needs [requirements.txt](requirements.txt) (numpy, h5py, numba).
 - [check-output.json](check-output.json): recorded full run.
 - [REVIEW.md](REVIEW.md): review record.
 
