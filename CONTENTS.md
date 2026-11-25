@@ -10,7 +10,9 @@ Every result with its exact scope. The README table is the short form.
 
 ## Theorems
 
-None yet.
+| Result | Exact scope tested | Evidence |
+| :-- | :-- | :-- |
+| [Rigorous Hopfield capacity bound](results/hopfield-rigorous-bound/) | Hebbian couplings, one ±1 target pattern, M Gaussian interference patterns: energy barrier at Hamming radius ⌈0.0339N⌉ and a stable fixed point with overlap ≥ 0.932, probability 1 − e^{−cN}, for α < 0.12948. The standard ±1 model is covered only conditionally on a universality hypothesis (U); the rigorous ±1 bound stays at 0.113. | Written proof (Sudakov–Fernique comparison and concentration); constant certified with exact rational arithmetic, cross-checked with Arb. Agent-drafted, not yet independently reviewed. |
 
 ## Empirical claims
 

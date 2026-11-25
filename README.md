@@ -30,6 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
+| 2 | [Rigorous Hopfield capacity bound, α ≥ 0.1294 with Gaussian interference](results/hopfield-rigorous-bound/) | Theorem | Partial: proved for Gaussian interference patterns; ±1 case conditional, rigorous ±1 bound still 0.113 | 🟡 |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 

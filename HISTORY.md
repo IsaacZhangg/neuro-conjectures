@@ -1,5 +1,12 @@
 # History
 
+## 2026-11-25: Rigorous Hopfield capacity bound (Partial)
+
+Complete proof that the Hopfield energy barrier holds for α < 0.12948 when
+the interference patterns are Gaussian, with a certified constant. Matches
+Stojnic's first-level value. The ±1 model is reduced to an unproved
+universality hypothesis, so the rigorous ±1 bound is still 0.113.
+
 ## 2026-11-25: Start the collection
 
 Collection design, verification guide, result template and candidate list
