@@ -37,6 +37,7 @@ N_SPLITS_VAR = 4             # trial splits stored for robustness variants
 N_BOOT = 500
 N_CV = 100
 FIT_RANKS = 100
+CV_CUTOFF = 0.5              # amendment A2: max bootstrap SD/mean of lambda_k in fit
 
 CACHE = Path(os.environ.get("NC_CACHE", Path.home() / ".cache" / "neuro-conjectures" / "v1-power-law-spectrum"))
 
@@ -219,13 +220,17 @@ def analyse_area(grams, mouse_of, models, rng, R=FIT_RANKS, n_boot=N_BOOT, n_cv=
     for b in range(n_boot):
         pick = rng.choice(len(mice), len(mice), replace=True)
         members = [i for p in pick for i in by_mouse[mice[p]]]
-        sp = rng.choice(S, min(2, S), replace=False)
-        boots.append(spectrum_from(grams, members, sp))
+        boots.append(spectrum_from(grams, members, main_splits))
     boots = np.array(boots)
     with np.errstate(invalid="ignore", divide="ignore"):
         lb = np.where(boots > 0, np.log(np.where(boots > 0, boots, 1)), np.nan)
     bvar = np.nanvar(lb, axis=0)
     bvar = np.where(np.isfinite(bvar), bvar, np.nanmax(bvar))
+    # Amendment A2: end the fit where bootstrap SD/mean of lambda_k first exceeds 0.5.
+    with np.errstate(invalid="ignore", divide="ignore"):
+        rel = boots.std(0) / np.abs(boots.mean(0))
+    noisy = np.flatnonzero(~(rel[:R] <= CV_CUTOFF))
+    R = int(noisy[0]) if len(noisy) else R
 
     smu, svar = models["smu"], models["svar"]
     w = 1.0 / (bvar[None, :] + svar)
@@ -258,17 +263,19 @@ def analyse_area(grams, mouse_of, models, rng, R=FIT_RANKS, n_boot=N_BOOT, n_cv=
             hA, hB = perm[: len(mice) // 2], perm[len(mice) // 2:]
             mA = [i for p in hA for i in by_mouse[mice[p]]]
             mB = [i for p in hB for i in by_mouse[mice[p]]]
-            sp = rng.choice(S, min(2, S), replace=False)
-            lA, lB = spectrum_from(grams, mA, sp), spectrum_from(grams, mB, sp)
-            one = np.ones(NR)
-            js, _, rA = fit_models(lA, smu, one, R)
-            jb2, _, _ = fit_models(lA, models["bmu"], one, R)
+            lA = spectrum_from(grams, mA, main_splits)
+            lB = spectrum_from(grams, mB, main_splits)
+            js, _, rA = fit_models(lA, smu, w, R)
+            jb2, _, _ = fit_models(lA, models["bmu"], wb, R)
             rr = min(rA, fit_range(lB, R))
             y = np.log(lB[:rr])
-            def err(mrow):
+            def err(mrow, wrow):
+                ww = wrow[:rr]
                 d = y - mrow[:rr]
-                return float(((d - d.mean()) ** 2).mean())
-            es, eb = err(smu[js]), err(models["bmu"][jb2])
+                c = (ww * d).sum() / ww.sum()
+                return float((ww * (d - c) ** 2).sum() / ww.sum())
+            es = err(smu[js], w[js])
+            eb = err(models["bmu"][jb2], wb[jb2])
             wins += eb < es
             ratios.append(eb / es if es > 0 else np.nan)
         res["cv_broken_wins"] = int(wins)
@@ -478,25 +485,34 @@ def d2_worker(args):
 # Synthetic data (quick mode and recovery test)
 # --------------------------------------------------------------------------
 
-def synthetic_sessions(alpha, K, n_mice, n_per, rng, reps=50, noise=1.5):
-    """Each mouse: n_per neurons that are random mixtures of K stimulus features
-    with variances k^-alpha, plus independent Gaussian trial noise."""
-    lam = single_pl(alpha, K)
-    Z = rng.standard_normal((P, K)) * np.sqrt(lam)
+def synthetic_sessions(alpha, K, n_mice, n_per, rng, reps=50, noise=1.5, lam=None):
+    """Synthetic pooled population whose neuron covariance has eigenvalues
+    exactly lam (k^-alpha up to K, needs n_mice*n_per >= K): image features
+    Z ~ N(0, diag(lam)) are mapped to neurons by an orthonormal transform (a
+    DCT with random signs and a random neuron order), then split among mice.
+    Each neuron gets independent Gaussian trial noise."""
+    from scipy.fft import idct
+    lam = single_pl(alpha, K) if lam is None else lam
+    n_tot = n_mice * n_per
+    if n_tot < len(lam):
+        raise ValueError("synthetic population needs at least K neurons")
+    Z = rng.standard_normal((P, len(lam))) * np.sqrt(lam) * rng.choice([-1.0, 1.0], len(lam))
+    V = np.zeros((P, n_tot))
+    V[:, : len(lam)] = Z
+    S_all = idct(V, axis=1, norm="ortho")[:, rng.permutation(n_tot)]
+    S_all /= S_all.std()
     frame = np.repeat(np.arange(P), reps)
     out = []
     for m in range(n_mice):
-        W = rng.standard_normal((K, n_per)) / np.sqrt(K)
-        S = Z @ W
-        S /= S.std()
+        S = S_all[:, m * n_per:(m + 1) * n_per]
         resp = S[frame] + noise * rng.standard_normal((len(frame), n_per))
         out.append((resp.astype(np.float32), frame))
     return out
 
 
-def run_synthetic(models, rng, alpha_true, K_true, n_mice, n_per, n_boot, n_cv):
-    sess = synthetic_sessions(alpha_true, K_true, n_mice, n_per, rng)
-    grams = [session_grams(r, f, rng, 4)[0] for r, f in sess]
+def run_synthetic(models, rng, alpha_true, K_true, n_mice, n_per, n_boot, n_cv, lam=None):
+    sess = synthetic_sessions(alpha_true, K_true, n_mice, n_per, rng, lam=lam)
+    grams = [session_grams(r, f, rng, N_SPLITS_MAIN)[0] for r, f in sess]
     res = analyse_area(grams, list(range(n_mice)), models, rng, n_boot=n_boot, n_cv=n_cv)
     res.pop("spectrum")
     res["alpha_true"], res["K_true"] = alpha_true, K_true
@@ -531,7 +547,7 @@ def main() -> int:
           f"({time.time() - t_start:.0f} s)", flush=True)
 
     if args.quick:
-        res = run_synthetic(models, rng, 1.04, 3000, n_mice=8, n_per=150, n_boot=40, n_cv=10)
+        res = run_synthetic(models, rng, 1.04, 1000, n_mice=8, n_per=150, n_boot=40, n_cv=10)
         ok = abs(res["alpha_hat"] - 1.04) <= 0.2
         print(json.dumps({k: res[k] for k in ["alpha_true", "alpha_hat", "K_hat", "alpha_ci95",
                                                 "direct_slope_11_40", "verdict"]}, indent=1))
@@ -544,11 +560,16 @@ def main() -> int:
 
     # Synthetic recovery (validation of the pipeline, not part of the verdict)
     print("synthetic recovery ...", flush=True)
-    out["synthetic_recovery"] = [run_synthetic(models, rng, a, K, n_mice=20, n_per=200, n_boot=100, n_cv=20)
-                                 for a, K in [(1.04, 3000), (1.04, 30000), (1.4, 3000), (0.8, 1000)]]
+    out["synthetic_recovery"] = []
+    for a, K, nm, npm, lam in [(1.04, 3000, 20, 200, None), (1.04, 10000, 30, 400, None),
+                               (1.4, 3000, 20, 200, None), (0.8, 1000, 20, 200, None),
+                               ("broken 0.5/1.2/k10", 3000, 20, 200, broken_pl(0.5, 1.2, 10, 3000))]:
+        r = run_synthetic(models, rng, a, K, nm, npm, n_boot=100, n_cv=20, lam=lam)
+        out["synthetic_recovery"].append(r)
     for r in out["synthetic_recovery"]:
         print(f"  true a={r['alpha_true']} K={r['K_true']}: a_hat={r['alpha_hat']} CI={r['alpha_ci95']} "
-              f"direct11-40={r['direct_slope_11_40']:.2f}", flush=True)
+              f"direct11-40={r['direct_slope_11_40']:.2f} broken_clearly_better={r['broken_clearly_better']}",
+              flush=True)
 
     results = {}
     files = []

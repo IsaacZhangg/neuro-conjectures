@@ -70,8 +70,9 @@ S3 ETag, size and last-modified date of every file used are written to
    not bias the cross-validated covariance.
 3. **cvPCA.** Centre X1 and X2 over images. SVD X1 = U S Vᵀ; λ_k =
    Σ_images (X1 v_k)(X2 v_k) / 117. Repeat with the halves swapped and
-   average. Average the spectrum over 10 random splits (point estimate) or
-   2 splits (each bootstrap resample).
+   average. Average the spectrum over 10 random splits (point estimate and,
+   after amendment A1 below, each bootstrap resample and each model-comparison
+   half).
 4. **Forward model (single power law).** A population spectrum
    λ_k = k^(-α), k = 1..K. Its expected 118-image cvPCA spectrum, in the large
    population limit, is the eigenvalue spectrum of Z diag(λ) Zᵀ / 117, where Z
@@ -97,8 +98,9 @@ S3 ETag, size and last-modified date of every file used are written to
    0.8 to 2.0 step 0.1, k_b ∈ {5, 10, 20}, K as above. Same forward model,
    same fit.
 7. **Model comparison.** 100 random splits of an area's mice into two halves.
-   Fit single and broken models to half A's spectrum (unweighted), compute the
-   mean squared error of log λ_k over ranks 1 to 100 on half B's spectrum
+   Fit single and broken models to half A's spectrum (weighted as in step 5,
+   amendment A3), compute the weighted mean squared error of log λ_k over the
+   fit ranks on half B's spectrum
    after refitting only the additive constant. The broken model is "clearly
    better" if it has the lower error in at least 95 of 100 splits and the
    median ratio of errors (broken / single) is at most 0.9.
@@ -155,4 +157,25 @@ between consistent and inconsistent, makes the status Contested (CLAIM.md).
 
 ## Deviations from plan
 
-None yet.
+Amendment 1, made on 2026-11-25 before any real data were analysed (the
+Allen files had been downloaded and cached but no spectrum had been computed
+from them). It was prompted only by the synthetic validation below, which
+showed that the frozen procedure, as coded, misbehaved on data generated from a
+single power law: the broken power law was called "clearly better" for three
+of six single-power-law truths, and two bootstrap intervals missed the true α
+(true 0.80, interval [0.86, 0.90]; true 1.04, interval [0.92, 1.02]). The
+cause was that bootstrap resamples and model-comparison halves used 2 trial
+splits against 10 for the point estimate, so their high-rank eigenvalues were
+much noisier (a bias in log λ_k), and the unweighted comparison was dominated
+by those noisy ranks. Changes:
+
+- **A1.** Bootstrap resamples and model-comparison halves average over the same
+  10 trial splits as the point estimate.
+- **A2.** The fit range ends at the last rank before the first one where the
+  bootstrap standard deviation of λ_k exceeds half its bootstrap mean (cap 100,
+  and still stopping before any λ_k ≤ 0). The rank used is recorded.
+- **A3.** The model comparison uses the step-5 weights for fitting and for
+  the held-out error, instead of equal weights.
+
+Everything else, including the decision rule, the bands and the grids, is
+unchanged. The re-run synthetic validation is reported in the result README.
