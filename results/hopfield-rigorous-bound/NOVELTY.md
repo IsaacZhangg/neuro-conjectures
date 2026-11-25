@@ -68,3 +68,53 @@ Stojnic, arXiv:2403.01907 (2024), uses random duality theory. His first lifting 
 - The headline of this folder changes from "beat 0.113" to "rigorous NLT barrier capacity for ±1 patterns ≥ 0.12948, up from 0.08".
 - T3 is marked as superseded.
 - Further work aims only at the open NLT capacity.
+
+## Second check (2026-11-25, after reading Zhou in full)
+
+- **Read:** about two thirds of the text of hexagon 2611.00105v1, word for word.
+
+### Zhou's notion of capacity
+
+- **The notion is an AGS well in the energy at fixed overlap.** At T = 0, a load α has a well if e(m₂) > e(m₁) for some m_s ≤ m₁ < m₂ ≤ 1, where e is the limiting maximum of −H/N at fixed overlap.
+- **m₂ = 1 is allowed but not required.** We found no value or certificate for m₂ = 1, the energy barrier around the pattern itself.
+- **NLT is never mentioned.** The text names neither NLT nor Talagrand's 0.08 nor Stojnic's 0.1295 or 0.1298.
+- **Both pattern models are covered.** The paper covers ±1 patterns and Gaussian rows, and proves they have the same wells.
+- **It concerns minima of fixed-overlap slices, not dynamics.** It holds for all patterns at once (Theorem 1.2(e)). It says nothing about the dynamics. Its §1.6 sets finite-N retrieval dynamics apart from the wells of the limiting profile.
+
+### Inferences (ours, not stated by Zhou)
+
+- **Fixed points:** a well of this kind gives a single-flip local minimum near each pattern. One flip moves the overlap by 2/N, so the minimizer over the overlap band above m₁ is stable to single flips.
+- **Single-flip, every-pattern version: covered by Zhou, if correct.** "Every pattern at once has a single-flip-stable state nearby" holds up to 0.1382 by this inference. It is not open.
+
+### Soundness
+
+- **Unrefereed dependence.** The paper rests on Ali et al., arXiv:2611.03306, which is unrefereed.
+- **Computer-assisted parts.** Theorem 1.2 (c), (d) and (f) are computer-assisted.
+- **Not re-verified.** We did not re-verify the paper, because pure re-verification is out of this project's scope. We found no error in what we read, but that is not a check.
+
+### Superseded or known, if Zhou is correct
+
+- **The original goal.** A rigorous ±1 bound above 0.113 for a stable state near each pattern.
+- **Theorem 3.** A fixed point for α < 0.134716, Gaussian interference.
+- **The fixed-point reading of Theorems 1 and 2.** As fixed-point results they sit below 0.1382.
+
+### Still open and not covered by Zhou: retrieval from the pattern
+
+- **The energy barrier around the pattern itself (NLT).** This is the barrier H(σ) > H(ξ) on the whole sphere at radius ⌈δN⌉.
+- **What it guarantees.**
+  - This barrier is what makes zero-temperature single-flip dynamics, started at the pattern, stay within ⌈δN⌉ of it. The energy never goes up, so the dynamics cannot cross the sphere.
+  - An AGS well alone does not give this. The well near capacity can sit above the pattern's own energy, so the dynamics started at the pattern may leave.
+- **Where the bounds stand.**
+  - The best rigorous ±1 value in print is 0.08 (Talagrand 1998).
+  - This folder's Theorem 2 proves 0.12948, with its review pending.
+  - Random duality theory predicts the true value is about 0.1298.
+  - No rigorous upper bound exists below 0.1382.
+- **Finite-N rates.**
+  - Our bound holds with probability 1 − 5P·e^{−cN}, with c not explicit.
+  - Making c explicit would be an extension, but only a minor one.
+
+### Decision
+
+- **Keep:** the claim of novelty only for the dynamical retrieval version, the ±1 energy barrier at 0.12948.
+- **Finish:** its independent review.
+- **Don't spend a new slot on:** pushing it from 0.12948 to the predicted 0.1298. The gain is small, and the clean route goes through Zhou's unrefereed formula.

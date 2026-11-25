@@ -3,7 +3,7 @@
 Can it be proved that a Hebbian Hopfield network keeps a stable state near
 a stored pattern for loads above 0.113, the best rigorous bound on record?
 
-Status: Partial
+Status: Partial (fixed-point goal superseded by Zhou 2026 if correct; energy-barrier result still new)
 Kind: Theorem
 Reproducibility: 🟡 written proofs and certified checks with recorded output; ±1 proof under independent review
 
