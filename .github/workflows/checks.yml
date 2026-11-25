@@ -1,17 +1,31 @@
 name: checks
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 jobs:
-  checks:
+  quick-checks:
+    # Every push: each result's check.py in quick mode, in its own environment.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: "**/requirements.txt"
+      - run: scripts/quick_checks.sh
+  catalogue:
+    # Merge gate: README, CONTENTS and result folders must agree. Feature
+    # branches are pushed mid-work with half-written entries, so this runs on
+    # main, on pull requests and on demand, not on every feature-branch push.
+    if: github.event_name != 'push' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - run: python scripts/check_catalogue.py
-      - name: Quick-run every result
-        run: |
-          for d in results/*/; do
-            (cd "$d" && python check.py --quick)
-          done
