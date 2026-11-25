@@ -20,6 +20,15 @@ The proof uses the Sudakov–Fernique comparison plus Gaussian concentration
 NLT capacity 0.129490; what is new here is a complete written proof of it
 for this model, not a new constant.
 
+**Proved (Theorem 3), same model, sharper.** Compare the sphere with a
+lower-energy configuration near the target (the target with its most
+strongly frustrated spins flipped) instead of the target itself. A stable
+fixed point near the target then exists for every load **α < 0.134716**,
+certified at A₂(1.9422, 2.5312) ∈ [0.134716551489, 0.134716551490]
+([PROOF-refstate.md](PROOF-refstate.md)). This goes past Stojnic's 0.1295
+because it uses the weaker fixed-point notion rather than a barrier against
+the pattern itself.
+
 **Not proved: the standard ±1 model.** This does **not** raise the
 rigorous bound for the usual Hopfield model with ±1 patterns, which stays at
 0.113 (Feng, Shcherbina, Tirozzi 2001) as far as we found. Theorem 2 gives
@@ -33,17 +42,19 @@ explains why the standard ±1-to-Gaussian tools do not give (U).
 - [CLAIM.md](CLAIM.md): the statements and decision rule.
 - [PROOF.md](PROOF.md): complete proof of Theorem 1; conditional Theorem 2;
   the gap.
-- [check.py](check.py): certified computation of the constant (standard
+- [PROOF-refstate.md](PROOF-refstate.md): Theorem 3, the reference-state refinement.
+- [check.py](check.py) (with [check_refstate.py](check_refstate.py)): certified computation of both constants (standard
   library only) plus optional Arb cross-check and exploratory simulation.
   `python check.py` or `python check.py --quick` (both under a second
   without the simulation; a few seconds with numpy).
+- [mc_refstate.py](mc_refstate.py): Monte Carlo sanity check of the Theorem 3 energy identity (exploratory).
 - [check-output.json](check-output.json): recorded full run.
 - [SOURCES.md](SOURCES.md), [METHODS.md](METHODS.md),
   [REVIEW.md](REVIEW.md) (independent review pending).
 
 ## Scope and limits
 
-- Theorem 1 is about Gaussian interference patterns, not ±1 ones. It is a
+- Theorems 1 and 3 are about Gaussian interference patterns, not ±1 ones. It is a
   special case relative to the target, hence Partial.
 - The proof is agent-drafted and has not been independently reviewed. Per
   DESIGN.md, "Proved" needs internal review, so even Theorem 1 is not

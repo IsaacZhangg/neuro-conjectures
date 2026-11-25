@@ -3,6 +3,7 @@
 | Date | Reviewer | Person or AI agent | Scope | Outcome |
 | :-- | :-- | :-- | :-- | :-- |
 | 2026-11-25 | Claude (drafted the proof and the check) | AI agent | Wrote PROOF.md; ran check.py (quick and full); certified A(τ₀) ∈ [0.1294899826213, 0.1294899826214]; arb cross-check agrees | Not an independent review |
+| 2026-11-25 | Claude (drafted Theorem 3 in a helper session; checked by the main session) | AI agent | Read PROOF-refstate.md step by step (decomposition, exact identity, tail bounds, slack constants); reran check_refstate.py with arb | No gap found; not an independent review |
 
 Independent review: pending. A reviewer should check in particular:
 

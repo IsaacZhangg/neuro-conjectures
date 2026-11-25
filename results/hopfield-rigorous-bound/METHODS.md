@@ -40,6 +40,11 @@ decision.
 
 ## Deviations from plan
 
+- Theorem 3 (reference-state refinement, 0.134716) was added after the
+  decision rule. It was found while pushing the result further and is
+  reported separately in the CLAIM amendment. The original rule and the
+  Partial status are unchanged.
+
 - The bound was derived before CLAIM.md was committed, so the decision rule
   was written after the constant was known, though before PROOF.md and
   check.py existed. The rule is the obvious one (beat 0.113) and was not

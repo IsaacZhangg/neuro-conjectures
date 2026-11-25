@@ -247,6 +247,20 @@ def main() -> int:
     scan = float_scan()
     print(f"float sup A = {scan['sup_A_float']} at tau = {scan['tau_star']}; "
           f"Stojnic's expression at x = tau*/sqrt(2) = {scan['stojnic_expression_at_x']}")
+    # Theorem 3 (reference-state refinement), see PROOF-refstate.md.
+    import check_refstate as cr
+    out3, checks3 = cr.certify(cr.TAU0, cr.THETA0)
+    passed3 = all(bool(v) for v in checks3.values())
+    a2_lo, a2_hi = out3["A2"]
+    print(f"Theorem 3: A2({cr.TAU0}, {cr.THETA0}) in [{dec(a2_lo)}, {dec_up(a2_hi)}]"
+          f"  (certified); side conditions hold: {passed3}")
+    arb3 = cr.arb_crosscheck(cr.TAU0, cr.THETA0)
+    if arb3["ran"]:
+        arb3 = {"ran": True, "A2_lower": float(arb3["A2_lower"]),
+                "A2_upper": float(arb3["A2_upper"])}
+        arb3["agrees"] = (arb3["A2_lower"] <= float(a2_hi) + 1e-15
+                          and float(a2_lo) <= arb3["A2_upper"] + 1e-15)
+        print(f"Theorem 3 arb cross-check agrees: {arb3['agrees']}")
     sim = simulate(args.quick, args.seed)
     if sim["ran"]:
         for r in sim["rows"]:
@@ -269,6 +283,16 @@ def main() -> int:
                 "method": "exact rational arithmetic with explicit series tail bounds",
             },
             "arb_crosscheck": arb,
+            "theorem3": {
+                "rule": "certified lower bound on A2(tau0, theta0) with side conditions (reported; added after the original decision rule)",
+                "tau0": str(cr.TAU0),
+                "theta0": str(cr.THETA0),
+                "A2_lower": dec(a2_lo, 15),
+                "A2_upper": dec_up(a2_hi, 15),
+                "checks": {k: bool(v) for k, v in checks3.items()},
+                "passed": passed3,
+                "arb_crosscheck": arb3,
+            },
             "float_scan": scan,
             "simulation": sim,
             "scope": ("Theorem 1 (Gaussian interference) is proved; the +-1 "
@@ -276,7 +300,9 @@ def main() -> int:
                       "hypothesis (U) and is not proved."),
         }
         (HERE / "check-output.json").write_text(json.dumps(out, indent=2) + "\n")
-    return 0 if passed and (not arb["ran"] or arb["agrees"]) else 1
+    ok = passed and (not arb["ran"] or arb["agrees"])
+    ok = ok and passed3 and (not arb3["ran"] or arb3["agrees"])
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

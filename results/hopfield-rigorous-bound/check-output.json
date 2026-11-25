@@ -24,6 +24,28 @@
     "A_upper": 0.12948998262132877,
     "agrees": true
   },
+  "theorem3": {
+    "rule": "certified lower bound on A2(tau0, theta0) with side conditions (reported; added after the original decision rule)",
+    "tau0": "9711/5000",
+    "theta0": "1582/625",
+    "A2_lower": "0.134716551489815",
+    "A2_upper": "0.134716551489816",
+    "checks": {
+      "0 < tau0 < theta0": true,
+      "Q(theta0) < Q(tau0)": true,
+      "1 - 2Q(theta0) > 0": true,
+      "Num > 0": true,
+      "D > 0": true,
+      "A2(tau0, theta0) >= 33679/250000": true
+    },
+    "passed": true,
+    "arb_crosscheck": {
+      "ran": true,
+      "A2_lower": 0.1347165514898156,
+      "A2_upper": 0.1347165514898156,
+      "agrees": true
+    }
+  },
   "float_scan": {
     "tau_star": 1.8258694969,
     "delta_star": 0.0339349609,

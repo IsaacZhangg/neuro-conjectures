@@ -51,6 +51,10 @@ What this result proves (our precise reading, stated in full in PROOF.md):
   the certified path); cross-checked with Arb ball arithmetic when
   python-flint is installed.
 
+## Amendment, 2026-11-25 (after the decision rule above was set)
+
+Added Theorem 3 (PROOF-refstate.md). It keeps model G and the same Sudakov–Fernique bound, but compares the Hamming sphere to a lower-energy configuration σ₁ near ξ instead of ξ itself. This proves a stable fixed point near the target for α < 0.134716 (certified A₂(1.9422, 2.5312) ≥ 0.134716). This is a weaker notion than Newman's barrier against ξ, so it does not contradict Stojnic's NLT value 0.1295. It is still model G only. The ±1 status and the decision rule below are unchanged.
+
 ## Decision rule (set before writing the proof)
 
 - **Proved** for Theorem 1 if PROOF.md gives a complete argument with every
