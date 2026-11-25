@@ -104,6 +104,10 @@ def certify(kappa, alpha_f, q_f, dalpha=1e-9, dq=1e-7, prec=128, zgrid=None, ver
     km = KM(kappa)
     out = {"kappa": kappa}
     t0 = time.time()
+    qm0 = fixed_point_mid(km, arb(alpha_f), arb(q_f))
+    a0 = arb(alpha_f)
+    g0 = km.G(a0, qm0, km.R(a0, qm0)); dg0 = km.ElogPsi(qm0)
+    alpha_f = float((a0 - g0/dg0).mid()); q_f = float(qm0.mid())
     a_lb = arb(alpha_f) - arb(dalpha); a_ub = arb(alpha_f) + arb(dalpha)
     a_lb = arb(a_lb.mid()); a_ub = arb(a_ub.mid())
     A = box(a_lb, a_ub)
@@ -141,17 +145,14 @@ def certify(kappa, alpha_f, q_f, dalpha=1e-9, dq=1e-7, prec=128, zgrid=None, ver
     out.update(cond33_value=str(c33v), cond33=bool(c33v < 1))
     # Condition 3.4: choose zhat by a coarse midpoint scan, then certify at zhat
     am, qm, pm = arb(A.mid()), arb(Q0.mid()), arb(Psi0.mid())
-    # lambda is strictly convex (Huang Lemma 3.5): golden-section search on midpoints
-    fl = lambda z: float(km.lam(arb(z), am, qm, pm).mid())
-    lo, hi = -0.99, 3.0
-    gr = (5**0.5 - 1)/2
-    x1, x2 = hi - gr*(hi-lo), lo + gr*(hi-lo); f1, f2 = fl(x1), fl(x2)
-    while hi - lo > 1e-4:
-        if f1 < f2: hi, x2, f2 = x2, x1, f1; x1 = hi - gr*(hi-lo); f1 = fl(x1)
-        else: lo, x1, f1 = x1, x2, f2; x2 = lo + gr*(hi-lo); f2 = fl(x2)
-    zf = (lo+hi)/2
-    ctx.prec = prec
-    zhat = arb(round(zf, 6))
+    # Any z > -1 with lambda(z) < 0 certifies Condition 3.4 (lambda_0 = inf lambda).
+    # Coarse midpoint scan; points whose integrals fail to converge (nan) are skipped.
+    best = None
+    for z in (zgrid or [-0.7, -0.6, -0.5, -0.4, -0.3]):
+        v = km.lam(arb(z), am, qm, pm)
+        if not v.is_finite(): continue
+        if best is None or float(v.mid()) < best[1]: best = (z, float(v.mid()))
+    zhat = arb(best[0])
     lamv = km.lam(zhat, A, Q0, Psi0)
     out.update(zhat=str(zhat), lambda_at_zhat=str(lamv), cond34=bool(lamv < 0))
     out["seconds"] = round(time.time()-t0, 1)
