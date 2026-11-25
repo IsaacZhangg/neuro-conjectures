@@ -116,3 +116,8 @@ How they enter the verdict is set in CLAIM.md.
    exactly, and 1,342 of those nuclei have a v661 skeleton. Found during a
    smoke run on five neurons per dataset; the five FlyWire neurons measured in
    that run were not looked at beyond checking that the code ran.
+2. **FlyWire count (correction of a number, not of the rule).** The plan
+   said 407 cell types and 6,105 neurons. That count was made before the
+   `status` filter. With the filter, as the plan specifies, 402 types have at
+   least 15 eligible neurons, so the run used 402 × 15 = 6,030 neurons. The
+   sampling rule itself is unchanged.
