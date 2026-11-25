@@ -29,6 +29,7 @@
     "stage1: P > 0 on the root bracket": true,
     "stage1: beta*e1_upper < A_UP": true,
     "stage2: A_UP < 1 (needed for the multiplier bound)": true,
+    "stage2: Slater point fits, 2*kappa*sqrt(A_UP) < 1 - sqrt(A_UP)": true,
     "stage2: P > 0 on the root bracket": true,
     "stage3: A_UP + (beta-A_UP)*e2_upper < 2 (Cover)": true
   },
@@ -39,5 +40,5 @@
     "python-flint": "0.9.0",
     "arb_prec_bits": 200
   },
-  "runtime_s": 0.004
+  "runtime_s": 0.006
 }

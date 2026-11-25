@@ -115,6 +115,7 @@ def main() -> int:
         "stage1: P > 0 on the root bracket": bool(s1["P"] > 0),
         "stage1: beta*e1_upper < A_UP": bool(load1 < a),
         "stage2: A_UP < 1 (needed for the multiplier bound)": bool(a < 1),
+        "stage2: Slater point fits, 2*kappa*sqrt(A_UP) < 1 - sqrt(A_UP)": bool(2 * k * a.sqrt() < 1 - a.sqrt()),
         "stage2: P > 0 on the root bracket": bool(s2["P"] > 0),
         "stage3: A_UP + (beta-A_UP)*e2_upper < 2 (Cover)": bool(final < 2),
     }
