@@ -22,6 +22,8 @@ weight case of a classical criterion (Matsuoka 1992; Forti and Tesi 1995),
 together with a non-asymptotic bound on the top eigenvalue of the symmetric
 part of J. We found no paper that states this range for the SCS network.
 
+**Novelty:** partly known. No proof past g = 1/2 for this model was found in print (the g < 1 statement in Wainrib and Touboul 2013 is heuristic), but the same argument with the same constant 1/√2 is published for random Lotka–Volterra systems (Clenet, Massol and Najim 2023). See NOVELTY.md.
+
 **Still open:** 1/√2 ≤ g < 1. The identity-weight Lyapunov function cannot go
 further, because the symmetric part's top eigenvalue tends to √2 g. In the
 spot checks, the best diagonal weight found narrows the gap at finite N (from

@@ -60,3 +60,7 @@ and the one-line negative for peptide networks are already in Sale and
 Richardson (2026); the pre-registered peptide-specific test, the
 no-wired-path gain and the proximity control are not, as far as we found.
 Verdict: partly known.
+
+## 2026-11-25: SCS global stability, novelty audit
+
+Added results/scs-global-stability/NOVELTY.md. No rigorous bound above g = 1/2 for the SCS model was found in print, but the same argument and constant 1/√2 are published for random Lotka–Volterra systems (Clenet, Massol and Najim 2023). Verdict: partly known. Status unchanged (Partial).
