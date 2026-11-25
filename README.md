@@ -30,7 +30,10 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
-| 2 | [Rigorous Hopfield energy-barrier bound, α ≥ 0.1295 for ±1 patterns](results/hopfield-rigorous-bound/) | Theorem | Partial: ±1 barrier proof written, review pending (previous rigorous barrier bound 0.08); Gaussian cases proved; 0.1347 fixed point superseded if Zhou (2026, unrefereed) holds | 🟡 |
+| 2 | [Neuropeptide links and C. elegans signal propagation](results/celegans-neuropeptides/) | Empirical claim | Partial: helps only for pairs with no wired path, one peptide model | 🟡 |
+| 3 | [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Theorem | Proved (static retrieval criterion): α_c = union bound for all λ, (log 2)/4 for λ ≥ 0.70092 | 🟡 |
+| 4 | [SCS random network: silent state globally stable for g < 1/√2](results/scs-global-stability/) | Theorem | Partial: proved for g < 1/√2, open for 1/√2 ≤ g < 1 | 🟡 |
+| 5 | [Rigorous Hopfield energy-barrier bound, α ≥ 0.1295 for ±1 patterns](results/hopfield-rigorous-bound/) | Theorem | Partial: ±1 barrier proof written, review pending (previous rigorous barrier bound 0.08); Gaussian cases proved; 0.1347 fixed point superseded if Zhou (2026, unrefereed) holds | 🟡 |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 

@@ -1,0 +1,405 @@
+{
+  "result": "celegans-neuropeptides",
+  "mode": "full",
+  "seed": 20261125,
+  "primary_network": "short_range_model",
+  "q_threshold": 0.05,
+  "n_bootstrap": 2000,
+  "n_null": 1000,
+  "status": "Partial",
+  "variants_opposite_to_primary": [],
+  "analyses": {
+    "primary": {
+      "G_all": {
+        "value": -0.04591,
+        "ci95": [
+          -0.07268,
+          -0.01965
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.001,
+        "null_mean": -0.06683,
+        "null_95th": -0.06518
+      },
+      "G_none": {
+        "value": 0.11092,
+        "ci95": [
+          0.06401,
+          0.15702
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.001,
+        "null_mean": 0.08125,
+        "null_95th": 0.08482
+      },
+      "G_path": {
+        "value": -0.08839,
+        "ci95": [
+          -0.12511,
+          -0.05144
+        ],
+        "bootstrap_finite": 2000
+      },
+      "auroc_wired_all": 0.60808,
+      "auroc_combined_all": 0.56217,
+      "counts": {
+        "pairs": 23902,
+        "responding": 1151,
+        "stimulated_neurons": 173,
+        "pairs_no_wired_path": 10169,
+        "responding_no_wired_path": 314
+      },
+      "null_mean_fraction_peptide_edges_moved": 0.34496362239016265,
+      "decision": {
+        "a": false,
+        "b": true,
+        "c": true,
+        "status": "Partial"
+      },
+      "spec": {
+        "name": "primary",
+        "network": "short_range_model",
+        "labels": "standard",
+        "two_step": true
+      }
+    },
+    "R1_mid_range_model": {
+      "G_all": {
+        "value": -0.09776,
+        "ci95": [
+          -0.12867,
+          -0.06442
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.8981,
+        "null_mean": -0.09658,
+        "null_95th": -0.09496
+      },
+      "G_none": {
+        "value": 0.03075,
+        "ci95": [
+          -0.01015,
+          0.07461
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.22677,
+        "null_mean": 0.02948,
+        "null_95th": 0.03232
+      },
+      "G_path": {
+        "value": -0.09037,
+        "ci95": [
+          -0.12644,
+          -0.05361
+        ],
+        "bootstrap_finite": 2000
+      },
+      "auroc_wired_all": 0.60808,
+      "auroc_combined_all": 0.51033,
+      "counts": {
+        "pairs": 23902,
+        "responding": 1151,
+        "stimulated_neurons": 173,
+        "pairs_no_wired_path": 10169,
+        "responding_no_wired_path": 314
+      },
+      "null_mean_fraction_peptide_edges_moved": 0.2718052229042971,
+      "decision": {
+        "a": false,
+        "b": false,
+        "c": true,
+        "status": "Refuted"
+      },
+      "spec": {
+        "name": "R1_mid_range_model",
+        "network": "mid_range_model",
+        "labels": "standard",
+        "two_step": true
+      }
+    },
+    "R1_long_range_model": {
+      "G_all": {
+        "value": -0.10888,
+        "ci95": [
+          -0.13943,
+          -0.07711
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.08192,
+        "null_mean": -0.10981,
+        "null_95th": -0.10864
+      },
+      "G_none": {
+        "value": 0.01495,
+        "ci95": [
+          -0.02762,
+          0.06102
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.19281,
+        "null_mean": 0.01392,
+        "null_95th": 0.01578
+      },
+      "G_path": {
+        "value": -0.09755,
+        "ci95": [
+          -0.13343,
+          -0.06134
+        ],
+        "bootstrap_finite": 2000
+      },
+      "auroc_wired_all": 0.60808,
+      "auroc_combined_all": 0.49921,
+      "counts": {
+        "pairs": 23902,
+        "responding": 1151,
+        "stimulated_neurons": 173,
+        "pairs_no_wired_path": 10169,
+        "responding_no_wired_path": 314
+      },
+      "null_mean_fraction_peptide_edges_moved": 0.1389612400144897,
+      "decision": {
+        "a": false,
+        "b": false,
+        "c": true,
+        "status": "Refuted"
+      },
+      "spec": {
+        "name": "R1_long_range_model",
+        "network": "long_range_model",
+        "labels": "standard",
+        "two_step": true
+      }
+    },
+    "R2_q_eq_negatives": {
+      "G_all": {
+        "value": -0.03568,
+        "ci95": [
+          -0.05955,
+          -0.01017
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.001,
+        "null_mean": -0.05911,
+        "null_95th": -0.05747
+      },
+      "G_none": {
+        "value": 0.13738,
+        "ci95": [
+          0.09115,
+          0.18243
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.001,
+        "null_mean": 0.10134,
+        "null_95th": 0.10521
+      },
+      "G_path": {
+        "value": -0.08283,
+        "ci95": [
+          -0.11833,
+          -0.0445
+        ],
+        "bootstrap_finite": 2000
+      },
+      "auroc_wired_all": 0.61705,
+      "auroc_combined_all": 0.58137,
+      "counts": {
+        "pairs": 14211,
+        "responding": 1151,
+        "stimulated_neurons": 170,
+        "pairs_no_wired_path": 6247,
+        "responding_no_wired_path": 314
+      },
+      "null_mean_fraction_peptide_edges_moved": 0.34496362239016265,
+      "decision": {
+        "a": false,
+        "b": true,
+        "c": true,
+        "status": "Partial"
+      },
+      "spec": {
+        "name": "R2_q_eq_negatives",
+        "network": "short_range_model",
+        "labels": "q_eq_negatives",
+        "two_step": true
+      }
+    },
+    "R3_direct_only": {
+      "G_all": {
+        "value": 0.00344,
+        "ci95": [
+          -0.01508,
+          0.02301
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.06194,
+        "null_mean": -0.00393,
+        "null_95th": 0.00364
+      },
+      "G_none": {
+        "value": 0.03938,
+        "ci95": [
+          0.01753,
+          0.06238
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.00699,
+        "null_mean": 0.02503,
+        "null_95th": 0.03476
+      },
+      "G_path": {
+        "value": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_finite": 2000
+      },
+      "auroc_wired_all": 0.56791,
+      "auroc_combined_all": 0.57136,
+      "counts": {
+        "pairs": 23902,
+        "responding": 1151,
+        "stimulated_neurons": 173,
+        "pairs_no_wired_path": 21593,
+        "responding_no_wired_path": 891
+      },
+      "null_mean_fraction_peptide_edges_moved": 0.34496362239016265,
+      "decision": {
+        "a": false,
+        "b": true,
+        "c": true,
+        "status": "Partial"
+      },
+      "spec": {
+        "name": "R3_direct_only",
+        "network": "short_range_model",
+        "labels": "standard",
+        "two_step": false
+      }
+    },
+    "R4_occurrence_stratified": {
+      "G_all": {
+        "value": -0.04458,
+        "ci95": [
+          -0.07027,
+          -0.01809
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.001,
+        "null_mean": -0.06891,
+        "null_95th": -0.06724
+      },
+      "G_none": {
+        "value": 0.11737,
+        "ci95": [
+          0.07276,
+          0.16482
+        ],
+        "bootstrap_finite": 2000,
+        "null_p": 0.001,
+        "null_mean": 0.0828,
+        "null_95th": 0.08737
+      },
+      "G_path": {
+        "value": -0.09108,
+        "ci95": [
+          -0.12991,
+          -0.04923
+        ],
+        "bootstrap_finite": 2000
+      },
+      "auroc_wired_all": 0.61978,
+      "auroc_combined_all": 0.57519,
+      "counts": {
+        "pairs": 23902,
+        "responding": 1151,
+        "stimulated_neurons": 173,
+        "pairs_no_wired_path": 10169,
+        "responding_no_wired_path": 314
+      },
+      "null_mean_fraction_peptide_edges_moved": 0.34496362239016265,
+      "decision": {
+        "a": false,
+        "b": true,
+        "c": true,
+        "status": "Partial"
+      },
+      "spec": {
+        "name": "R4_occurrence_stratified",
+        "network": "short_range_model",
+        "labels": "standard",
+        "two_step": true,
+        "stratify_occ": true
+      }
+    }
+  },
+  "exploratory_unc31_no_wired_path": {
+    "wt": {
+      "peptide_link": {
+        "pairs": 2330,
+        "responding": 100,
+        "rate": 0.0429
+      },
+      "no_peptide_link": {
+        "pairs": 7839,
+        "responding": 214,
+        "rate": 0.0273
+      }
+    },
+    "unc31": {
+      "peptide_link": {
+        "pairs": 815,
+        "responding": 32,
+        "rate": 0.0393
+      },
+      "no_peptide_link": {
+        "pairs": 3157,
+        "responding": 94,
+        "rate": 0.0298
+      }
+    }
+  },
+  "unmatched_peptide_neurons": {
+    "short_range_model": [
+      "CANL",
+      "CANR"
+    ],
+    "mid_range_model": [
+      "CANL",
+      "CANR"
+    ],
+    "long_range_model": [
+      "CANL",
+      "CANR"
+    ]
+  },
+  "peptide_links": {
+    "short_range_model": 31228,
+    "mid_range_model": 39748,
+    "long_range_model": 52451
+  },
+  "wired_links": 5124,
+  "atlas_neurons": 300,
+  "atlas_id_mismatches": [
+    [
+      "AWCOF",
+      "AWCOFF"
+    ]
+  ],
+  "data_sha256": {
+    "funatlas.h5": "53a99055667b853e1d3d6be573ec2613d38c9f6989f302ec38ecd38dd50c7975",
+    "aconnectome_default.h5": "804aa4b02ca50721126256928e82aa27e999f17f3fd740ceb13c2fc6a2e9c5bd",
+    "neuron_ids.txt": "e2c7e54af611c1e85aa0705588fcf096ede5f0c28f7fd1d5f0cbec5480b786cc",
+    "aconnectome_ids_ganglia.json": "e754fcb703b39b5f0db977d0b654ba2ac5ce09111f4e19aef3a85fb09ee2e0a2",
+    "01022024_neuropeptide_connectome_short_range_model.csv": "ee630f66dbb78a49d1818bd5209f1f9a0ee46400c061126e30d0d0a4b9d2e44d",
+    "01022024_neuropeptide_connectome_mid_range_model.csv": "97569885d58d947c2526e6ecc26c8b191b074d1b065f4da224102298203ad141",
+    "01022024_neuropeptide_connectome_long_range_model.csv": "57ebc0919860bafcb866e63f5ae06b8b5d59427897d8bd230b4461bfa833f6fe"
+  },
+  "rewiring": "numba 0.68.1",
+  "runtime_seconds": 710.0,
+  "python": "3.13.18",
+  "numpy": "2.5.3",
+  "platform": "Linux-6.18.44-fc-v880-x86_64-with-glibc2.39"
+}
