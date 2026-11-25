@@ -16,6 +16,6 @@ None yet.
 
 | Result | Exact scope tested | Evidence |
 | :-- | :-- | :-- |
-| [Power-law eigenspectrum of visual cortex responses](results/v1-power-law-spectrum/) | Mouse visual cortex (VISp primary; VISl, VISal, VISrl, VISpm, VISam secondary), Allen Brain Observatory two-photon and Neuropixels natural-scene sessions (118 images × 50 repeats), cvPCA spectrum compared with a finite-image forward model of single and broken power laws. | Analysis plan and decision rule committed; not run yet. |
+| [Power-law eigenspectrum of visual cortex responses](results/v1-power-law-spectrum/) | Mouse visual cortex (VISp primary; VISl, VISal, VISrl, VISpm, VISam secondary), Allen Brain Observatory two-photon and Neuropixels natural-scene sessions (118 images × 50 repeats), cvPCA spectrum compared with a finite-image forward model of single and broken power laws. | Parked before analysis (new project direction); plan and code committed, see STATUS.md. |
 
 Other screened targets are in [docs/candidates.md](docs/candidates.md).

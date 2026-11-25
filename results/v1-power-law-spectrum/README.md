@@ -3,7 +3,7 @@
 The variance of the n-th principal component of mouse visual cortex responses
 to natural images falls off as 1/n^α with α just above 1.
 
-Status: Open
+Status: Open (parked before analysis, see STATUS.md)
 Kind: Empirical claim
 Reproducibility: ⬜ analysis plan only
 
