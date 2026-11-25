@@ -69,6 +69,14 @@ exactly this, but the search below was not exhaustive.
   doi:10.1096/fba.2024-00048. Download date and neuron list are recorded at
   run time.
 
+- Blue Brain Open Data (secondary test only, Amendment A1), public S3 bucket
+  `openbluebrain` (us-west-2), https://github.com/BlueBrain/OpenData, AWS Open
+  Data Registry entry `bluebrain_opendata`. License: CC BY 4.0 (README of
+  BlueBrain/OpenData and the registry entry, read 2026-11-25). Cite the Blue
+  Brain Project/EPFL Open Data release; the papers behind the rat
+  somatosensory cortex reconstructions are not named per file in the bucket
+  and were not checked.
+
 ## Searches run
 
 - Firecrawl research index (PubMed, PMC, arXiv): "Rall 3/2 power rule

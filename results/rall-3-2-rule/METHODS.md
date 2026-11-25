@@ -97,6 +97,53 @@ checks the code, not the claim; the observed bias is reported.
 - Fraction of bifurcations per cell where d₀^(3/2) is within ±10% of
   d₁^(3/2) + d₂^(3/2).
 
+## Amendment A1 (2026-11-25, committed before any Blue Brain file is read)
+
+This adds a secondary test. It does not change the primary analysis, its
+data, or how the status is set. It exists because NeuroMorpho.org is not
+reachable from the cloud machine this repo's agent runs on, while the Blue
+Brain Open Data bucket is. Only the bucket's file listing (names and sizes)
+had been seen when this section was written; no morphology file had been
+opened.
+
+Data:
+
+- Source: Blue Brain Open Data, public AWS S3 bucket `openbluebrain`
+  (us-west-2), documented at https://github.com/BlueBrain/OpenData and in the
+  AWS Open Data Registry entry `bluebrain_opendata`. License CC BY 4.0
+  ("Copyright (c) 2024 Blue Brain Project/EPFL licensed under CC-BY 4.0").
+- Files: every `.swc` file under
+  `Experimental_Data/Reconstructed_morphologies/Categorized/Neurons/Rat/Cortex/SSCX/<m-type>/downloaded_from_nexus/`.
+  The listing on 2026-11-25 showed 1074 such files in 60 m-type folders, 40
+  of them with at least 10 files. These are rat somatosensory cortex
+  reconstructions; we take the folder name as the cell-type label.
+- Other Blue Brain folders (mouse, human, `Categorized_clean`, `.asc` and
+  `.h5` files) are not used. They mix sources and formats, and SWC is the only
+  format `check.py` parses.
+- A file name that appears in more than one m-type folder is dropped from all
+  of them, so that no cell is counted twice.
+- Files are cached under `data/bluebrain/` (not committed). The S3 key, size
+  and SHA-256 of each analysed file go in `manifest-bluebrain.json`.
+
+Analysis: as the primary plan, steps 1 to 4, with the same file filters
+(Inclusion, by file), windows, grid, robustness checks R1 to R3 and secondary
+analyses. Up to 20 files per m-type are drawn with the same seed, from keys
+sorted by name. A group is one m-type and qualifies with at least 10 passing
+cells.
+
+Pooled estimate: median of group medians, with a 95% percentile bootstrap
+over groups (2000 resamples). All files come from one institute, so there is
+no between-lab resampling; this interval is likely too narrow.
+
+Reporting: the decision rule's labels are applied and the resulting word is
+reported as the "Blue Brain secondary label". It never sets or changes the
+result's status. If it disagrees with the primary status, the README says so
+next to the primary result. Output goes to `check-output-bluebrain.json`.
+
+Known limits of A1: one institute, one species, one brain area; the files are
+as Blue Brain published them through its Nexus store, and we have not checked
+whether their diameters were edited by a repair or curation step.
+
 ## Known limits before the run
 
 - Diameters near the light-microscope resolution limit (≈0.3 to 0.5 µm) are
@@ -110,4 +157,5 @@ checks the code, not the claim; the observed bias is reported.
 
 ## Deviations from plan
 
-None yet.
+None to the primary plan. Amendment A1 (above) adds a secondary test on a
+second dataset, committed before that dataset was read.
