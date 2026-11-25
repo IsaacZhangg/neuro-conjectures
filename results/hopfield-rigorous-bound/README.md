@@ -5,37 +5,45 @@ a stored pattern for loads above 0.113, the best rigorous bound on record?
 
 Status: Partial
 Kind: Theorem
-Reproducibility: 🟡 written proof and certified check with recorded output; not yet independently reviewed
+Reproducibility: 🟡 written proofs and certified checks with recorded output; ±1 proof under independent review
 
 ## Result
 
-**Proved (Theorem 1), for a narrower model.** With one ±1 target pattern and
-Gaussian interference patterns, every configuration at Hamming distance
-⌈0.0339 N⌉ from the target has higher energy than the target, and a stable
-fixed point with overlap at least 0.932 exists, with probability
-1 − e^{−cN}, for every load **α < 0.12948**. The constant is certified with
-exact rational arithmetic: A(1.8259) ∈ [0.1294899826213, 0.1294899826214].
-The proof uses the Sudakov–Fernique comparison plus Gaussian concentration
-([PROOF.md](PROOF.md) §1–5). The value equals Stojnic's (2024) first-level
-NLT capacity 0.129490; what is new here is a complete written proof of it
-for this model, not a new constant.
+**Novelty audit (2026-11-25), read first: [NOVELTY.md](NOVELTY.md).** A
+preprint posted on 2026-11-05 by Zhou claims the zero-temperature AGS
+capacity for ±1 patterns lies in [0.138198, 0.138201], with fixed points
+near every pattern. It is unrefereed and AI-written. If it is correct, it
+supersedes this folder's original goal of a ±1 fixed-point bound above
+0.113, and it supersedes Theorem 3. The part that still looks new is the
+firm energy barrier around each ±1 pattern (the "NLT" notion). The best
+rigorous bound in print for that notion is 0.08 (Talagrand 1998).
 
-**Proved (Theorem 3), same model, sharper.** Compare the sphere with a
-lower-energy configuration near the target (the target with its most
-strongly frustrated spins flipped) instead of the target itself. A stable
-fixed point near the target then exists for every load **α < 0.134716**,
-certified at A₂(1.9422, 2.5312) ∈ [0.134716551489, 0.134716551490]
-([PROOF-refstate.md](PROOF-refstate.md)). This goes past Stojnic's 0.1295
-because it uses the weaker fixed-point notion rather than a barrier against
-the pattern itself.
+**Theorem 2, ±1 patterns, energy barrier around every pattern: proof
+written, review pending.** With ±1 patterns, with probability 1 − e^{−cN},
+every pattern is surrounded by an energy barrier at Hamming radius
+⌈0.0339 N⌉, so it has a stable fixed point with overlap at least 0.932.
+This holds for every load **α < 0.12948**. [PROOF-pm1.md](PROOF-pm1.md)
+proves the universality step (U) that PROOF.md §6 left open. It uses a
+dissection of the maximizing pattern directions, a Lindeberg swap on the
+capped rows only, a conditional Sudakov–Fernique comparison, and a scalar
+Hoeffding and Lindeberg bound. Its constants are certified exactly by
+[check_pm1.py](check_pm1.py). The constant equals Stojnic's (2024)
+non-rigorous first-level NLT value 0.1294899. The previous rigorous NLT
+bound was 0.08, and random duality theory predicts the true value is about
+0.1298. No independent review has finished yet, so this is not labelled
+Proved.
 
-**Not proved: the standard ±1 model.** This does **not** raise the
-rigorous bound for the usual Hopfield model with ±1 patterns, which stays at
-0.113 (Feng, Shcherbina, Tirozzi 2001) as far as we found. Theorem 2 gives
-the same 0.12948 for ±1 patterns, for every pattern at once, *only if* a
-universality hypothesis (U) holds: the expected maximum of ‖Xσ‖ over the
-Hamming sphere is the same to first order for ±1 and Gaussian X. PROOF.md §6
-explains why the standard ±1-to-Gaussian tools do not give (U).
+**Theorem 1, Gaussian interference: proved.** This is the same barrier
+for one ±1 target with Gaussian interference patterns, for α < 0.12948.
+The constant is certified: A(1.8259) ∈ [0.1294899826213, 0.1294899826214]
+([PROOF.md](PROOF.md) §1–5).
+
+**Theorem 3, Gaussian interference, fixed point: proved, superseded if
+Zhou holds.** The proof compares the sphere with a lower-energy reference
+state near the target. It gives a stable fixed point for every α <
+0.134716, certified at A₂(1.9422, 2.5312) ∈ [0.134716551489,
+0.134716551490] ([PROOF-refstate.md](PROOF-refstate.md)). This uses the
+weaker fixed-point notion, which Zhou's claimed 0.1382 covers.
 
 ## Files
 
@@ -43,6 +51,9 @@ explains why the standard ±1-to-Gaussian tools do not give (U).
 - [PROOF.md](PROOF.md): complete proof of Theorem 1; conditional Theorem 2;
   the gap.
 - [PROOF-refstate.md](PROOF-refstate.md): Theorem 3, the reference-state refinement.
+- [PROOF-pm1.md](PROOF-pm1.md): proof of (U), making Theorem 2 unconditional for ±1 patterns (review pending); [check_pm1.py](check_pm1.py) certifies its constants.
+- [NOVELTY.md](NOVELTY.md): literature audit, what is known and what is open.
+- [drafts/](drafts/): the unreviewed planning draft behind PROOF-pm1.md.
 - [check.py](check.py) (with [check_refstate.py](check_refstate.py)): certified computation of both constants (standard
   library only) plus optional Arb cross-check and exploratory simulation.
   `python check.py` or `python check.py --quick` (both under a second
@@ -54,8 +65,9 @@ explains why the standard ±1-to-Gaussian tools do not give (U).
 
 ## Scope and limits
 
-- Theorems 1 and 3 are about Gaussian interference patterns, not ±1 ones. It is a
-  special case relative to the target, hence Partial.
+- Theorems 1 and 3 are about Gaussian interference patterns. Theorem 2 covers
+  ±1 patterns but is still under review, and its constant 0.12948 sits below
+  the predicted NLT capacity of about 0.1298, hence Partial.
 - The proof is agent-drafted and has not been independently reviewed. Per
   DESIGN.md, "Proved" needs internal review, so even Theorem 1 is not
   labelled Proved yet.

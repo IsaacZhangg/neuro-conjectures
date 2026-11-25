@@ -64,3 +64,7 @@ Added Theorem 3 (PROOF-refstate.md). It keeps model G and the same Sudakov–Fer
   rigorous ±1 bound, and the README must say so.
 - **Disproved** is not available here: nothing in this folder can show that
   the ±1 capacity is below 0.113.
+
+## Amendment, 2026-11-25 (novelty audit)
+
+The claim and decision rule above are unchanged. A literature audit ([NOVELTY.md](NOVELTY.md)) found a preprint posted after this claim was written: Zhou, Hexagon 2611.00105 (2026-11-05), unrefereed. It claims ±1 fixed points up to α ≈ 0.1382. If it is correct, it answers this claim's question in the fixed-point sense by other means. What this folder adds that is still new is the energy barrier around every ±1 pattern at α < 0.12948 (Theorem 2, review pending). The previous rigorous barrier bound was 0.08.

@@ -61,3 +61,11 @@ None. The result is a theorem with a certified numerical constant.
 - Result of the search: no rigorous ±1 bound above 0.113 was found. The
   0.1295 and 0.1379 values exist only with Gaussian patterns or with an
   unproved Gaussian switch.
+
+## Added by the novelty audit (2026-11-25)
+
+- Y. Zhou, "The critical capacity of the Hopfield model", Hexagon preprint 2611.00105v1, 2026-11-05 (https://hexagonmath.org/2611.00105v1). It is unrefereed, and its proofs were written mainly by AI. It claims a zero-temperature AGS capacity in [0.138198129, 0.13820106] for ±1 patterns, wells around all patterns at once, and equal wells for binary patterns and Gaussian rows.
+- A. Ali, J. Boursier, H.-B. Chen, F.-H. Ho, V. Issa, J.-C. Mourrat, "Free energy of the Hopfield model", arXiv:2611.03306, 2026. It is unrefereed. It identifies the free energy for Bernoulli patterns by reducing them to Gaussian ones.
+- F. Camilli, P. Contucci, E. Mingione, "The solution of the Hopfield model with Gaussian patterns", arXiv:2610.32618, 2026.
+- M. Talagrand, "Rigorous results for the Hopfield model with many patterns", Probab. Theory Related Fields 110 (1998) 177–275. It proves an energy barrier for α ≤ 0.08, which surveys up to 2026 name as the best rigorous NLT bound.
+- M. Stojnic, "Capacity of the Hopfield-Hebbian dynamics with correlated patterns", arXiv:2610.38437, 2026. It still names 0.08 as the best rigorous NLT bound.

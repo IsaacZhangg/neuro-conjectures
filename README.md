@@ -30,7 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
-| 2 | [Rigorous Hopfield capacity bound, α ≥ 0.1347 with Gaussian interference](results/hopfield-rigorous-bound/) | Theorem | Partial: proved for Gaussian interference patterns (0.1295 energy barrier, 0.1347 fixed point); ±1 case conditional, rigorous ±1 bound still 0.113 | 🟡 |
+| 2 | [Rigorous Hopfield energy-barrier bound, α ≥ 0.1295 for ±1 patterns](results/hopfield-rigorous-bound/) | Theorem | Partial: ±1 barrier proof written, review pending (previous rigorous barrier bound 0.08); Gaussian cases proved; 0.1347 fixed point superseded if Zhou (2026, unrefereed) holds | 🟡 |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 
