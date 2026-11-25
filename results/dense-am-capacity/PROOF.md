@@ -96,27 +96,34 @@ P(s_1 ∉ [σ, S]) ≤ 2 e^{−N(2α+1)}.
 
 **Lemma 1 (REM upper tail).** There are η(ε, δ) → 0 as ε, δ → 0 and an event
 G with P(G^c | ξ^1) ≤ exp(−e^{εN/2}) for all N ≥ N0, uniformly in s ∈ [σ, S],
-such that on G, F^1/N ≤ max(φ_typ(s), K) + η.
+such that on G ∩ {K ≤ Y1}, F^1/N ≤ max(φ_typ(s), K) + η.
 
-*Proof.* Take levels y_k = −Y0 + kδ up to Y1, with Y0 = 2(α+1)/λ + 1 and
-Y1² > 2S(α + 1) (for λ = ∞ the lemma is trivial: F/N = K). Let
-n_k = #{ν : X_ν ∈ [y_k, y_{k+1})} and p_k = P(X ∈ [y_k, y_{k+1})) ≤
-e^{−N y_k²/(2s)} for y_k ≥ 0 (also ≤ 1). Put L = e^{εN} e^{N m_k^+} with
-m_k = α − y_k²/(2s) (positive part, using y_k^2 at the endpoint nearer 0). Then
-E n_k ≤ e^{N m_k}, and by the binomial tail P(n_k ≥ L) ≤ (e E n_k / L)^L ≤
-(e^{1−εN})^{e^{εN}}. Let G be the event that n_k < L for all k (a union
-over O(1/δ) levels), that K ≤ Y1, and that no X_ν < −Y0 is needed (the sum of
-terms with X_ν < −Y0 is ≤ P e^{−λN Y0} ≤ e^{−N(α+2)}, negligible against the
-largest term, which is ≥ 1 since K ≥ 0 w.p. 1 − 2^{−(P−1)}). P(K > Y1) ≤
-P e^{−N Y1²/(2s)} ≤ e^{−N}, which is exponential, not super-exponential;
-we put {K > Y1} into the second case below instead of into G^c, where it is
-covered by the bound for {K ≥ s − η}. On G ∩ {K ≤ Y1},
+*Proof.* For λ = ∞ there is nothing to prove (F/N = K). For λ < ∞ take
+levels y_k = −Y0 + kδ, k = 0, …, k_max, covering [−Y0, Y1], with
+Y0 = (α + 2)/λ and Y1 = S + 1 (so Y1 > S ≥ s, which is all Section 1 needs).
+Let n_k = #{ν : X_ν ∈ [y_k, y_{k+1})}, p_k = P(X ∈ [y_k, y_{k+1})) ≤
+exp(−N d_k²/(2s)) with d_k the distance from 0 to the cell (F4), and
+m_k = α − d_k²/(2s). Put L_k = exp(N(m_k^+ + ε)). Since E n_k ≤ e^{N m_k},
+the binomial tail gives P(n_k ≥ L_k) ≤ (e E n_k / L_k)^{L_k} ≤
+exp(−(εN − 1) e^{εN}). Let G = {n_k < L_k for all k}; it is a union over
+O(1/δ) levels, so P(G^c | ξ^1) ≤ exp(−e^{εN/2}) for N ≥ N0, uniformly in
+s ∈ [σ, S].
 
-    Σ_ν e^{λ N X_ν} ≤ (#levels) · max_{k : y_k ≤ K} e^{N(m_k^+ + ε) + λ N y_{k+1}} + e^{−N},
+Split Σ_ν e^{λ N X_ν} into terms with X_ν < −Y0 (at most P e^{−λ N Y0} ≤
+e^{−2N} in total), terms with X_ν > Y1 (present only if K > Y1), and the rest.
+On G ∩ {K ≤ Y1} the rest is at most
 
-so F/N ≤ sup_{y ≤ K} ψ_s(y) + δ + ε/λ + o(1) = max(φ_typ(s), K) + η. ∎
+    (k_max + 1) · max_{k : y_k ≤ K} exp(N(m_k^+ + ε) + λ N y_{k+1}),
 
-Now on G, failure F^1 ≥ N s_1 forces either φ_typ(s_1) ≥ s_1 − η or
+and the whole sum is ≥ e^{λ N K} ≥ 1 when K ≥ 0. Taking logs and dividing by
+λN, F/N ≤ sup_{y ≤ K} ψ_s(y) + η = max(φ_typ(s), K) + η, where η collects
+δ, ε/λ, the gap between d_k² and y², and O(log(1/δ)/N); it tends to 0 as
+ε, δ → 0, uniformly for s ∈ [σ, S]. If K < 0 the bound F/N ≤ φ_typ(s) + η
+follows the same way (the max over levels is then attained below 0 and
+ψ_s(y) ≤ φ_typ(s) there). If K > Y1 we do not use the bound: that case is
+inside the event {K ≥ s − η} treated below. ∎
+
+Now on G, failure F^1 ≥ N s_1 forces (using Y1 > s_1 when K > Y1) either φ_typ(s_1) ≥ s_1 − η or
 K ≥ s_1 − η. So
 
     P(F^1 ≥ N s_1) ≤ e^{−e^{εN/2}} + 2e^{−N(2α+1)} + P(φ_typ(s_1) ≥ s_1 − η)
