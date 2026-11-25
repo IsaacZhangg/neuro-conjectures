@@ -33,6 +33,7 @@ symmetry breaking) predicts about 3.0 to 3.14, and simulations suggest 2 to 2.75
 - [CLAIM.md](CLAIM.md): the open question and the exact statement proved.
 - [PROOF.md](PROOF.md): the full proof.
 - [SOURCES.md](SOURCES.md): references and searches.
+- [NOVELTY.md](NOVELTY.md): what was already known and what is new.
 - [METHODS.md](METHODS.md): how the construction and constants were chosen.
 - [check.py](check.py): certified constants. `pip install -r requirements.txt`,
   then `python check.py` (well under a second).
