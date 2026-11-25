@@ -30,6 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
+| 2 | [Neuropeptide links and C. elegans signal propagation](results/celegans-neuropeptides/) | Empirical claim | Partial: helps only for pairs with no wired path, one peptide model | 🟡 |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 
