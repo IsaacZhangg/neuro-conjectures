@@ -98,8 +98,9 @@ for _ in range(40):
         b_ = arb(m)
     else:
         break
-results["certified"]["lambda_x_enclosure"] = {"pass": True, "lo": str(a_.mid()), "hi": str(b_.mid())}
-print(f"lambda_x in [{a_.mid()}, {b_.mid()}]")
+record("lambda_x enclosure (interval comparisons at both ends)",
+       (alpha_a_arb(a_.mid()) < alpha_b) and (alpha_b < alpha_a_arb(b_.mid())),
+       lo=a_.mid(), hi=b_.mid())
 
 for lam_s in ("0.1", "0.5", "0.7"):
     lam = arb(lam_s)

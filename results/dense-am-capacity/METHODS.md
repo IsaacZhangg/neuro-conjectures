@@ -77,4 +77,11 @@ Fig. 8 numerics.
 
 ## Deviations from plan
 
-None yet.
+- Lean: not done. No Lean toolchain here and the needed probability (Cramér
+  bounds, Gaussian tails, angle densities) is thin in Mathlib, so it was not
+  cheap. Constants are certified by Arb interval arithmetic instead.
+- Fig. 8 comparison: not done. The brute-force check at λ = ∞ (N ≤ 40) is
+  reported in check-output.json as support only.
+- The proof turned out not to need a separate shell-and-δ argument for the
+  lower bound beyond Lemma 1 and a cell covering; the plan's steps are
+  otherwise as frozen.

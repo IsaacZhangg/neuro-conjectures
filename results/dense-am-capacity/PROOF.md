@@ -35,8 +35,8 @@ For s > 0 let
     φ_typ(s) = √(2 α s)      if λ² s ≥ 2α,
 
 (φ_typ(s) = √(2αs) for λ = ∞). This is the REM free energy: with
-ψ_s(y) = (1/λ)(α − y²/(2s))_+ + y, one has sup_{y ≤ Y} ψ_s(y) = max(φ_typ(s), Y)
-for every Y (the concave part peaks at y = λ s when λ s < √(2αs); beyond
+ψ_s(y) = (1/λ)(α − y²/(2s))_+ + y, one has sup_{y ≤ Y} ψ_s(y) ≤ max(φ_typ(s), Y)
+for every Y (equality once Y is past the maximiser; only ≤ is used) (the concave part peaks at y = λ s when λ s < √(2αs); beyond
 y = √(2αs), ψ_s(y) = y).
 
 φ_typ(s) − s is positive at s → 0, and φ_typ is concave with slope < 1 once
@@ -69,7 +69,10 @@ The map s ↦ I(s) + s/2 is convex with minimum log 2 / 2 at s = 1/2. If
 s0 ≤ 1/2 the second term is log2/2 − 2α, positive iff α < α_b. If s0 > 1/2
 it equals I(s0) + s0/2 − 2α ≥ I(s0) − α (use s0 ≥ 2α, which holds because
 φ_typ(s0) = s0 and φ_typ(s) ≥ √(2αs)), so it never binds before the first
-term. This gives (i). For (ii): λ ≥ 1 gives I(2α) > α ⇔ −1 − log 2α > 0 ⇔
+term. Moreover s0 > 1/2 and J(s0) > α force α < J(s0) < I(1/2) = 0.0966… < α_b
+(I is decreasing on (0, 1)), so no α in (α_b, α_a) can enter the union-bound
+set through this case, and {α : A − α > 0} is exactly the interval
+(0, min(α_a, α_b)). This gives (i). For (ii): λ ≥ 1 gives I(2α) > α ⇔ −1 − log 2α > 0 ⇔
 α < 1/(2e). For λ < 1 put x = α/c; I(x) = c x ⇔ a x − 1 = log x ⇔
 x = −W(−a/e)/a, and the root below 1 is the W0 one. For (iii): φ_typ(s) is
 nonincreasing in λ (d/dλ (α/λ + λs/2) = s/2 − α/λ² < 0 on λ²s < 2α), so s0 is
@@ -211,7 +214,8 @@ bound picks. That is why the bound is tight.
 ## 3. Upper bound, mechanism (a): α > α_a(λ) ⇒ P(R_N) → 0, for λ < 1
 
 (For λ ≥ 1, α_a = 1/(2e) > α_b and Section 2 already covers every α > α_c^lb.)
-By (F3) take α ∈ (α_a, α_a + ε) with ε small; then J(s0) < α, so s0 < 1 and
+By (F3) take α ∈ (α_a, α_a + ε) with ε small; then J(s0) < α. Also s0 < 1 at α = α_a (since
+J(s0(α_a)) = α_a > 0) and s0 is continuous in α, so for ε small s0 < 1 and
 I(s0) < α, and also λ² s0 < 2α (λ < 1). Pick t < s0 with I(t) < α and
 λ² t < 2α (continuity), and small δ > 0.
 
