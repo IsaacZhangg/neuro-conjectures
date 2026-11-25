@@ -30,6 +30,12 @@ Checked 2026-11-25.
   arXiv:2603.13350: spherical patterns, typical retrieval.
 - Ota and Taki (2026), arXiv:2609.10976: phases of the Krotov–Hopfield class,
   typical Gaussian patterns.
+- Cai, T., Fan, J. and Jiang, T. Distributions of angles in random packing on
+  spheres. JMLR 14 (2013), arXiv:1306.0256; Cai, T. and Jiang, T. Phase
+  transition in limiting distributions of coherence of high-dimensional random
+  matrices. J. Multivariate Anal. 107 (2012), arXiv:1102.2926. Extreme angles
+  and correlations for exponentially many points; normalized, so they do not
+  give the λ = ∞ threshold (see NOVELTY.md).
 - None of these addresses the all-pattern threshold for Gaussian patterns.
 
 ## Searches run

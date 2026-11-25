@@ -55,11 +55,43 @@ as new here.
 
 - The dynamical definition of retrieval (convergence of the update rule from
   a perturbed start). Only LM's static signal-dominance criterion is proved.
-- Possible classical precursors of the λ = ∞ geometric event (every Gaussian
-  vector has larger squared norm than its inner product with every other).
-  We searched spherical-cap and random-geometry work (e.g. arXiv:1511.06198,
-  arXiv:1612.09045, arXiv:2610.20299) and found nothing stating this
-  threshold, but cannot rule out an older source in that literature.
+- Nothing beyond LM's static criterion. The λ = ∞ case is checked against
+  the random-packing literature in the next section.
+
+## The λ = ∞ case and random spherical codes
+
+At λ = ∞ the criterion is that ‖ξ^μ‖² > ξ^μ·ξ^ν for every pair μ ≠ ν,
+i.e. no pattern has a larger inner product with another pattern than with
+itself. We checked whether the (log 2)/4 threshold already follows from the
+extreme-angle results for exponentially many random points:
+
+- Cai, Fan and Jiang, Distributions of angles in random packing on spheres,
+  JMLR 14 (2013), arXiv:1306.0256, Theorem 6: for n uniform points on the
+  sphere in R^p with (log n)/p → β ∈ (0, ∞), the minimum pairwise angle
+  converges to arccos √(1 − e^{−4β}).
+- Cai and Jiang, Phase transition in limiting distributions of coherence of
+  high-dimensional random matrices, J. Multivariate Anal. 107 (2012),
+  arXiv:1102.2926: the same regime for the largest Pearson correlation
+  between columns.
+
+Verdict for λ = ∞: **does not follow.** Both results are about normalized
+quantities (angles, correlations), which do not see the pattern norms. For
+points of equal norm the λ = ∞ criterion holds automatically, since
+cos θ < 1 for distinct points, so the Gaussian threshold comes entirely from
+norm fluctuations acting together with the angles: a short pattern
+(‖ξ‖²/N ≈ 1/2) loses to one competitor. Neither paper treats that event,
+and the angle limit alone does not determine it.
+
+There is a numerical coincidence worth recording. Cai, Fan and Jiang's
+minimum angle equals π/4 exactly at β = (log 2)/4, our threshold. The reason
+is that both pair events have the same large-deviation rate per dimension,
+(log 2)/2: P(cos θ > 1/√2) ≈ 2^{−N/2}, and P(ξ·η > ‖ξ‖²) ≈ e^{−N min_s
+[I(s) + s/2]} = 2^{−N/2} (minimum at s = 1/2). The events and their
+second-moment structure differ, so neither result implies the other; our
+second-moment upper bound is in the same spirit as their exponential-case
+argument. We also screened 40 papers citing Cai, Fan and Jiang (including
+Kai Zhang, arXiv:1306.0623 and arXiv:1511.06198, on maximal inner products
+of normalized vectors) and found none treating the unnormalized event.
 
 ## Searches run
 
@@ -73,4 +105,6 @@ as new here.
 - Web search for "all patterns", "union bound", "log 2", "Lucibello Mézard
   open question".
 - Geometric search on the λ = ∞ event (maximal inner products of Gaussian
-  vectors, spherical caps).
+  vectors, spherical caps, maximum inner product search).
+- Cai, Fan and Jiang (2013) and Cai and Jiang (2012) read; papers citing
+  Cai, Fan and Jiang screened by title and abstract.
