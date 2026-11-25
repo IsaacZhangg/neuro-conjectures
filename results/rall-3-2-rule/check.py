@@ -9,6 +9,9 @@ Run:  python check.py            full run: downloads NeuroMorpho.org metadata an
                                  CNG SWC files into ./data/ (not committed),
                                  writes check-output.json and manifest.json
       python check.py --offline  full analysis from ./data/ only (no network)
+      python check.py --bluebrain  secondary test (METHODS.md, Amendment A1) on
+                                 Blue Brain Open Data; writes
+                                 check-output-bluebrain.json
       python check.py --quick    estimator validation on synthetic trees only
                                  (CI smoke test; does not set the status)
 Requires Python 3.10+ and NumPy. Deterministic given the seed and the data.
@@ -353,6 +356,32 @@ def file_filter(tree: Tree) -> str | None:
 # ---------------------------------------------------------------- analysis
 
 
+VARIANT_WINDOWS = {"primary_5um": WINDOW_UM, "R1_section_mean": None, "R2_10um": 10.0}
+ANALYSES = ["primary_5um", "R1_section_mean", "R2_10um", "R3_drop_identical"]
+
+
+def cell_triples(text: str) -> tuple[dict, dict, str | None]:
+    """Parse one SWC file and apply the file filters. Returns (triples, orders, exclusion reason)."""
+    try:
+        tree = Tree(parse_swc(text))
+    except Exception:  # noqa: BLE001 - recorded as an exclusion reason
+        return {}, {}, "parse failed"
+    why = file_filter(tree)
+    if why is None and len(tree.bifurcations()) < MIN_BIFURCATIONS:
+        why = "fewer than 10 bifurcations"
+    triples, orders = {}, {}
+    if why is None:
+        for name, w in VARIANT_WINDOWS.items():
+            triples[name], orders[name] = branch_triples(tree, w)
+        if len(triples["primary_5um"]) < MIN_BIFURCATIONS:
+            why = "fewer than 10 valid bifurcations"
+    if why is not None:
+        return {}, {}, why
+    triples["R3_drop_identical"] = triples["primary_5um"]
+    orders["R3_drop_identical"] = orders["primary_5um"]
+    return triples, orders, None
+
+
 def analyse(cells: list[dict], variant: str, rng: np.random.Generator) -> dict:
     per_cell = []
     for c in cells:
@@ -433,7 +462,6 @@ def full_run(offline: bool) -> tuple[dict, int]:
             drawn.append((g, members[int(i)]))
     exclusions = Counter()
     cells, manifest = [], []
-    variants = {"primary_5um": WINDOW_UM, "R1_section_mean": None, "R2_10um": 10.0}
     for i, (g, n) in enumerate(drawn):
         if i % 100 == 0:
             print(f"cell {i}/{len(drawn)}", file=sys.stderr)
@@ -441,31 +469,15 @@ def full_run(offline: bool) -> tuple[dict, int]:
         if text is None:
             exclusions[err] += 1
             continue
-        try:
-            tree = Tree(parse_swc(text))
-        except Exception:  # noqa: BLE001
-            exclusions["parse failed"] += 1
-            continue
-        why = file_filter(tree)
-        if why is None and len(tree.bifurcations()) < MIN_BIFURCATIONS:
-            why = "fewer than 10 bifurcations"
-        triples, orders = {}, {}
-        if why is None:
-            for name, w in variants.items():
-                triples[name], orders[name] = branch_triples(tree, w)
-            if len(triples["primary_5um"]) < MIN_BIFURCATIONS:
-                why = "fewer than 10 valid bifurcations"
+        triples, orders, why = cell_triples(text)
         if why is not None:
             exclusions[why] += 1
             continue
-        triples["R3_drop_identical"] = triples["primary_5um"]
-        orders["R3_drop_identical"] = orders["primary_5um"]
         cells.append({"group": g, "archive": n["archive"], "triples": triples, "orders": orders})
         manifest.append({"neuron_id": n["neuron_id"], "neuron_name": n["neuron_name"], "archive": n["archive"],
                          "reference_pmid": n.get("reference_pmid"),
                          "sha256": hashlib.sha256(text.encode()).hexdigest()})
-    analyses = {v: analyse(cells, v, rng)
-                for v in ["primary_5um", "R1_section_mean", "R2_10um", "R3_drop_identical"]}
+    analyses = {v: analyse(cells, v, rng) for v in ANALYSES}
     primary = analyses["primary_5um"]["status"]
     flipped = [v for v in analyses if analyses[v]["status"] != primary]
     status = "Contested" if flipped else primary
@@ -478,10 +490,108 @@ def full_run(offline: bool) -> tuple[dict, int]:
     return out, 0 if status == "Supported" else 1
 
 
+# ---- Amendment A1: secondary test on Blue Brain Open Data (does not set the status) ----
+
+BB_BUCKET = "https://openbluebrain.s3.us-west-2.amazonaws.com/"
+BB_PREFIX = "Experimental_Data/Reconstructed_morphologies/Categorized/Neurons/Rat/Cortex/SSCX/"
+BB_DATA = DATA / "bluebrain"
+
+
+def bb_list(offline: bool) -> list[tuple[str, int]]:
+    """All (key, size) pairs under BB_PREFIX, from the S3 ListObjectsV2 API (cached)."""
+    cache = BB_DATA / "listing.json"
+    if cache.exists():
+        return [tuple(x) for x in json.loads(cache.read_text())]
+    if offline:
+        raise SystemExit("no cached Blue Brain listing in data/bluebrain/; run without --offline first")
+    import xml.etree.ElementTree as ET
+    ns = {"s3": "http://s3.amazonaws.com/doc/2006-03-01/"}
+    keys, token = [], None
+    while True:
+        q = {"list-type": "2", "prefix": BB_PREFIX}
+        if token:
+            q["continuation-token"] = token
+        root = ET.fromstring(fetch(BB_BUCKET + "?" + urllib.parse.urlencode(q)))
+        for c in root.findall("s3:Contents", ns):
+            keys.append((c.find("s3:Key", ns).text, int(c.find("s3:Size", ns).text)))
+        if root.findtext("s3:IsTruncated", namespaces=ns) != "true":
+            break
+        token = root.findtext("s3:NextContinuationToken", namespaces=ns)
+    BB_DATA.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps(sorted(keys)))
+    return sorted(keys)
+
+
+def bb_load(key: str, offline: bool) -> tuple[str | None, str | None]:
+    path = BB_DATA / "swc" / hashlib.sha256(key.encode()).hexdigest()[:24]
+    if path.exists():
+        return path.read_text(errors="replace"), None
+    if offline:
+        return None, "not cached"
+    try:
+        raw = fetch(BB_BUCKET + urllib.parse.quote(key, safe="/"))
+    except Exception as e:  # noqa: BLE001 - recorded as an exclusion reason
+        return None, f"download failed: {type(e).__name__}"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(raw)
+    return raw.decode(errors="replace"), None
+
+
+def bluebrain_run(offline: bool) -> dict:
+    listing = bb_list(offline)
+    by_group: dict[str, list[str]] = defaultdict(list)
+    for key, _ in listing:
+        rest = key[len(BB_PREFIX):].split("/")
+        if len(rest) == 3 and rest[1] == "downloaded_from_nexus" and rest[2].lower().endswith(".swc"):
+            by_group[rest[0]].append(key)
+    name_count = Counter(k.rsplit("/", 1)[-1] for ks in by_group.values() for k in ks)
+    dupes = {n for n, c in name_count.items() if c > 1}
+    sizes = dict(listing)
+    rng = np.random.default_rng(SEED)
+    drawn = []
+    for g in sorted(by_group):
+        members = sorted(k for k in by_group[g] if k.rsplit("/", 1)[-1] not in dupes)
+        if len(members) < MIN_GROUP_ELIGIBLE:
+            continue
+        k = min(MAX_PER_GROUP, len(members))
+        for i in sorted(rng.choice(len(members), size=k, replace=False)):
+            drawn.append((g, members[int(i)]))
+    exclusions, cells, manifest = Counter(), [], []
+    for i, (g, key) in enumerate(drawn):
+        if i % 100 == 0:
+            print(f"blue brain cell {i}/{len(drawn)}", file=sys.stderr)
+        text, err = bb_load(key, offline)
+        if text is None:
+            exclusions[err] += 1
+            continue
+        triples, orders, why = cell_triples(text)
+        if why is not None:
+            exclusions[why] += 1
+            continue
+        # One institute: each m-type is its own resampling unit for the pooled interval.
+        cells.append({"group": g, "archive": g, "triples": triples, "orders": orders})
+        manifest.append({"key": key, "size": sizes.get(key), "m_type": g,
+                         "sha256": hashlib.sha256(text.encode()).hexdigest()})
+    analyses = {v: analyse(cells, v, rng) for v in ANALYSES}
+    primary = analyses["primary_5um"]["status"]
+    flipped = [v for v in analyses if analyses[v]["status"] != primary]
+    (HERE / "manifest-bluebrain.json").write_text(json.dumps(
+        {"source": "Blue Brain Open Data (s3://openbluebrain), CC BY 4.0", "prefix": BB_PREFIX,
+         "files": manifest}, indent=1))
+    return {"amendment": "A1", "role": "secondary; does not set the status",
+            "source": BB_BUCKET + BB_PREFIX, "swc_files_listed": sum(len(v) for v in by_group.values()),
+            "m_types_listed": len(by_group), "duplicate_names_dropped": len(dupes),
+            "eligible_groups": len({g for g, _ in drawn}), "drawn": len(drawn), "analysed": len(cells),
+            "exclusions": dict(exclusions), "analyses": analyses, "robustness_flips": flipped,
+            "bluebrain_secondary_label": "Contested" if flipped else primary}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--quick", action="store_true")
     parser.add_argument("--offline", action="store_true")
+    parser.add_argument("--bluebrain", action="store_true",
+                        help="secondary test on Blue Brain Open Data only (Amendment A1)")
     args = parser.parse_args()
     t0 = time.time()
     validation = validate_estimator(n_cells=6 if args.quick else 20, seed=SEED)
@@ -491,6 +601,17 @@ def main() -> int:
     if not validation["pass"]:
         print("estimator validation failed; not running the reanalysis")
         return 1
+    if args.bluebrain:
+        out = bluebrain_run(args.offline)
+        record = {"result": "rall-3-2-rule", "mode": "bluebrain-secondary", "seed": SEED, "rall_eta": RALL_ETA,
+                  "margin": list(MARGIN), "estimator_validation": validation, **out,
+                  "python": platform.python_version(), "numpy": np.__version__,
+                  "runtime_seconds": round(time.time() - t0, 1)}
+        (HERE / "check-output-bluebrain.json").write_text(json.dumps(record, indent=2))
+        p = out["analyses"]["primary_5um"]
+        print(f"Blue Brain secondary label: {out['bluebrain_secondary_label']}; pooled eta "
+              f"{p.get('pooled_median_eta')} CI {p.get('pooled_ci95')} over {p.get('qualifying_groups')} m-types")
+        return 0
     out, code = full_run(args.offline)
     record = {"result": "rall-3-2-rule", "mode": "full", "seed": SEED, "rall_eta": RALL_ETA,
               "margin": list(MARGIN), "estimator_validation": validation, **out,
