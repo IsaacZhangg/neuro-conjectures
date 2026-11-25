@@ -65,6 +65,32 @@ short-range peptide link respond more often than those without, 4.3% versus
 strongly reduced dense-core-vesicle release. The gap narrows in unc-31, but
 only a little, with no interval computed and 32 unc-31 responders.
 
+## Follow-up: does physical proximity explain the gain?
+
+Peptide links in this map are denser between nearby neurons, and nearby
+neurons respond to each other more often, so the no-wired-path gain could be
+proximity rather than peptides. We froze a follow-up plan before running it
+([METHODS-followup-proximity.md](METHODS-followup-proximity.md)). It does not
+change the status above. Proximity classes are soma-distance quintile crossed
+with same ganglion (positions from the atlas package; no neuron lacked one).
+
+| Test (no-wired-path pairs) | G_none | Null mean | Null p | Excess over null [95% CI] |
+|---|---|---|---|---|
+| F1: AUROC within proximity classes, degree-preserving null | +0.039 | +0.037 | 0.16 | +0.003 [−0.042, +0.051] |
+| F2: unstratified, shuffle keeps each link's proximity class | +0.111 | +0.091 | 0.001 | +0.020 [−0.022, +0.068] |
+
+Verdict under the frozen rule: **Mixed**. Once distance and ganglion are held
+fixed (F1), the pair-specific peptide gain is gone. A shuffle that keeps each
+link's proximity class (F2, 21% of links moved) leaves a small excess that
+clears the null but whose bootstrap interval includes zero. The over-all loss
+(G_all about −0.05) holds in both tests.
+
+Exploratory: soma nearness alone predicts responding pairs far better than
+peptides do (AUROC 0.72 on no-wired-path pairs, 0.73 on all pairs), and same
+ganglion alone gives 0.63. The share of pairs with a short-range peptide link
+falls from 0.51 in the nearest distance quintile to 0.26 in the farthest.
+Output: [followup-proximity-output.json](followup-proximity-output.json).
+
 ## What was open and what this settles
 
 Open: whether a neuropeptide connectome adds predictive information about the
@@ -72,8 +98,10 @@ measured signal propagation beyond wiring. Randi et al. checked 53 pairs one
 by one with no null; Sale and Richardson (2026) reported a negative in one
 sentence without numbers we could read. This result gives the first pre-registered numbers we
 found with a peptide-specific null: no for the network as a
-whole, a small but real yes for pairs that wiring cannot reach, and only for
-the short-range model.
+whole, and a small yes for pairs that wiring cannot reach, only for the
+short-range model. The follow-up shows that this yes is mostly explained by
+physical proximity: within matched distance and ganglion classes, the
+pair-specific part is indistinguishable from zero.
 
 ## Files
 
@@ -85,6 +113,9 @@ the short-range model.
   `python check.py --quick` (seconds; synthetic data if h5py is missing).
   Needs [requirements.txt](requirements.txt) (numpy, h5py, numba).
 - [check-output.json](check-output.json): recorded full run.
+- [METHODS-followup-proximity.md](METHODS-followup-proximity.md) and
+  [followup_proximity.py](followup_proximity.py): frozen proximity follow-up
+  (about 22 minutes); [followup-proximity-output.json](followup-proximity-output.json): its recorded run.
 - [REVIEW.md](REVIEW.md): review record.
 
 ## Scope and limits
