@@ -6,6 +6,9 @@ pages linked; statement locations still need confirming against the full text.
 
 ## 1. Rall's 3/2 power rule at dendritic branch points
 
+In progress: plan frozen in [results/rall-3-2-rule/](../results/rall-3-2-rule/)
+(branch `feat/rall-3-2-rule`).
+
 - **Claim.** At a branch point, the parent diameter to the 3/2 power equals the
   sum of the daughter diameters to the 3/2 power. This is the condition that
   lets a branched tree be collapsed into an equivalent cylinder.

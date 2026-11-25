@@ -23,15 +23,14 @@ Checked 2026-11-25.
 ## Later work that retests, refines or disputes it
 
 - N. L. Desmond, W. B. Levy. "Dendritic caliber and the 3/2 power
-  relationship of dentate granule cells." J. Comp. Neurol. 227(4):589–596
-  (1984). doi:10.1002/cne.902270410, PubMed 6470225. Only the first part of the
+  relationship of dentate granule cells." J. Comp. Neurol. 227(4) (1984); pages not checked. doi:10.1002/cne.902270410, PubMed 6470225. Only the first part of the
   abstract was readable (30 Golgi-impregnated rat granule cells, mean
   caliber about 1 µm, uniform over the proximal two thirds of the molecular
   layer). The claim in docs/candidates.md that the rule holds distally but
   not proximally is **not verified**.
 - A. U. Larkman, G. Major, K. J. Stratford, J. J. Jack. "Dendritic morphology
   of pyramidal neurones of the visual cortex of the rat. IV: Electrical
-  geometry." J. Comp. Neurol. 323(2):137–152 (1992). doi:10.1002/cne.903230202.
+  geometry." J. Comp. Neurol. 323(2) (1992); pages not checked. doi:10.1002/cne.903230202.
   Abstract: "most dendrites did not closely obey the 3/2 branch power
   relationship".
 - M. Liao, X. Liang, J. Howard. "The narrowing of dendrite branches across
@@ -42,7 +41,7 @@ Checked 2026-11-25.
   law d_m^p + d_0^2 = d_1^p + d_2^p fits with p ≈ 2.
 - P. Desai-Chowdhry, A. B. Brummer, V. M. Savage. "How axon and dendrite
   branching are guided by time, energy, and spatial constraints." Sci. Rep.
-  12:20810 (2022). doi:10.1038/s41598-022-24813-2, PMC9718790. Read (methods
+  12 (2022); article number not checked. doi:10.1038/s41598-022-24813-2, PMC9718790. Read (methods
   and results). NeuroMorpho.Org Golgi, Purkinje and motor neurons; mean
   dendritic daughter/parent radius ratio 0.67 ± 0.004 using section-mean
   radii, which corresponds to η ≈ 1.7 for symmetric branching (our
