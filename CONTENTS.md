@@ -10,7 +10,9 @@ Every result with its exact scope. The README table is the short form.
 
 ## Theorems
 
-None yet.
+| Result | Exact scope tested | Evidence |
+| :-- | :-- | :-- |
+| [Tree committee machine capacity, K = 3](results/tree-committee-k3/) | Three sign hidden units on disjoint thirds of the input, majority output; i.i.d. Gaussian patterns, labels fixed or independent; storage of all ⌊αn⌋ patterns with probability → 1. Proves α_c(3) ≥ 1.55 (open gap 1.55 to 3.43). Lower bound only; ±1 inputs not covered. | Written proof (three-stage construction, convex Gaussian min-max theorem, Cover's theorem) and Arb-certified constants with recorded output. Agent-drafted, not yet independently reviewed. |
 
 ## Empirical claims
 

@@ -30,6 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
+| 2 | [Tree committee machine, K = 3: capacity at least 1.55 (new proved lower bound)](results/tree-committee-k3/) | Theorem | Partial, lower bound only, Gaussian patterns | 🟡 |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 
