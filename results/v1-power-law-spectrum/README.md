@@ -17,7 +17,8 @@ code read the data.
 - [CLAIM.md](CLAIM.md): exact statement, our reading, and decision rule.
 - [SOURCES.md](SOURCES.md): primary source, later work, datasets, searches.
 - [METHODS.md](METHODS.md): data, analysis plan, robustness checks.
-- [check.py](check.py): entry point. `python check.py` / `python check.py --quick`.
+- [check.py](check.py): entry point. `python check.py` (downloads about 15 GB by range requests, caches extracts) / `python check.py --quick` (synthetic, offline, seconds).
+- [requirements.txt](requirements.txt): pinned dependencies for this result.
 - check-output.json: recorded full run (added after the run).
 - [REVIEW.md](REVIEW.md): review record.
 
