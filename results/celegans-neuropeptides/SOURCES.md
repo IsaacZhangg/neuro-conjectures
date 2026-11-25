@@ -45,6 +45,12 @@ could not open are listed under "Not verified".
   et al., arXiv:2610.37587; Moutuou & Benali, doi:10.64898/2026.10.29.762790;
   tool papers CeDNe (doi:10.1101/2025.11.03.683805) and the OpenWorm
   Connectome Toolbox (doi:10.64898/2026.11.04.764366).
+- Cook SJ, Kalinski CA, Hobert O (2023). Neuronal contact predicts
+  connectivity in the C. elegans brain. Curr Biol,
+  doi:10.1016/j.cub.2023.04.071. Contact predicts synapses, not responses.
+- Kinger, Bertram, Dyballa, Yemini, Zucker (2026), arXiv:2605.02852. Edges
+  inferred from spontaneous activity, checked against synaptic, monoamine and
+  GABA connectomes; no peptide layer with a proximity control.
 
 ## Datasets
 
@@ -71,7 +77,15 @@ could not open are listed under "Not verified".
   Creamer titles.
 - Read: PMC10632145 (Randi), ar5iv 2208.04790, Creamer PDF.
 
+- Novelty audit, 2026-11-25: citers of both primary DOIs again; free-text
+  searches since 2023 on peptide connectome versus function with a distance
+  control, soma distance versus the atlas, and extrasynaptic connectome versus
+  calcium imaging; re-read of the Sale & Richardson full text.
+
 ## Not verified
+
+- Ripoll-Sánchez PhD thesis, doi:10.17863/CAM.115553 (PDF returned 503).
+- Venkatesh et al. 2025 review, PMID 40135746 (no full text).
 
 - Sale & Richardson supplement (fetch refused) and their code repository (not
   reachable from this session): which peptide network and statistic stand

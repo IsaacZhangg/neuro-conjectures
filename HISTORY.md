@@ -52,3 +52,11 @@ reviewed.
 Added NOVELTY.md. Fresh literature search found no earlier rigorous proof
 that the Gaussian all-pattern capacity equals the union bound; the union
 bound itself is Lucibello and Mézard's and is credited to them. Verdict: new.
+
+## 2026-11-25: C. elegans neuropeptides, novelty check
+
+Added NOVELTY.md. The wired path-score baseline with a degree-preserving null
+and the one-line negative for peptide networks are already in Sale and
+Richardson (2026); the pre-registered peptide-specific test, the
+no-wired-path gain and the proximity control are not, as far as we found.
+Verdict: partly known.
