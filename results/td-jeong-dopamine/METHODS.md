@@ -256,4 +256,20 @@ An impossibility argument is stated per class.
 
 ## Deviations from plan
 
-None yet.
+Recorded after recomputing every test on the real data (no model had run yet):
+
+1. Units. DANDI stores dF/F in percent and times in seconds; Jeong's MATLAB code
+   used milliseconds and, judging by its fixed Weibull bounds, dF/F as a
+   fraction. Our port runs in milliseconds. For the bounded Weibull fit of
+   Test 4 only, dF/F is divided by 100 before fitting, which reproduces the
+   paper (ours t(6) = −0.72, p = 0.50; paper −0.86, p = 0.42; in percent units the
+   bounds bind and give t = −7.7). Every other test is unaffected by a scale.
+2. Test 3 change-trial sign. Lick minus dopamine change trial gives
+   t(6) = +2.93, p = 0.026, the paper's magnitude with the opposite printed sign
+   (dopamine changes earlier, as the paper's text says). The pass rule uses the
+   direction the data and text show: lick change trial later than dopamine's.
+3. Test 7. Our recomputation gives t(6) = −2.39, p = 0.054 (paper −3.51,
+   p = 0.013), same direction. As planned, the pass target stays the paper's
+   conclusion (t < 0, p < 0.05).
+4. Test 6. Abruptness t(6) = 9.69 here against 5.67 printed; change trial
+   matches exactly (−2.40, p = 0.053). Same conclusion.
