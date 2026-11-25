@@ -1,0 +1,109 @@
+# Methods
+
+Plan committed before any code computed L, bp or V from the connectome data.
+What was opened before this commit, to learn file formats: bucket listings,
+the cell-type and annotation tables (to count candidate neurons per type), one
+MICrONS SWC file and its metadata JSON, and the vertex array of one FlyWire
+skeleton (shape and units only). No length, branch count or volume was
+computed from any real neuron before the commit.
+
+## Data
+
+### FlyWire (fly)
+
+- Skeletons: public precomputed skeletons `skeletons_mip_1` in the Google
+  Cloud bucket `flywire_v141_m783` (FlyWire materialization 783), read with
+  `cloud-volume` over HTTPS. Units nm, converted to µm.
+- Annotations: `flyconnectome/flywire_annotations`,
+  `supplemental_files/Supplemental_file1_neuron_annotations.tsv`, commit
+  a83b2776d60d5764cef36b927f5f9679c16c47a2.
+- Inclusion: `super_class` in {central, optic, visual_projection,
+  visual_centrifugal, endocrine}; `status` empty (drops `outlier_seg` and
+  `outlier_bio`); `cell_type` given. Sensory, motor, ascending and descending
+  neurons are left out because they leave the brain and are cut at its edge.
+- Sampling: cell types with at least 15 eligible neurons (407 types). From
+  each, 15 neurons drawn without replacement with
+  `numpy.random.default_rng(20261125)`, types in sorted order (6,105 neurons).
+
+### MICrONS (mouse)
+
+- Skeletons: SWC files in the BossDB open-data bucket,
+  `s3://bossdb-open-data/iarpa_microns/minnie/minnie65/skeletons/v661/skeletons/`,
+  named `<root_id>_<nucleus_id>.swc`, units µm. Read over HTTPS.
+- Cell types: `iarpa_microns/minnie/minnie65/cell_types/allen_visp_column_soma_coarse_types_v1.csv`
+  (nucleus id, valid flag, classification system, class). Included: rows with
+  class `excitatory` or `inhibitory`, matched to a skeleton by nucleus id. If a
+  nucleus id matches more than one skeleton file, the neuron is dropped.
+- Strata for resampling: excitatory, inhibitory.
+
+### Both
+
+- After pruning, a neuron is excluded if L < 100 µm, bp < 10 or V ≤ 0, or if
+  its skeleton cannot be read. Counts of every exclusion are recorded.
+- No raw data is committed. `check.py` downloads what it needs. It writes
+  `neuron-stats.csv` (one row per included neuron: dataset, id, stratum, L,
+  bp, tips, V for each pruning setting) and `manifest.json` (source paths,
+  versions, SHA-256 of each downloaded file or skeleton array).
+
+## Analysis plan
+
+1. For every included neuron and τ in {0, 1, 5} µm, prune (one pass), then
+   measure L, bp, tips and V as defined in CLAIM.md.
+2. Primary analysis per dataset, τ = 1 µm: ordinary least squares of
+   y = log(L / V^(1/3)) on x = log(bp) over all included neurons. β is the
+   slope.
+3. 95% interval: percentile bootstrap, 2,000 resamples, resampling neurons
+   with replacement within strata (FlyWire: cell type; MICrONS: excitatory or
+   inhibitory), seed 20261125.
+4. Apply the decision rule in CLAIM.md.
+
+## Benchmark (estimator calibration)
+
+Minimum spanning trees of uniform random points in boxes of random aspect
+ratio, with 50 to 3,000 points and sides 50 to 500 µm (150 trees, seed
+20261125). The same pipeline (τ = 0) gives β on these trees. MSTs are
+wiring-optimal trees without a root constraint, so their β is what the
+estimator reports for trees that follow the law at these finite sizes.
+
+## Uncertainty
+
+Each dataset is one animal, so the bootstrap is over neurons within one
+animal. The interval describes variation across neurons of that brain, not
+across animals.
+
+## Robustness checks
+
+Three variants of the primary analysis, each with its own interval:
+
+- R1: τ = 0 (no pruning).
+- R2: τ = 5 µm.
+- R3: tips instead of branch points as n (τ = 1 µm).
+
+How they enter the verdict is set in CLAIM.md.
+
+## Secondary analyses (reported, do not set the status)
+
+- Free-exponent fit per dataset: log L = c + a·log V + b·log bp, with
+  intervals (same bootstrap). The claim predicts a = 1/3, b = 2/3.
+- Per cell type (FlyWire, 15 neurons each) and per class (MICrONS): β by type,
+  summarised as mean ± SD across types, to compare with the paper's
+  0.72 ± 0.10 across NeuroMorpho datasets.
+- The constant: median of L / (V^(1/3) · bp^(2/3)) per dataset.
+
+## Known limits planned for
+
+- FlyWire skeletons mix axon and dendrite in one tree, and fly neurons often
+  spread across several neuropils, so the convex hull includes empty space.
+  The claim's V is the volume the arbor spans; the hull overstates it for such
+  cells.
+- FlyWire reconstructions miss some fine twigs (Ferreira Castro and Cardona
+  estimate about 47% dendritic completeness by synapse attachment), which lowers
+  bp and L.
+- MICrONS cells near the volume edge are cut; the V1 column sits in the
+  middle of the volume, which limits this.
+- n is branch points, not synapses. The synapse form is the one Ferreira
+  Castro and Cardona tested; this result does not retest it.
+
+## Deviations from plan
+
+None yet.
