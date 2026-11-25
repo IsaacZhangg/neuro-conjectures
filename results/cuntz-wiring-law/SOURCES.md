@@ -48,18 +48,25 @@ opened; "snippet" means only an abstract or search excerpt was seen.
 - FlyWire whole-brain connectome, materialization 783: skeletons in the public
   bucket `gs://flywire_v141_m783/skeletons_mip_1` (read via
   storage.googleapis.com). Dorkenwald et al., Nature 2024,
-  doi:10.1038/s41586-024-07558-y. License: not verified in this session (the
-  FlyWire site was unreachable from here); FlyWire states its data are openly
-  available for reuse with citation.
+  doi:10.1038/s41586-024-07558-y. License: **CC BY-NC 4.0**, per FlyWire's
+  citing guidelines (flywire.ai/guidelines: "FlyWire's public release data is
+  made available under license CC BY-NC 4.0") and community principles; text
+  read through a search tool on 2026-11-25. The Zenodo record of the
+  connectivity tables (10.5281/zenodo.10676866) lists CC BY 4.0, but this
+  result uses the skeletons and annotations, so the stricter FlyWire terms
+  are applied.
 - FlyWire annotations: github.com/flyconnectome/flywire_annotations, commit
   a83b2776d60d5764cef36b927f5f9679c16c47a2. Schlegel et al., Nature 2024,
-  doi:10.1038/s41586-024-07686-5; cite also Matsliah et al. 2024 and Berg et
-  al. 2026 per that repository. License: no license file in the repository;
-  not verified.
-- MICrONS minnie65 (MICrONS Consortium, Nature 2025): skeletons v661 and cell
-  types in `s3://bossdb-open-data/iarpa_microns/minnie/minnie65/`. License:
-  not verified in this session (microns-explorer.org was unreachable); the
-  MICrONS release is described by its authors as CC BY 4.0.
+  doi:10.1038/s41586-024-07686-5; cite also Matsliah et al. 2024, Berg et al.
+  2026 and Tastekin et al. 2026 per that repository. The repository has no
+  license file; as annotations of the 783 release they are treated here as
+  covered by the FlyWire release terms (CC BY-NC 4.0).
+- MICrONS minnie65 (MICrONS Consortium, Nature 640:435–447, 2025,
+  doi:10.1038/s41586-025-08790-w): skeletons v661, cell types and nucleus
+  table in `s3://bossdb-open-data/iarpa_microns/minnie/minnie65/`. License:
+  **CC BY 4.0**, per the BossDB project page for IARPA MICrONS Minnie
+  (doi:10.60533/BOSS-2021-T0SY); text read through a search tool on
+  2026-11-25, since microns-explorer.org was unreachable from here.
 
 ## Searches run
 

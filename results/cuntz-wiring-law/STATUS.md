@@ -1,6 +1,10 @@
 # Status note (2026-11-25)
 
-Parked. Isaac set a new direction for the collection: solve unsolved
+**Update 22:05 UTC:** review resumed at the main chat's request; the result
+is not to be posted or filed publicly until the review is done. Licenses now
+checked (see SOURCES.md and DATA-LICENSE.md).
+
+Earlier: parked. Isaac set a new direction for the collection: solve unsolved
 conjectures rather than retest or verify existing ones. A new-scale test of
 the Cuntz law counts as re-verification, so this result is not being taken
 further for now.
@@ -24,8 +28,6 @@ further for now.
 - No claim issue opened and no pull request; the branch is not merged.
 - Not tried: the synapse form of the law, axons with presynaptic sites as n,
   hulls other than the convex hull, H01 human data, the hemibrain.
-- Licenses for FlyWire data and annotations and for MICrONS were not
-  verified from this environment (see SOURCES.md).
 
 No raw data is committed. The derived per-neuron table holds only lengths,
 counts and volumes computed by this check.

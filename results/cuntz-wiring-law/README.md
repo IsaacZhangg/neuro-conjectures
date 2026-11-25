@@ -55,6 +55,8 @@ measurements in [neuron-stats.csv](neuron-stats.csv).
 - [check-output.json](check-output.json): recorded full run.
 - [manifest.json](manifest.json): sources and SHA-256 of every skeleton used.
 - [neuron-stats.csv](neuron-stats.csv): derived per-neuron L, bp, tips and V.
+  FlyWire rows are CC BY-NC 4.0, MICrONS rows CC BY 4.0; see
+  [DATA-LICENSE.md](DATA-LICENSE.md).
 - [REVIEW.md](REVIEW.md): review record.
 
 ## Scope and limits
