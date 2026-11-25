@@ -211,6 +211,49 @@ as "not found in the box".
 
 If any of these flips a test for the best model, the status is Contested.
 
+## Addendum A: richer TD classes (frozen 2026-11-25, before any model run)
+
+Added because a negative result for TD-MS alone would leave open that the state
+representation was the problem. Same data, same eleven tests, same pass rules,
+noise procedure, scale rule, kernel, Δ, inhibition calibration and missing-day
+rule as above. Each class keeps one fixed representation and one parameter set
+per animal; what is learned inside the representation is learned online from
+the same event stream.
+
+**TD-BS: belief-state TD over a learned semi-Markov task model** (after Daw,
+Courville and Touretzky 2006; Starkweather et al. 2017). Hidden states: ITI, and
+for each cue type c a chain of wait sub-states wait_{c,k}, k = 1..K, each 0.5 s
+wide up to 12 s. Every cue onset opens its own wait instance, so overlapping cues
+(the trial-less task) superpose. The agent learns, by counts with forgetting
+rate κ per occurrence, the probability π_c that cue c is followed by reward and
+the histogram F_c of cue-to-reward delays. After τ seconds with no reward, the
+belief that instance j of cue c is still waiting is
+
+    p_j(τ) = π_c (1 − F_c(τ)) / (π_c (1 − F_c(τ)) + 1 − π_c),
+
+and the instance's mass p_j(τ) sits on the sub-state whose bin holds τ; a reward
+closes the open instance of the matching type with the earliest expected delay.
+Features are b_t = [mass on each wait_{c,k} summed over instances, 1 − total
+mass clipped to [0, 1] for ITI, optional bias]. Value and learning are the TD-MS
+equations with x_t = b_t. Free parameters: α, γ_s, λ, η, w₀, κ (0.01 to 0.5,
+log), K fixed at 24.
+
+**TD-SR: TD over learned successor features** (after Dayan 1993; Gardner,
+Schoenbaum and Gershman 2018). Base features φ_t are the TD-MS microstimulus
+features. A successor matrix M is learned online,
+
+    M ← M + α_M (φ_{t−1} + γ M φ_t − M φ_{t−1}) φ_{t−1}ᵀ,   M initialised to I,
+
+and value is TD(λ) over ψ_t = M φ_t: V_t = w · ψ_t, with the TD-MS rule for δ, the
+eligibility trace (over ψ) and the w update. Dopamine is δ. Free parameters: the
+TD-MS ones plus α_M (1e−4 to 0.1, log).
+
+Search for each added class: the same procedure as for TD-MS with a 1,024-point
+Sobol sample instead of 4,096 (each run costs more), then Nelder–Mead on the 10
+best. The decision rule in CLAIM.md applies to the union of the three classes:
+one model from any class that passes all eleven tests disproves the statement.
+An impossibility argument is stated per class.
+
 ## Deviations from plan
 
 None yet.

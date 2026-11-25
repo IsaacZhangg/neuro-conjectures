@@ -35,9 +35,12 @@ unpredicted reward", and treats Tests 1 to 11 as predictions TD RPE gets wrong.
 
 ## Our reading (operational)
 
-"TD model" means a model in the family TD-MS defined in METHODS.md: linear value
-over a fixed feature map of the event history, TD(λ) learning, dopamine equal to
-the TD error δ seen through a fixed photometry kernel. "One fixed state
+"TD model" means a model in one of three classes defined in METHODS.md: TD-MS
+(linear TD(λ) over microstimulus or serial-compound features of the event
+history), TD-BS (belief-state TD over a learned semi-Markov task model) and TD-SR
+(TD over learned successor features). In all three, dopamine equals the TD error
+δ seen through a fixed photometry kernel. TD-BS and TD-SR were added in
+Addendum A of METHODS.md before any model run. "One fixed state
 representation" means the feature map and its hyperparameters do not change
 across sessions or protocols. "One parameter set per animal" means each animal
 gets one parameter vector for its whole history; we try first one vector shared
@@ -53,7 +56,7 @@ behaviour uses the animal's real licks.
 ## Decision rule (committed before any code reads the data)
 
 - **Refuted** (the statement is disproved, which solves the target): one model
-  in TD-MS, with one parameter vector per animal, passes all eleven tests by the
+  in TD-MS, TD-BS or TD-SR, with one parameter vector per animal, passes all eleven tests by the
   primary rule, and still passes them under the robustness checks in
   METHODS.md (other noise seeds, the other missing-day rule, dt = 0.05 s).
 - **Supported** (the target is solved the other way): a written argument shows
