@@ -24,8 +24,9 @@ Conventions taken from the package loaders:
   effect of j on i. Groups `wt` and `unc31` each hold `dFF`, `q`, `q_eq` and
   `occ1` (number of trials).
 - The wired connectome is the default the atlas package uses: chemical and
-  gap-junction counts summed over White et al. 1986 and Witvliet et al. 2021
-  adult datasets.
+  gap-junction counts summed over White et al. 1986 (whole animal and L4
+  files) and Witvliet et al. 2021 adult datasets. (Corrected after the run:
+  the plan first said "adult" only.)
 - Peptide CSV: first row and first column are neuron names; row = releasing
   (pre) neuron, column = receiving (post) neuron; entries count
   neuropeptide–GPCR pathways. Names are standardised as in cect (DA01 → DA1,
@@ -114,3 +115,6 @@ change the status.
    The quick-run numbers from the buggy order were seen; nothing in the plan
    or decision rule was changed after seeing them, and a full run started
    with the bug was stopped before it printed any result.
+2. Found by the independent review after the full run, not acted on in the
+   planned analysis: the default connectome gives AWCON and AWCOFF no wired
+   links. Its effect is reported as a limit in README.md (status unchanged).
