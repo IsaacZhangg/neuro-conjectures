@@ -29,16 +29,20 @@ def tail_moment_bound(L, k):
         b = 2*L**(k-1)*ph/(1-arb(k-1)/(L*L))
     return float(b.mid()+b.rad())*1.01
 
-def gauss_E(f, L=14, tail=(1.0,), rel_tol=None, even=False):
+def gauss_E(f, L=14, tail=(1.0,), rel_tol=None, even=False, pieces=1):
     """Enclosure of E f(Z), Z~N(0,1).
     f(z, analytic) -> acb, must flag non-analytic via the analytic arg.
     tail: coefficients (floats, upper bounds) c_k with |f(z)| <= sum c_k |z|^k for |z| >= L (real z).
     """
     g = lambda z, an: f(z, an)*phi(z)
+    a = 0 if even else -L
+    n = pieces if even else 2*pieces
+    h = arb(L - a)/n
+    I = acb(0)
+    for i in range(n):
+        I += acb.integral(g, a + h*i, a + h*(i+1), rel_tol=rel_tol)
     if even:
-        I = 2*acb.integral(g, 0, L, rel_tol=rel_tol)
-    else:
-        I = acb.integral(g, -L, L, rel_tol=rel_tol)
+        I = 2*I
     t = sum(c*tail_moment_bound(L, k) for k, c in enumerate(tail))
     I = I.real
     return I + arb(0, t)

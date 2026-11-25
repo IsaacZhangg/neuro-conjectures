@@ -79,20 +79,23 @@ class KM:
         def f(z, an):
             u = (k - rq*z)/s
             E = Ecal(u); Ep = E*(E-u)
-            return Ep/((1-q)*(1-Ep) + mz*Ep)
+            return Ep/((1-q) + (mz-1+q)*Ep)
         mlo = float(mz.mid()) - float(mz.rad())
         assert mlo > 0
-        return gauss_E(f, L, (1.0/mlo*1.0001,))
+        return gauss_E(f, L, (1.0/mlo*1.0001,), pieces=14)
     def lam(self, z0, alpha, q, psi):
         mz = self.m(z0, psi)
         d0 = alpha*self.EFp(q, 1)
         return z0 - alpha*self.Eg(q, mz) - d0
 
 def fixed_point_mid(km, alpha, q):
-    for _ in range(400):
-        qn = km.T(alpha, arb(q.mid()))
-        qn = arb(qn.mid())
-        if abs(float(qn - q)) < 1e-30: break
+    # Newton iteration on T(q) - q (midpoints only; the result is certified afterwards)
+    for _ in range(30):
+        q = arb(q.mid())
+        g = km.T(alpha, q) - q
+        dg = km.dT(alpha, q) - 1
+        qn = arb((q - g/dg).mid())
+        if abs(float(qn - q)) < 1e-32: return qn
         q = qn
     return q
 
@@ -138,17 +141,15 @@ def certify(kappa, alpha_f, q_f, dalpha=1e-9, dq=1e-7, prec=128, zgrid=None, ver
     out.update(cond33_value=str(c33v), cond33=bool(c33v < 1))
     # Condition 3.4: choose zhat by a coarse midpoint scan, then certify at zhat
     am, qm, pm = arb(A.mid()), arb(Q0.mid()), arb(Psi0.mid())
-    ctx.prec = 64
-    best = None
-    grid = zgrid or [-0.99 + 0.01*i for i in range(0, 300)]
-    for z in grid:
-        v = float(km.lam(arb(z), am, qm, pm).mid())
-        if best is None or v < best[1]: best = (z, v)
-    zf = best[0]
-    for h in [0.004, 0.001, 0.0002]:
-        cands = [zf + h*j for j in range(-5, 6) if zf + h*j > -1]
-        vals = [(z, float(km.lam(arb(z), am, qm, pm).mid())) for z in cands]
-        zf = min(vals, key=lambda t: t[1])[0]
+    # lambda is strictly convex (Huang Lemma 3.5): golden-section search on midpoints
+    fl = lambda z: float(km.lam(arb(z), am, qm, pm).mid())
+    lo, hi = -0.99, 3.0
+    gr = (5**0.5 - 1)/2
+    x1, x2 = hi - gr*(hi-lo), lo + gr*(hi-lo); f1, f2 = fl(x1), fl(x2)
+    while hi - lo > 1e-4:
+        if f1 < f2: hi, x2, f2 = x2, x1, f1; x1 = hi - gr*(hi-lo); f1 = fl(x1)
+        else: lo, x1, f1 = x1, x2, f2; x2 = lo + gr*(hi-lo); f2 = fl(x2)
+    zf = (lo+hi)/2
     ctx.prec = prec
     zhat = arb(round(zf, 6))
     lamv = km.lam(zhat, A, Q0, Psi0)
