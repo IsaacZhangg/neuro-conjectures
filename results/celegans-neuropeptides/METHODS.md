@@ -104,4 +104,13 @@ change the status.
 
 ## Deviations from plan
 
-None yet.
+1. Neuron order bug, fixed before the full run. The first quick run (after
+   the plan was frozen) indexed matrices by the raw order of
+   `neuron_ids.txt`. The atlas package actually orders neurons by
+   `np.unique` of that list (sorted), which is also the order stored in
+   `funatlas.h5`. A data sanity check showed the mismatch (for example AS10
+   where AS2 was expected). check.py now uses the sorted order and stops if
+   it differs from `funatlas.h5` other than the known AWCOF/AWCOFF spelling.
+   The quick-run numbers from the buggy order were seen; nothing in the plan
+   or decision rule was changed after seeing them, and a full run started
+   with the bug was stopped before it printed any result.

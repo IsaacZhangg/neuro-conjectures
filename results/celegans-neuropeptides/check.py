@@ -68,16 +68,22 @@ def load_peptide(path: Path, ids: list[str]) -> tuple[np.ndarray, list[str]]:
 def load_real(data_dir: Path) -> dict:
     import h5py
 
-    ids = list(np.loadtxt(data_dir / "neuron_ids.txt", dtype=str)[:, 1])
+    # The atlas package orders neurons by np.unique (sorted) of this list; its
+    # matrices use that order, which funatlas.h5 stores as neuron_ids.
+    ids = [str(x) for x in np.unique(np.loadtxt(data_dir / "neuron_ids.txt", dtype=str)[:, 1])]
     out = {"ids": ids}
     with h5py.File(data_dir / "funatlas.h5", "r") as f:
         h5ids = [n.decode() for n in f["neuron_ids"][:]]
         mismatched = [(a, b) for a, b in zip(h5ids, ids) if a != b]
+        if len(h5ids) != len(ids) or any(a != "AWCOF" for a, _ in mismatched):
+            raise RuntimeError(f"atlas neuron order does not match: {mismatched[:5]}")
         out["atlas_id_mismatches"] = mismatched
         for strain in ["wt", "unc31"]:
             out[strain] = {k: f[strain][k][:] for k in ["q", "q_eq", "occ1"]}
     with h5py.File(data_dir / "aconnectome_default.h5", "r") as f:
         chem, gap = f["chem"][:], f["gap"][:]
+    if chem.shape != (len(ids), len(ids)):
+        raise RuntimeError("anatomical connectome has the wrong shape")
     W = (chem > 0) | (gap > 0) | (gap.T > 0)
     np.fill_diagonal(W, False)
     out["A_w"] = W
