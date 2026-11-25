@@ -273,3 +273,17 @@ Recorded after recomputing every test on the real data (no model had run yet):
    conclusion (t < 0, p < 0.05).
 4. Test 6. Abruptness t(6) = 9.69 here against 5.67 printed; change trial
    matches exactly (−2.40, p = 0.053). Same conclusion.
+5. Test 10 and 11 data, recomputed before any model run: Test 10 measure
+   −0.003, 95% CI [−0.240, 0.234], n = 7 (this CI is the Test 10 pass region);
+   Test 11 last-session CS1 response positive in all six inhibited animals;
+   inhibition ratios −0.24 to −0.93 (mean −0.56, paper about −0.6).
+6. Search box and screening, decided after a first trial run of the simulator
+   showed TD(λ) diverging for α above about 0.005 (raw, unnormalised step
+   size): α is searched over 1e−5 to 0.3 (log) instead of 1e−3 to 0.3, so
+   that the stable range is covered. Screening of the Sobol sample uses 2 noise
+   seeds and 6 Weibull starts for Test 4; finalists are rescored with the planned
+   20 seeds and 20 starts, and only those scores are reported. Sequential cohort
+   cues have no logged duration, so they get onset features only (as the
+   METHODS rule for cues without a duration says). The inhibition laser runs from
+   its logged onset (CS2) to the next cued solenoid.
+

@@ -85,19 +85,21 @@ def conv_valid(a: np.ndarray, k: np.ndarray) -> np.ndarray:
 
 
 def nearest_idx(t: np.ndarray, x: np.ndarray) -> np.ndarray:
-    """MATLAB min(abs(t - x)) index; NaNs in t never win. x may hold NaN."""
-    tt = np.where(np.isnan(t), np.inf, t)
-    order = np.argsort(tt, kind="stable")
-    ts = tt[order]
+    """MATLAB min(abs(t - x)) index (first index on ties); NaNs in t never win; -1 for NaN x."""
+    x = np.asarray(x, float)
+    good = np.nonzero(~np.isnan(t))[0]
+    tg = t[good]
+    if np.all(np.diff(tg) >= 0):
+        i = np.searchsorted(tg, np.where(np.isnan(x), 0, x))
+        lo = np.clip(i - 1, 0, len(tg) - 1)
+        hi = np.clip(i, 0, len(tg) - 1)
+        pick = np.where(np.abs(tg[lo] - x) <= np.abs(tg[hi] - x), lo, hi)
+        out = good[pick]
+        out[np.isnan(x)] = -1
+        return out
     out = np.zeros(len(x), dtype=int)
     for j, v in enumerate(x):
-        if np.isnan(v):
-            out[j] = -1
-            continue
-        i = np.searchsorted(ts, v)
-        cand = [c for c in (i - 1, i) if 0 <= c < len(ts)]
-        best = min(cand, key=lambda c: (abs(ts[c] - v), order[c]))
-        out[j] = order[best]
+        out[j] = -1 if np.isnan(v) else int(np.nanargmin(np.abs(t - v)))
     return out
 
 
@@ -124,20 +126,17 @@ def alignsignal2event(t, sig, ev, window, resolution):
     dt = np.round(np.nanmean(np.diff(t)) * 10) / 10
     w0, w1 = int(np.round(window[0] / dt)), int(np.round(window[1] / dt))
     time = np.arange(w0, w1 + 1) * dt
-    al = np.full((len(ev), len(time)), np.nan)
     idx = nearest_idx(t, ev)
     n = len(sig)
-    for j in range(len(ev)):
-        if np.isnan(ev[j]):
-            continue
-        i = idx[j]
-        lo, hi = i + w0, i + w1
-        a, b = max(lo, 0), min(hi, n - 1)
-        if b >= a:
-            al[j, a - lo:b - lo + 1] = sig[a:b + 1]
-    if resolution > 0:
+    cols = idx[:, None] + np.arange(w0, w1 + 1)[None, :]
+    valid = (cols >= 0) & (cols < n) & (idx[:, None] >= 0)
+    al = np.where(valid, sig[np.clip(cols, 0, n - 1)], np.nan)
+    if resolution > 0 and len(al):
         k = gauss_kernel(5 * resolution, resolution)
-        al = np.array([conv_same(r, k) for r in al]) if len(al) else al
+        from scipy.signal import fftconvolve  # noqa: F401
+        full = np.apply_along_axis(lambda r: np.convolve(r, k), 1, al)
+        st = len(k) // 2
+        al = full[:, st:st + al.shape[1]]
     return time, al
 
 

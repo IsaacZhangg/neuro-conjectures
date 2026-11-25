@@ -134,13 +134,16 @@ def weibull(x, A, L, S, b):
     return A * (1 - 2.0 ** (-(x / L) ** S)) + b
 
 
+FIT_STARTS = 20
+
+
 def fit_aic(y, lower, upper, nbefore, seed=7):
     n = len(y)
     x = np.arange(1, n + 1, dtype=float)
     rng = np.random.default_rng(seed)
     best = np.inf
     lo, hi = np.array(lower, float), np.array(upper, float)
-    for k in range(20):
+    for k in range(FIT_STARTS):
         p0 = lo + rng.random(4) * (hi - lo)
         if k == 0:
             p0 = np.clip([np.nanmax(y) - np.nanmin(y), nbefore + 1, 2.0, np.nanmin(y)], lo + 1e-9, hi - 1e-9)
@@ -177,7 +180,7 @@ def cumsum_stats(m):
         out["change_" + key] = int(np.argmax(d)) + 1
     if iC == 1:
         out["daic_lick"] = fit_aic(m["lick"][:ntot], [0, nbefore - 10, 0, 0], [9000, ntot, 100, 4000], nbefore)
-        out["daic_da"] = fit_aic(m["da_auc"][:ntot], [-2, nbefore - 10, 0, -10], [50, ntot, 10, 10], nbefore)
+        out["daic_da"] = fit_aic(m["da_auc"][:ntot] / 100.0, [-2, nbefore - 10, 0, -10], [50, ntot, 10, 10], nbefore)
     if iC == 2:
         out["mean_da_ext"] = float(np.mean(m["da_auc"][nbefore:ntot]))
     return out
