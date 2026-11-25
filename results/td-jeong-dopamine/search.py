@@ -81,7 +81,8 @@ def main():
     if os.path.exists(a.out):
         done = {json.loads(l)["i"] for l in open(a.out)}
     items = [(i, dict(decode(u, box), cls=a.cls)) for i, u in enumerate(U) if i not in done]
-    with mp.Pool(a.workers, initializer=init, initargs=(a.cache, a.ctx, a.seq)) as pool, open(a.out, "a") as f:
+    init(a.cache, a.ctx, a.seq)  # load once; forked workers share the arrays copy-on-write
+    with mp.get_context("fork").Pool(a.workers) as pool, open(a.out, "a") as f:
         for r in pool.imap_unordered(work, items, chunksize=1):
             f.write(json.dumps(r, default=float) + "\n"); f.flush()
 
