@@ -30,6 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
+| 2 | [Can one TD model reproduce Jeong et al. 2022's dopamine tests?](results/td-jeong-dopamine/) | Model claim | Open, plan frozen | ⬜ |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 
