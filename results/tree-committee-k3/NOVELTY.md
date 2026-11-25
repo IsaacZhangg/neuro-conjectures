@@ -59,8 +59,8 @@ networks").
   Durbin 1989, Bartlett 1993, Maass 1994 and Sakurai 1995, and sums up that
   literature as "the well known lower and upper bounds of the storage capacity
   (per adjustable weight) of 1 and log₂ K". No K = 3 committee value is quoted.
-  Monasson–Zecchina and Engel–Van den Broeck-era papers we read do not quote
-  Wendemuth's bound.
+  The Monasson–Zecchina letter (cond-mat/9501082) does not cite it, and we
+  could not read the Engel–Van den Broeck book.
 - So the only lower bound we can attribute to this literature is 1 per
   adjustable weight, below 1.55. A fixed-internal-representation counting
   argument with Cover's theorem gives exactly 1 for K = 3, which fits that
