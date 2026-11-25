@@ -15,6 +15,8 @@ These rules apply to any AI agent working in this repository.
   an unsupported "verified" is not.
 - Do not commit raw data, credentials, or anything that could identify a person.
 - An agent review is labelled as such in REVIEW.md and cannot by itself earn ✅.
-- Before a pull request: run every touched check in quick mode and
+- Before a pull request: run every touched check in quick mode
+  (`scripts/quick_checks.sh` runs them the way CI does, one uv environment per
+  result built from its own requirements.txt) and
   `python scripts/check_catalogue.py`, and update README.md, CONTENTS.md and
   HISTORY.md together.
