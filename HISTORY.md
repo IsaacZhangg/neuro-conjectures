@@ -26,3 +26,10 @@ Proof that the all-pattern capacity of dense associative memory with Gaussian
 patterns equals the Lucibello and Mézard union bound for every λ ∈ (0, ∞]
 under the static retrieval criterion, with constants certified by Arb and an
 independent AI-agent review. Status Proved.
+
+## 2026-11-25: SCS network global stability (Partial)
+
+Proved that the silent state of the Sompolinsky–Crisanti–Sommers random
+network is globally stable with high probability for g < 1/√2, past the
+known g < 1/2. The range 1/√2 ≤ g < 1 stays open. Not yet independently
+reviewed.

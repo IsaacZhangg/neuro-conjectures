@@ -32,6 +32,7 @@ medical advice.
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
 | 2 | [Neuropeptide links and C. elegans signal propagation](results/celegans-neuropeptides/) | Empirical claim | Partial: helps only for pairs with no wired path, one peptide model | 🟡 |
 | 3 | [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Theorem | Proved (static retrieval criterion): α_c = union bound for all λ, (log 2)/4 for λ ≥ 0.70092 | 🟡 |
+| 4 | [SCS random network: silent state globally stable for g < 1/√2](results/scs-global-stability/) | Theorem | Partial: proved for g < 1/√2, open for 1/√2 ≤ g < 1 | 🟡 |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 

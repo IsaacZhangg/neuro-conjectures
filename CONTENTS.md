@@ -13,6 +13,7 @@ Every result with its exact scope. The README table is the short form.
 | Result | Exact scope tested | Evidence |
 | :-- | :-- | :-- |
 | [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Dense associative memory with log-sum-exp energy at interaction strength λ ∈ (0, ∞], P = e^{αN} iid standard Gaussian patterns, static signal-dominance retrieval (Lucibello and Mézard eqs. 6 and 86), N → ∞. Target: all-pattern threshold equals their union bound, (log 2)/4 at large λ. | Proved: α_c(λ) = min(α_a(λ), (log 2)/4) for every λ ∈ (0, ∞], sharp transition; (log 2)/4 for λ ≥ 0.70092. Agent-reviewed. |
+| [SCS random network global stability](results/scs-global-stability/) | dx/dt = −x + J tanh(x), J_ij iid N(0, g²/N). Proved: origin globally asymptotically stable for all initial conditions with probability ≥ 1 − exp(−N(1 − √2 g)²/(2g²)) when g < 1/√2. Open: 1/√2 ≤ g < 1. | Written proof (Lyapunov function plus Gaussian random-matrix bounds), numerical spot checks with recorded output. Not yet independently reviewed. |
 
 ## Empirical claims
 

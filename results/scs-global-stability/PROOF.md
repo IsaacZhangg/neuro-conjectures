@@ -103,9 +103,10 @@ s² = (1 − √2 g)²/g². ∎
 - **Diagonal weights.** V_D = Σ d_i log cosh x_i works whenever
   D(J − I) + (J − I)ᵀD ≺ 0 (Lyapunov diagonal stability of J − I), by the
   same computation. Numerically (check.py, check 4) the best diagonal D found
-  at g = 1 lowers λ_max of sym(D^{1/2} J D^{−1/2}) by 0.10 at N = 125,
-  0.07 at N = 250 to 500 and 0.06 at N = 1000, and the spread of the optimal
-  log d shrinks with N. We do not know whether the gain survives as N → ∞.
+  at g = 1 lowers λ_max of sym(D^{1/2} J D^{−1/2}) by about 0.09 at N = 125,
+  0.08 at N = 250, 0.06 at N = 500 and 0.055 at N = 1000 (mean of two
+  matrices each), and the spread of the optimal log d shrinks with N
+  (0.34, 0.28, 0.25, 0.22). We do not know whether the gain survives as N → ∞.
   The asymptotic threshold for Lyapunov diagonal stability of I − gG is,
   as far as we found, an open random-matrix question; it lies in
   [1/√2, 1] since diagonal stability forces the spectral abscissa of gG
