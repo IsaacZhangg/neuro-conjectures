@@ -10,6 +10,7 @@ import numpy as np
 import evaluate as E
 import jeong as J
 import sim as S
+import sim_rich as R
 
 GROUPS_MAIN = ["T12", "T3", "T4", "T6", "T5", "T7", "T8", "T9"]
 
@@ -40,10 +41,17 @@ class Context:
 
 
 def simulate(ctx, p, subjects, inh=None):
-    table = S.ms_table(p["m"], p["sigma"], p["d"], csc=p.get("csc", False))
+    cls = p.get("cls", "MS")
+    table = None if cls == "BS" else S.ms_table(p["m"], p["sigma"], p["d"], csc=p.get("csc", False))
     model = {}
     for s in subjects:
-        out, _ = ctx.animals[s].run(p, table, inh=(inh or {}).get(s, 0.0))
+        I = (inh or {}).get(s, 0.0)
+        if cls == "BS":
+            out, _ = R.run_bs(ctx.animals[s], p, inh=I)
+        elif cls == "SR":
+            out, _ = R.run_sr(ctx.animals[s], p, table, inh=I)
+        else:
+            out, _ = ctx.animals[s].run(p, table, inh=I)
         for n, (st, delta) in out.items():
             if not np.all(np.isfinite(delta)):
                 raise FloatingPointError("diverged")

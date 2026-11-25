@@ -287,3 +287,15 @@ Recorded after recomputing every test on the real data (no model had run yet):
    METHODS rule for cues without a duration says). The inhibition laser runs from
    its logged onset (CS2) to the next cued solenoid.
 
+7. Implementation choices for Addendum A, fixed before any TD-BS or TD-SR
+   search run. TD-BS: counts start at N = 1, R = 0, empty delay histogram
+   (π = 0 before the first reward), and carry over across sessions like the
+   weights. "The open instance of the matching type" is read as the open
+   instance whose learned model gives the highest probability of a reward at
+   its current age, π_c F_c'(τ); when no instance predicts a reward (as before
+   any learning), the most recent cue onset takes it. A reward with no open
+   instance updates no counts. The ITI feature is 1 minus the summed wait mass,
+   clipped. TD-SR: M carries over across sessions; features below 1e−7 are
+   treated as zero for speed. Both classes: when a model's reward reference
+   response is not positive no positive scale can match the data, so that
+   animal's measures are undefined and the tests that use it fail.
