@@ -9,7 +9,15 @@ neuron pairs show a response, and the improvement is largest for pairs that
 have no wired path between them.
 
 This precise version is our reading. The candidate list stated the idea in
-words; no paper we found states it with a quantity (see SOURCES.md).
+words; no paper we found states it with a quantity (see SOURCES.md). The
+closest prior statement is negative: Sale and Richardson (2026) say in one
+sentence that the available neuropeptide networks "did not explain the
+measured responses". This result is a pre-registered, quantitative test of
+that point.
+
+"No wired path" means no wired path of length one or two. In a nearly
+strongly connected graph almost every pair has some path, so "no path at all"
+would leave almost no pairs; two steps matches the predictor.
 
 ## Where it comes from
 
@@ -52,7 +60,12 @@ Exact locations are in SOURCES.md.
 
 ## Decision rule (committed before any code reads the data)
 
-Primary analysis: PRIMARY_NETWORK_PLACEHOLDER.
+Primary analysis: the Ripoll-Sánchez short-range model (links only between
+neurons whose processes share a nerve bundle). It is the sparsest and most
+anatomically constrained of the three, so its degree-preserving null is the
+least saturated. We could not confirm which range model Ripoll-Sánchez et al.
+treat as their main network; the mid- and long-range models are run as
+robustness checks R1.
 
 - (a) holds if the 95% interval of G_all is above 0 and its null p < 0.05.
 - (b) holds if the 95% interval of G_none is above 0 and its null p < 0.05.

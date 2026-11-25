@@ -27,7 +27,8 @@ HERE = Path(__file__).resolve().parent
 SEED = 20261125
 Q_TH = 0.05
 RANGES = ["short_range_model", "mid_range_model", "long_range_model"]
-PRIMARY = "PRIMARY_NETWORK_PLACEHOLDER"
+PRIMARY = "short_range_model"
+OCC_BINS = [1, 2, 3, 5]  # strata: 1, 2, 3-4, >=5 trials (R4)
 N_BOOT, N_NULL = 2000, 1000
 N_BOOT_QUICK, N_NULL_QUICK = 50, 20
 SWAPS_PER_EDGE, MAX_ATTEMPTS_PER_EDGE = 10, 100
@@ -131,11 +132,29 @@ def auroc(score: np.ndarray, y: np.ndarray) -> float:
     return float((ranks[y].sum() - n1 * (n1 + 1) / 2.0) / (n1 * n0))
 
 
-def gains(sw: np.ndarray, su: np.ndarray, y: np.ndarray, none: np.ndarray) -> dict:
-    g_all = auroc(su, y) - auroc(sw, y)
-    g_none = auroc(su[none], y[none]) - 0.5
+def auroc_strat(score: np.ndarray, y: np.ndarray, strata) -> float:
+    """AUROC comparing only pairs in the same stratum (None = plain AUROC)."""
+    if strata is None:
+        return auroc(score, y)
+    num = den = 0.0
+    for s in np.unique(strata):
+        m = strata == s
+        n1 = int(y[m].sum())
+        n0 = int(m.sum()) - n1
+        if n1 and n0:
+            num += auroc(score[m], y[m]) * n1 * n0
+            den += n1 * n0
+    return num / den if den else float("nan")
+
+
+def gains(sw: np.ndarray, su: np.ndarray, y: np.ndarray, none: np.ndarray, strata=None) -> dict:
+    def st(m):
+        return None if strata is None else strata[m]
+    allm = np.ones(y.size, dtype=bool)
+    g_all = auroc_strat(su, y, st(allm)) - auroc_strat(sw, y, st(allm))
+    g_none = auroc_strat(su[none], y[none], st(none)) - 0.5
     path = ~none
-    g_path = auroc(su[path], y[path]) - auroc(sw[path], y[path])
+    g_path = auroc_strat(su[path], y[path], st(path)) - auroc_strat(sw[path], y[path], st(path))
     return {"G_all": g_all, "G_none": g_none, "G_path": g_path}
 
 
@@ -214,7 +233,7 @@ def pair_set(strain: dict, label_mode: str):
     else:
         raise ValueError(label_mode)
     ii, jj = np.nonzero(keep)
-    return ii, jj, pos[ii, jj]
+    return ii, jj, pos[ii, jj], np.digitize(occ[ii, jj], OCC_BINS)
 
 
 def _r(x, nd: int = 5):
@@ -248,20 +267,21 @@ def run(data: dict, n_boot: int, n_null: int, variants: list[dict], seed: int) -
     # set up each variant's pairs and observed values
     prepared = {}
     for v in variants:
-        ii, jj, y = pair_set(data["wt"], v["labels"])
+        ii, jj, y, occ_stratum = pair_set(data["wt"], v["labels"])
+        strata = occ_stratum if v.get("stratify_occ") else None
         two = v["two_step"]
         sw_full = path_score(A_w, two)
         A_p = data["peptide"][v["network"]]["A"]
         su_full = path_score(A_w | A_p, two)
         sw, su = sw_full[ii, jj], su_full[ii, jj]
         none = sw == 0
-        obs = gains(sw, su, y, none)
+        obs = gains(sw, su, y, none, strata)
         groups = {}
         for k, j in enumerate(jj):
             groups.setdefault(int(j), []).append(k)
         group_idx = [np.array(g) for g in groups.values()]
         prepared[v["name"]] = dict(ii=ii, jj=jj, y=y, sw=sw, su=su, none=none, obs=obs,
-                                   groups=group_idx, v=v)
+                                   groups=group_idx, v=v, strata=strata)
     # bootstrap
     for name, p in prepared.items():
         bs = {k: [] for k in p["obs"]}
@@ -269,7 +289,8 @@ def run(data: dict, n_boot: int, n_null: int, variants: list[dict], seed: int) -
         for _ in range(n_boot):
             draw = rng.integers(len(g), size=len(g))
             idx = np.concatenate([g[d] for d in draw])
-            gb = gains(p["sw"][idx], p["su"][idx], p["y"][idx], p["none"][idx])
+            sb = None if p["strata"] is None else p["strata"][idx]
+            gb = gains(p["sw"][idx], p["su"][idx], p["y"][idx], p["none"][idx], sb)
             for k in bs:
                 bs[k].append(gb[k])
         p["boot"] = {k: np.array(x) for k, x in bs.items()}
@@ -287,7 +308,7 @@ def run(data: dict, n_boot: int, n_null: int, variants: list[dict], seed: int) -
             for p in users:
                 two = p["v"]["two_step"]
                 su = path_score(A_w | R, two)[p["ii"], p["jj"]]
-                gn = gains(p["sw"], su, p["y"], p["none"])
+                gn = gains(p["sw"], su, p["y"], p["none"], p["strata"])
                 p["null"]["G_all"].append(gn["G_all"])
                 p["null"]["G_none"].append(gn["G_none"])
         for p in users:
@@ -309,8 +330,8 @@ def run(data: dict, n_boot: int, n_null: int, variants: list[dict], seed: int) -
                 entry["null_95th"] = _r(np.percentile(nul, 95)) if nul.size else None
             st[k] = entry
         y, none = p["y"], p["none"]
-        st["auroc_wired_all"] = _r(auroc(p["sw"], y))
-        st["auroc_combined_all"] = _r(auroc(p["su"], y))
+        st["auroc_wired_all"] = _r(auroc_strat(p["sw"], y, p["strata"]))
+        st["auroc_combined_all"] = _r(auroc_strat(p["su"], y, p["strata"]))
         st["counts"] = {
             "pairs": int(y.size), "responding": int(y.sum()),
             "stimulated_neurons": len(p["groups"]),
@@ -329,7 +350,7 @@ def exploratory_unc31(data: dict, net: str) -> dict:
     none = path_score(A_w) == 0
     out = {}
     for strain in ["wt", "unc31"]:
-        ii, jj, y = pair_set(data[strain], "standard")
+        ii, jj, y, _ = pair_set(data[strain], "standard")
         sel = none[ii, jj]
         pep = A_p[ii, jj]
         row = {}
@@ -368,7 +389,9 @@ def main() -> int:
     if not args.quick:
         variants += [{"name": f"R1_{r}", "network": r, "labels": "standard", "two_step": True} for r in others]
         variants += [{"name": "R2_q_eq_negatives", "network": PRIMARY, "labels": "q_eq_negatives", "two_step": True},
-                     {"name": "R3_direct_only", "network": PRIMARY, "labels": "standard", "two_step": False}]
+                     {"name": "R3_direct_only", "network": PRIMARY, "labels": "standard", "two_step": False},
+                     {"name": "R4_occurrence_stratified", "network": PRIMARY, "labels": "standard", "two_step": True,
+                      "stratify_occ": True}]
     n_boot, n_null = (N_BOOT_QUICK, N_NULL_QUICK) if args.quick else (N_BOOT, N_NULL)
     res = run(data, n_boot, n_null, variants, args.seed)
 

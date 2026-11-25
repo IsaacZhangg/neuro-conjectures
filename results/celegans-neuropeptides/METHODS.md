@@ -3,7 +3,8 @@
 Committed before any code reads the data. The git history is the record.
 Until this file was committed, only file listings, file sizes, checksums and
 the loader code of the two packages were inspected, to learn file formats and
-index conventions. No data values were read.
+index conventions. No data values were read. check.py was tested only on a
+synthetic network before this commit.
 
 ## Data
 
@@ -81,6 +82,14 @@ Each is run with the same decision rule; the result table reports all of them.
   dropped.
 - R3: direct-link predictor only, S(A) = A, with "no wired path" meaning no
   direct wired link.
+- R4: AUROC stratified by number of trials, because pairs measured more often
+  are more likely to reach q < 0.05 (Sale and Richardson 2026 report that
+  observation count alone gives AUC 0.709). Strata: occurrence 1, 2, 3–4, ≥ 5.
+  The stratified AUROC compares only responding and non-responding pairs in
+  the same stratum: the sum over strata of the Mann–Whitney U divided by the
+  sum over strata of n_responding × n_not_responding. Strata with no pair of
+  one class contribute nothing. Primary network, standard labels, two-step
+  predictor.
 
 If any variant reaches the opposite pole from the primary (Supported versus
 Refuted), the status is Contested. Other differences are reported but do not
