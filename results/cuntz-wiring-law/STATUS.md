@@ -1,5 +1,7 @@
 # Status note (2026-11-25)
 
+**Update 22:19 UTC:** parked as a replication. The 2/3 law was already tested on fly, zebrafish and mouse EM neurons (Ferreira Castro and Cardona, doi:10.1101/2024.07.18.604056), so this is not being taken further. No issue or PR.
+
 **Update 22:05 UTC:** review resumed at the main chat's request; the result
 is not to be posted or filed publicly until the review is done. Licenses now
 checked (see SOURCES.md and DATA-LICENSE.md).
