@@ -31,6 +31,7 @@ WHEELS = {
             "wormneuroatlas/data/aconnectome_default.h5",
             "wormneuroatlas/data/neuron_ids.txt",
             "wormneuroatlas/data/aconnectome_ids_ganglia.json",
+            "wormneuroatlas/data/anatlas_neuron_positions.txt",
         ],
     },
     "cect": {
