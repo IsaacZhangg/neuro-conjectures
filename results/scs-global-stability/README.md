@@ -13,7 +13,7 @@ Reproducibility: 🟡 written proof with runnable numerical spot checks; not yet
 
 **Proved** (PROOF.md, Theorems 1 and 2): for every N and every s > 0, with
 probability at least 1 − exp(−N s²/2), the origin is globally asymptotically
-stable simultaneously for every g < 1/(√2 + s). For a fixed g < 1/√2 this
+stable simultaneously for every 0 ≤ g ≤ 1/(√2 + s). For a fixed g < 1/√2 this
 probability is at least 1 − exp(−N(1 − √2 g)²/(2g²)). Convergence is
 exponential, at a rate that depends on g and the starting point.
 

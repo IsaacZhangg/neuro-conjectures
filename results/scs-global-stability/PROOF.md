@@ -31,8 +31,7 @@ result self-contained.
 are unique for all t ≥ 0.
 
 *Properties of V.* For s ∈ ℝ: log cosh s ≥ 0 with equality only at s = 0;
-log cosh s ≤ s²/2 (since tanh s · s ≤ s² gives (log cosh)' ≤ s on s ≥ 0, and
-evenness); and log cosh s ≥ |s| − log 2 (since cosh s ≥ e^{|s|}/2). So V is
+log cosh s ≤ s²/2 (since (log cosh)′(s) = tanh s ≤ s on s ≥ 0, and evenness); and log cosh s ≥ |s| − log 2 (since cosh s ≥ e^{|s|}/2). So V is
 C¹, positive definite and radially unbounded, with |x_i| ≤ V(x) + log 2 for
 every i and 2V(x) ≤ |x|².
 
@@ -63,8 +62,8 @@ gives the bound. ∎
 
 (c) Consequently, for every N and s > 0, with probability at least
 1 − exp(−N s²/2), the origin is GAS **simultaneously for every
-g < 1/(√2 + s)** (same G, coupling J = (g/√N)G). In particular, for fixed
-g < 1/√2,
+0 ≤ g ≤ 1/(√2 + s)** (same G, coupling J = (g/√N)G). In particular, for fixed
+0 < g < 1/√2,
 
     P(origin is GAS) ≥ 1 − exp(−N (1 − √2 g)² / (2 g²)) → 1.
 
@@ -90,16 +89,20 @@ Boucheron, Lugosi and Massart, *Concentration Inequalities*, Thm 5.6) gives
 P(λ_max(W) ≥ E λ_max(W) + s) ≤ exp(−N s²/2), and (a) finishes it.
 
 **Proof of (c).** On the event λ_max(W) < √2 + s we have
-λ_max(J_s) = g λ_max(W) < g(√2 + s) < 1 for every g < 1/(√2 + s), and
-Theorem 1 applies. For fixed g < 1/√2 take s = 1/g − √2 > 0, so
-s² = (1 − √2 g)²/g². ∎
+λ_max(J_s) = g λ_max(W) < g(√2 + s) ≤ 1 for every 0 < g ≤ 1/(√2 + s), and
+Theorem 1 applies (g = 0 is trivial). For fixed 0 < g < 1/√2 take
+s = 1/g − √2 > 0, so g = 1/(√2 + s) and s² = (1 − √2 g)²/g². (Only g ≥ 0
+is meant throughout: g is the gain, and for g < 0 one would need the event
+for λ_max(−W) instead.) ∎
 
 ## How far this method can go
 
 - **The constant is sharp for the identity weight.** λ_max(W) → √2 almost
   surely (W is a Wigner matrix with off-diagonal variance 1/(2N);
-  Bai and Yin 1988, Füredi and Komlós 1981). So the Lyapunov function
-  Σ log cosh x_i certifies exactly the range g < 1/√2 asymptotically.
+  Bai and Yin 1988). So the Lyapunov function Σ log cosh x_i certifies
+  exactly the range g < 1/√2 asymptotically: near 0,
+  dV/dt ≈ −|x|² + xᵀJ_s x, which is positive along the top eigenvector of
+  J_s once λ_max(J_s) > 1, so V fails to be a Lyapunov function there.
 - **Diagonal weights.** V_D = Σ d_i log cosh x_i works whenever
   D(J − I) + (J − I)ᵀD ≺ 0 (Lyapunov diagonal stability of J − I), by the
   same computation. Numerically (check.py, check 4) the best diagonal D found
@@ -107,19 +110,22 @@ s² = (1 − √2 g)²/g². ∎
   0.08 at N = 250, 0.06 at N = 500 and 0.055 at N = 1000 (mean of two
   matrices each), and the spread of the optimal log d shrinks with N
   (0.34, 0.28, 0.25, 0.22). We do not know whether the gain survives as N → ∞.
-  The asymptotic threshold for Lyapunov diagonal stability of I − gG is,
+  The asymptotic threshold in g for Lyapunov diagonal stability of
+  J − I = (g/√N)G − I is,
   as far as we found, an open random-matrix question; it lies in
   [1/√2, 1] since diagonal stability forces the spectral abscissa of gG
   below 1. The same open question governs the random Lotka–Volterra model
-  (see SOURCES.md).
-- **Multiplier methods (not proved here, a remark).** Lyapunov–Postnikov
+  (see SOURCES.md; we did not check that this
+  equivalence is stated there in exactly this form).
+- **Multiplier methods (not proved here, a remark).** Lur'e–Postnikov
   functions x ᵀPx + Σ d_i ∫φ with S-procedure constraints, and frequency-domain
   Zames–Falb multipliers for repeated odd monotone nonlinearities, at
   frequency 0 need a static multiplier M₀ in the doubly-dominant class with
   M₀(I − J) + (I − J)ᵀM₀ᵀ ≻ 0. For dense iid J with entries of size N^{−1/2},
   diagonal dominance limits the off-diagonal part of M₀ to row sums of the
   size of its diagonal, which does not change the edge of the spectrum at
-  leading order. We therefore expect these methods to stop at the diagonal
+  leading order (though a sparse off-diagonal part of size O(1) is not
+  obviously negligible). We therefore expect these methods to stop at the diagonal
   threshold above. Going past it likely needs facts specific to tanh (for
   example tanh′(s) < 1 for s ≠ 0, and s − tanh s ≥ tanh³(s)/3) or arguments
   that use the dynamics. This remark is a heuristic, not a theorem.
@@ -128,7 +134,8 @@ s² = (1 − √2 g)²/g². ∎
 
 Global asymptotic stability with high probability for 1/√2 ≤ g < 1. The
 origin is locally exponentially stable there (spectral radius of J tends to
-g, no outliers; Tao and Vu; Bordenave and Chafaï's survey), and simulations
+g, no outliers; Geman 1986 and Bai and Yin 1986 for the spectral radius,
+Tao 2013 for outliers; Bordenave and Chafaï's survey), and simulations
 from wide initial conditions converge to 0 (check.py, check 3), but no
 global argument is proved.
 
@@ -136,8 +143,11 @@ global argument is proved.
 
 Real Gaussian couplings with variance g²/N, self-couplings included (they are
 harmless: removing the diagonal changes W by a diagonal matrix of norm
-O(√(log N / N)), and the proof of (a) goes through verbatim with
-Σ_{i≠j}, giving the same bound). Activation tanh. The GAS part of Theorem 1 (not the
+about √(2 log N / N), and the proof of (a) goes through with Σ_{i≠j},
+since then E(X_u − X_v)² = (2 − 2c² − Σ_i (u_i² − v_i²)²)/N ≤ (2 − 2c²)/N,
+giving the same bound; (b) is unchanged). Activation tanh. The GAS part of Theorem 1 (not the
 explicit rate) holds for any locally Lipschitz φ with sφ(s) ≥ φ(s)², φ(s) = 0
 only at s = 0, and ∫₀^s φ → ∞ as |s| → ∞, by the same proof with
-V = Σ_i ∫₀^{x_i} φ.
+V = Σ_i ∫₀^{x_i} φ. (Global existence then follows because V is
+non-increasing and radially unbounded, so solutions stay in compact
+sublevel sets.)
