@@ -6,7 +6,7 @@ reconstructions from the fly and mouse connectomes?
 
 Status: Contested
 Kind: Empirical claim
-Reproducibility: 🟡 runnable check with recorded output, agent review only
+Reproducibility: 🟡 runnable check with recorded output, independent AI agent review only
 
 ## Result
 
@@ -23,6 +23,9 @@ intervals over neurons within cell types. The window is [0.567, 0.767].
 
 - **FlyWire:** every interval, in the primary analysis and all three
   robustness variants, lies below the window, so the rule gives Refuted.
+  The margin is thin: the tips variant ends 0.001 below the window edge, and
+  an equally valid draw of the 15 neurons per type gives Inconclusive (see
+  METHODS.md, deviation 3). Read this as Refuted, marginally.
 - **MICrONS:** the primary interval lies below the window, but counting tips
   instead of branch points puts it inside, so the rule gives Contested.
 - **Status:** the frozen rule gives Contested when any dataset is Contested.

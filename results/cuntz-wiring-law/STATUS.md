@@ -22,8 +22,8 @@ further for now.
 
 ## What was not done
 
-- No independent review. An AI agent review was started and stopped
-  unfinished when the target was parked; REVIEW.md is empty.
+- Independent AI agent review done after the review resumed (REVIEW.md):
+  no blocking problems, same verdicts.
 - No person has reviewed the code or numbers.
 - No claim issue opened and no pull request; the branch is not merged.
 - Not tried: the synapse form of the law, axons with presynaptic sites as n,

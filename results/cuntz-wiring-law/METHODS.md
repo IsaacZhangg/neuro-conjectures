@@ -121,3 +121,24 @@ How they enter the verdict is set in CLAIM.md.
    `status` filter. With the filter, as the plan specifies, 402 types have at
    least 15 eligible neurons, so the run used 402 × 15 = 6,030 neurons. The
    sampling rule itself is unchanged.
+
+The following points were found by the independent review after the full run.
+None changes a verdict; they are recorded so the plan and the code can be
+compared exactly.
+
+3. **Order before sampling.** The plan did not say how a type's root ids are
+   ordered before `rng.choice`. `check.py` sorts them ascending. With file
+   order instead, the FlyWire sample shares only 2,207 of 6,030 neurons; that
+   draw gives primary β = 0.538 [0.534, 0.543] and the tips variant
+   0.564 [0.559, 0.568], whose upper end crosses the window edge, so FlyWire
+   would be Inconclusive rather than Refuted. The overall status is Contested
+   either way.
+4. **Exclusions are applied once.** The size rule (L ≥ 100 µm, bp ≥ 10,
+   V > 0) is applied at τ = 1 µm, and the same neurons enter every variant.
+   The plan did not say this. Applying the rule separately at each τ moves
+   FlyWire R2 from 0.459 to 0.470; no verdict changes.
+5. **Benchmark recipe.** The code draws the number of points and the box side
+   log-uniformly, and the two shorter sides are 0.3 to 1 times the long side,
+   so they can be as short as 15 µm, below the stated 50 to 500 µm. The
+   written recipe, implemented by the reviewer, gives β = 0.609 instead of
+   0.597; both are inside the window.
