@@ -47,8 +47,8 @@ sim_pipeline.py runs all three stages at finite N with cvxpy (Clarabel) and
 `python sim_pipeline.py 250 1.4 0` and `python sim_pipeline.py 400 1.5 0`.
 Error fractions were close to the limit predictions (stage 1: 0.179 and 0.198
 against 0.198 and 0.212; stage 2: 0.287 and 0.259 against 0.250 and 0.276);
-the stage-2 excess at N = 250 is within the finite-size fluctuations one
-expects at that size. This is not part of the proof; it checks that the limit formulas
+the stage-2 excess at N = 250 is larger than sampling noise alone, which
+points to finite-N corrections; it is gone at N = 400. This is not part of the proof; it checks that the limit formulas
 describe the optimisers.
 
 ## Robustness
