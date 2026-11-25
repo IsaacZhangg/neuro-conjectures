@@ -106,4 +106,13 @@ How they enter the verdict is set in CLAIM.md.
 
 ## Deviations from plan
 
-None yet.
+1. **MICrONS matching (before any MICrONS neuron was measured).** The first
+   field of `allen_visp_column_soma_coarse_types_v1.csv` turned out to be an
+   annotation id, not a nucleus id, so no row matched a skeleton by id. Rows
+   are now matched to nucleus ids through
+   `iarpa_microns/minnie/minnie65/nucleus_detection/nucleus_detection_v0.csv`
+   by exact equality of the soma point (x, y, z in voxels); a row with no
+   unique exact match is dropped and counted. All 1,347 E/I rows matched
+   exactly, and 1,342 of those nuclei have a v661 skeleton. Found during a
+   smoke run on five neurons per dataset; the five FlyWire neurons measured in
+   that run were not looked at beyond checking that the code ran.

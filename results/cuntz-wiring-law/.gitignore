@@ -1,0 +1,5 @@
+data/
+check-output-smoke.json
+manifest-smoke.json
+neuron-stats-smoke.csv
+__pycache__/
