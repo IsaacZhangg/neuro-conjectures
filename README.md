@@ -30,6 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
+| 2 | [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Theorem | Open, plan frozen | ⬜ |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 
