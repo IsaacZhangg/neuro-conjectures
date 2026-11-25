@@ -26,6 +26,9 @@ pages linked; statement locations still need confirming against the full text.
 
 ## 2. Power-law eigenspectrum of visual cortex responses (α ≈ 1)
 
+In progress: [results/v1-power-law-spectrum/](../results/v1-power-law-spectrum/)
+(branch `feat/v1-power-law-spectrum`).
+
 - **Claim.** The variance of the n-th principal component of mouse V1 responses
   to natural images decays as 1/n^α with α just above 1 (reported 1.04 ± 0.02 SE,
   7 recordings).

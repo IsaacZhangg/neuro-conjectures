@@ -30,6 +30,7 @@ medical advice.
 | # | Claim | Kind | Status | Reproducibility |
 | :-- | :-- | :-- | :-- | :-: |
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
+| 2 | [Power-law eigenspectrum of visual cortex responses, α ≈ 1](results/v1-power-law-spectrum/) | Empirical claim | Open, analysis plan committed | ⬜ |
 
 Status words are defined in [DESIGN.md](DESIGN.md#status). Reproducibility marks:
 
