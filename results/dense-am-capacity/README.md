@@ -23,6 +23,7 @@ by a second-moment estimate. Proof in [PROOF.md](PROOF.md).
 
 - [CLAIM.md](CLAIM.md): exact statement and decision rule.
 - [SOURCES.md](SOURCES.md): primary source and later work.
+- [NOVELTY.md](NOVELTY.md): what was already known, what is new, verdict.
 - [METHODS.md](METHODS.md): proof plan, constants, numerical support.
 - [check.py](check.py): entry point. `python check.py` / `python check.py --quick`.
 - [PROOF.md](PROOF.md): the proof.

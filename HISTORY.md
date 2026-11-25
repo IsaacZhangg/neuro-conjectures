@@ -33,3 +33,9 @@ Proved that the silent state of the Sompolinsky–Crisanti–Sommers random
 network is globally stable with high probability for g < 1/√2, past the
 known g < 1/2. The range 1/√2 ≤ g < 1 stays open. Not yet independently
 reviewed.
+
+## 2026-11-25: Dense associative memory capacity, novelty check
+
+Added NOVELTY.md. Fresh literature search found no earlier rigorous proof
+that the Gaussian all-pattern capacity equals the union bound; the union
+bound itself is Lucibello and Mézard's and is credited to them. Verdict: new.
