@@ -38,15 +38,36 @@ weights or thresholds and give no constant for this model.
 
 ## What we could not rule out
 
-- A. Wendemuth, "Storage capacity bounds in multilayer neural networks",
-  Int. J. Neural Systems 5 (1994) 217–228. Its abstract says it gives "general
-  analytic expressions for the lower and upper storage capacity bounds" for
-  networks with a fixed output function, including committee machines, and that
-  simulations sit "just slightly above the lower limit". The full text is
-  paywalled and we could not read it, so we cannot tell whether its lower limit
-  is rigorous or what value it gives for K = 3. It is from a physics group and
-  cited once (West and Saad 1998, a statistical mechanics paper), which suggests
-  a heuristic bound, but this is unverified. Checking it is the first open item.
+A. Wendemuth, "Storage capacity bounds in multilayer neural networks",
+Int. J. Neural Systems 5(3) (1994) 217–228, doi:10.1142/S0129065794000232
+(also a talk at EUFIT 94, and his 1994 Oxford thesis "Optimisation in neural
+networks").
+
+- Abstract: "General analytic expressions are given for the lower and upper
+  storage capacity bounds of multilayer neural networks which have variable
+  weights between input layer and first hidden layer, and a fixed output
+  function ... The special cases of committee and parity machines ... are
+  discussed ... An explanation is given as to why [simulations] have a storage
+  capacity just slightly above the lower limit and how this can be improved."
+- Full text: paywalled. No open preprint found (searched Exa and the web for
+  the paper, the conference version and the thesis; the thesis is listed in
+  EThOS/OpenGrey with no open copy).
+- Citing papers: Crossref lists one, West and Saad, J. Phys. A 31 (1998) 8977
+  (paywalled). West's open 1997 Edinburgh PhD thesis ("Role of biases in neural
+  network models", era.ed.ac.uk handle 1842/11546), chapter 4, cites
+  Wendemuth's bounds work together with Baum and Haussler 1989, Mitchison and
+  Durbin 1989, Bartlett 1993, Maass 1994 and Sakurai 1995, and sums up that
+  literature as "the well known lower and upper bounds of the storage capacity
+  (per adjustable weight) of 1 and log₂ K". No K = 3 committee value is quoted.
+  Monasson–Zecchina and Engel–Van den Broeck-era papers we read do not quote
+  Wendemuth's bound.
+- So the only lower bound we can attribute to this literature is 1 per
+  adjustable weight, below 1.55. A fixed-internal-representation counting
+  argument with Cover's theorem gives exactly 1 for K = 3, which fits that
+  summary, but we could not confirm that this is what Wendemuth computed, nor
+  whether his "lower limit" for K = 3 is rigorous or larger. **Not checked:**
+  if the paper gives a rigorous K = 3 bound of 1.55 or more, this result is
+  partly known.
 
 ## What is open
 
@@ -56,7 +77,9 @@ weights or thresholds and give no constant for this model.
 
 ## Verdict
 
-**New, as far as we can find**, with one unread 1994 paper as the caveat. The
+**New, as far as we can find.** The only lower bound we can trace in the older
+literature is 1 per weight; one 1994 paper (Wendemuth) could not be read and is
+the remaining caveat. The
 result is a first proved lower bound, not a new value: physics already predicts
 a capacity near 3 and simulations store about 2, so 1.55 confirms rigorously
 part of what was expected rather than discovering something unexpected. The
