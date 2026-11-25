@@ -12,7 +12,7 @@ Every result with its exact scope. The README table is the short form.
 
 | Result | Exact scope tested | Evidence |
 | :-- | :-- | :-- |
-| [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Dense associative memory with log-sum-exp energy at interaction strength λ ∈ (0, ∞], P = e^{αN} iid standard Gaussian patterns, static signal-dominance retrieval (Lucibello and Mézard eqs. 6 and 86), N → ∞. Target: all-pattern threshold equals their union bound, (log 2)/4 at large λ. | Claim and proof plan frozen; no result yet. |
+| [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Dense associative memory with log-sum-exp energy at interaction strength λ ∈ (0, ∞], P = e^{αN} iid standard Gaussian patterns, static signal-dominance retrieval (Lucibello and Mézard eqs. 6 and 86), N → ∞. Target: all-pattern threshold equals their union bound, (log 2)/4 at large λ. | Proved: α_c(λ) = min(α_a(λ), (log 2)/4) for every λ ∈ (0, ∞], sharp transition; (log 2)/4 for λ ≥ 0.70092. Agent-reviewed. |
 
 ## Empirical claims
 
