@@ -63,7 +63,7 @@ dense-core-vesicle release. The gap narrows in unc-31, but only a little.
 Open: whether a neuropeptide connectome adds predictive information about the
 measured signal propagation beyond wiring. Randi et al. checked 53 pairs one
 by one with no null; Sale and Richardson (2026) reported a negative in one
-sentence without numbers we could read. This result gives the first
+sentence without numbers we could read. As far as our search found, this result gives the first
 pre-registered numbers with a peptide-specific null: no for the network as a
 whole, a small but real yes for pairs that wiring cannot reach, and only for
 the short-range model.
