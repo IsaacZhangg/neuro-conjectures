@@ -1,0 +1,28 @@
+{
+ "kappa": "0.05",
+ "delta": 0.005,
+ "eps": 0.001,
+ "prec": 96,
+ "tol": 1e-11,
+ "n_boxes_passed": 41,
+ "n_unresolved": 0,
+ "wall_seconds": 550.5,
+ "coverage": {
+  "negative_chain_contiguous": true,
+  "negative_last_A": "0.9860797385393641",
+  "negative_right_end_lb": -0.00499990005348252,
+  "negative_reaches_minus_delta": true,
+  "positive_chain_contiguous": true,
+  "positive_left_end_ub": 0.004999900053805104,
+  "positive_starts_below_delta": true,
+  "positive_right_end_lb": 0.9990000641734169,
+  "positive_reaches_1_minus_eps": true
+ },
+ "certified": true,
+ "worst_bound": -2.7165140155226886e-06,
+ "worst_box_lambda": [
+  0.0049999,
+  0.00589016919585581,
+  0.0067804383917116195
+ ]
+}
