@@ -150,7 +150,7 @@ either reading.
   the certificates do not use.
 - `certify_bulk.py` — box design (float), per-box bound (Arb), bisection of failed boxes, coverage check.
 - `tighten_params.py`, `run_cert.py` — parameter enclosures (`run_cert.py` imports
-  `certify_1d.py` from `/home/claude/work`, which is not in this folder).
+  `certify_1d.py` from `../../code/`).
 - `kmf.py` — float α⋆, q⋆, ψ⋆ (starting values only).
 - `float_design/ds_S.py` — float reference, used only to place boxes and choose s.
 - `params_*.json` — parameter certificates. `certificate_kappa<κ>_delta<δ>_eps<ε>.json` —
@@ -160,12 +160,12 @@ either reading.
 ## Reproduce
 
     export DS_FLOAT_DIR=$PWD/float_design
-    /home/claude/venv-ising/bin/python run_cert.py 0.05 0.781074328272 0.57205355
-    /home/claude/venv-ising/bin/python tighten_params.py params_0.05.json
-    /home/claude/venv-ising/bin/python certify_bulk.py 0.05 params_0.05_tight.json 0.005 0.001 out d005e001
+    python run_cert.py 0.05 0.781074328272 0.57205355
+    python tighten_params.py params_0.05.json
+    python certify_bulk.py 0.05 params_0.05_tight.json 0.005 0.001 out d005e001
     # narrow box (centre from the wide box's G values) and the delta = 0.001 run
-    /home/claude/venv-ising/bin/python run_cert.py 0.05 0.7810743282532177 0.572053536013 1e-12 1e-10 _narrow
-    /home/claude/venv-ising/bin/python tighten_params.py params_0.05_narrow.json
-    /home/claude/venv-ising/bin/python certify_bulk.py 0.05 params_0.05_narrow_tight.json 0.001 0.0001 out narrow
+    python run_cert.py 0.05 0.7810743282532177 0.572053536013 1e-12 1e-10 _narrow
+    python tighten_params.py params_0.05_narrow.json
+    python certify_bulk.py 0.05 params_0.05_narrow_tight.json 0.001 0.0001 out narrow
     # kappa = 0.13: run_cert.py 0.13 0.7059325315484992 0.5847018890457119 (wide),
     #               run_cert.py 0.13 0.7059325315101112 0.5847018482133 1e-12 1e-10 _narrow
