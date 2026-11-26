@@ -157,5 +157,13 @@ whether their diameters were edited by a repair or curation step.
 
 ## Deviations from plan
 
-None to the primary plan. Amendment A1 (above) adds a secondary test on a
+- 2026-11-26, code fix, no change to the rule: the first full run (on Isaac's
+  Mac, 2026-11-25) matched no neuron, because the NeuroMorpho API returns
+  `experiment_condition` as a list (`['Control']` for 370,683 of 495,348
+  neurons) and `check.py` compared it with the string `Control`. The check now
+  keeps a neuron only when every listed condition is `Control`, which is the
+  inclusion rule above. Found from a count of field values only; no
+  reconstruction file had been downloaded.
+
+Otherwise none to the primary plan. Amendment A1 (above) adds a secondary test on a
 second dataset, committed before that dataset was read.

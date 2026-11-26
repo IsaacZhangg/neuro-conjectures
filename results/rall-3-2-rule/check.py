@@ -338,13 +338,21 @@ def load_metadata(offline: bool) -> tuple[list[dict], dict]:
     return neurons, info
 
 
+def is_control(cond) -> bool:
+    """True only for control animals. The API gives experiment_condition as a
+    list, such as ['Control']; a plain string is accepted too."""
+    if isinstance(cond, str):
+        return cond == "Control"
+    return isinstance(cond, list) and len(cond) > 0 and all(c == "Control" for c in cond)
+
+
 def eligible_by_metadata(n: dict) -> bool:
     attrs = n.get("attributes") or ""
     domain = n.get("domain") or ""
     cells = n.get("cell_type") or []
     return (attrs.startswith("Diameter")
             and "Dendrites" in domain and "No Dendrites" not in domain
-            and (n.get("experiment_condition") or "") == "Control"
+            and is_control(n.get("experiment_condition"))
             and not any("glia" in str(c).lower() for c in cells))
 
 
