@@ -23,7 +23,7 @@ new rigorous bounds, ideally with the right growth in T.
 
 Non-rigorous (statistical physics, simulation):
 - Gütig and Sompolinsky, Nat. Neurosci. 9 (2006) 420: the tempotron; capacity
-  measured in simulation, about 3 patterns per synapse at the parameters used.
+  measured in simulation, a few patterns per synapse at the parameters used.
 - Rubin, Monasson and Sompolinsky, PRL 105 (2010) 218102, arXiv:1010.5496:
   extreme value theory plus a replica calculation on internal representations
   gives α_c ≈ ln ln K / (2 ln 2) = (1/2) log2 ln K for large K, where K counts
