@@ -184,6 +184,15 @@ Remarks.
 
 ## 6. Binary patterns: Theorem 2 and the missing step
 
+> **Update, 2026-11-25.** Hypothesis (U) below is now proved in
+> [PROOF-pm1.md](PROOF-pm1.md), so Theorem 2 holds unconditionally for ±1
+> patterns. That proof does not compare the binary and Gaussian maxima
+> directly, which is the direction discussed below as possibly failing. It
+> bounds the binary maximum by a Sudakov–Fernique upper bound after a
+> dissection and a Lindeberg swap on capped rows only. The text of this
+> section is kept as written. The arXiv numbers cited in it were not
+> re-checked.
+
 In model R, gauge by the target: σ_i ↦ ξ_i σ_i and X_μi := ξ^μ_i ξ_i for the
 other M = P − 1 patterns. X has independent uniform ±1 entries independent of
 ξ, and Lemma 1 holds with G replaced by X (now Σ X_μi² = MN is a constant).

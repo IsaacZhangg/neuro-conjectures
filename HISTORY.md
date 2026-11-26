@@ -1,5 +1,9 @@
 # History
 
+## 2026-11-26: Hopfield bound, ±1 proof passes agent review
+
+A separate agent reviewed the ±1 energy-barrier proof ([PROOF-pm1.md](results/hopfield-rigorous-bound/PROOF-pm1.md)) and its certificate independently and found no gap. Six cosmetic issues were fixed. The status stays Partial until a person checks the proof.
+
 ## 2026-11-25: Hopfield bound, ±1 proof and novelty audit
 
 The universality step (U) is now proved in writing ([PROOF-pm1.md](results/hopfield-rigorous-bound/PROOF-pm1.md)). That makes the energy barrier around every ±1 pattern hold for α < 0.12948, up from 0.08 on record. Its constants are certified exactly. An independent review is still pending. A novelty audit ([NOVELTY.md](results/hopfield-rigorous-bound/NOVELTY.md)) found Zhou's 2026-11-05 preprint (unrefereed). It claims ±1 fixed points up to 0.1382, which would supersede the folder's original fixed-point goal and Theorem 3. The work is retargeted at the exact energy-barrier capacity, predicted to be about 0.1298.

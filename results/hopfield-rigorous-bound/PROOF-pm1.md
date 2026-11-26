@@ -1,4 +1,4 @@
-> **Not yet independently reviewed.** Agent-written proof of the ±1 universality step, 2026-11-25. The result README stays Partial until an independent review passes.
+> **Independently reviewed by an AI agent, not yet by a person.** Agent-written proof of the ±1 universality step, 2026-11-25. An independent adversarial agent review on 2026-11-26 found no fatal or fixable gap (see [REVIEW.md](REVIEW.md)). The result README stays Partial until a person has checked it.
 
 # ±1 Hopfield model: an unconditional proof of Theorem 2
 
@@ -14,17 +14,24 @@ without hypothesis (U), for every load α ∈ (0, 0.12948), with one radius for 
   and hence a fixed point σ* (σ*_i h_i(σ*) ≥ 0 for all i, the zero-field-keeps
   convention of PROOF.md Lemma 2′; strict if there are no ties) with
   d(σ*, ξ^ν) ≤ k − 1, overlap ≥ 0.932.
-- **What it rests on.** Every step is written out here except four standard results
-  that are quoted: Talagrand's concentration inequality for convex Lipschitz
+- **What it rests on.** Every step is written out here except a few standard
+  results that are quoted: Talagrand's concentration inequality for convex Lipschitz
   functions of bounded independent variables, Gaussian concentration for Lipschitz
-  functions, Gaussian integration by parts, and the volume bound for nets. Their
-  theorem numbers were taken from memory and not re-checked against the books.
+  functions, Gaussian integration by parts, Taylor's theorem with remainder, and the
+  Mills ratio bound for the normal tail. The volume bound for nets is proved here
+  (Lemma 3.3). The theorem numbers of the quoted results were taken from memory and
+  not re-checked against the books.
+- **Notation.** A few symbols are reused locally. ψ is the function of §4, and
+  ψ_{a,θ} in Step 5 is a different function. H is the Hamiltonian, except in Step 3,
+  where it names the hybrid matrix. Y is the Gaussian process in Theorem 3.5 and the
+  net in Step 3. Φ is the standard normal distribution function in PROOF.md and
+  Φ_{a,θ} here is unrelated. Each use is fixed by its section.
   All numbers are certified in exact rational arithmetic by `check_pm1.py` (§8).
 - **Nothing is left conditional.** No step had to be labelled conditional.
-- **Review status.** Written by an agent from a planner's draft, checked
-  adversarially in one session (§9 lists what changed), not independently reviewed
-  by a person. Treat it as a candidate proof until a second reader has gone through
-  §3–§7.
+- **Review status.** Written by an agent from a planner's draft and checked
+  adversarially in that session (§9 lists what changed). On 2026-11-26 a separate
+  agent reviewed §2–§7 and check_pm1.py independently and found only cosmetic
+  issues, fixed here. No person has checked it yet.
 
 ## 1. Setting and statement
 
@@ -497,7 +504,7 @@ and 2 for every pattern simultaneously. Case A and Case B cover (0, 0.12948). �
   the entries are bounded; the Lindeberg steps use the first two (Step 3) or three
   (Lemma 4.3) moments.
 - The same proof with the Hoeffding route alone at δ_H = Q(2.2217) gives the barrier for
-  α < A_H(δ_H) = 0.0879656… (C7). This is the best one can do without Lemma 4.3, but it
+  α < A_H(δ_H) = 0.0879656… (C7). This is the best this Hoeffding bound gives over δ, but it
   is not needed: at the radius δ₀ the Hoeffding route already reaches 0.0801 > 0.03.
 - In model R the target pattern is one of the P stored patterns, so Theorem 2′ is a
   statement about every stored pattern, not one target with independent interference.
