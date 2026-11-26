@@ -4,6 +4,8 @@ Literature search done on 2026-11-25. Tools: Exa web search, the Firecrawl resea
 
 **Verdict: partly known.** Most of what this folder set out to do was done by a preprint posted on 2026-11-05. That preprint has not been refereed. One part of this folder still looks new: the rigorous bound for the firm energy barrier around each ±1 pattern.
 
+**The barrier bound and Zhou's capacity measure different things.** Zhou's 0.1382 is the AGS capacity: a load has an energy well somewhere near each pattern. Our 0.12948 is the NLT barrier capacity: every configuration at Hamming radius ⌈δN⌉ has higher energy than the pattern itself, so zero-temperature dynamics started at the pattern stay nearby. The barrier capacity is at most the AGS capacity, so the two numbers are not competing values for one quantity, and 0.12948 is not a weaker version of 0.1382.
+
 ## What this folder states
 
 All statements use Hebbian couplings with M = αN patterns.
