@@ -2,8 +2,8 @@
 # Certify the RS fixed point (alpha*, q*, psi*) at margin kappa with certify_1d (Arb ball arithmetic).
 # kappa is passed as a decimal string so that arb(kappa) is an enclosure of the exact decimal.
 # usage: run_cert.py kappa alpha_float q_float [dalpha dq tag]
-import sys, json
-sys.path.insert(0, '/home/claude/work')
+import os, sys, json
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'code'))
 from certify_1d import certify
 k = sys.argv[1]
 a = float(sys.argv[2]); q = float(sys.argv[3])

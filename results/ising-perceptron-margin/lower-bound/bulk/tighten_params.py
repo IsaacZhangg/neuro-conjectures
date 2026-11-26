@@ -6,8 +6,8 @@
 # so psi*(alpha) lies in [psi*(alpha_lb), psi*(alpha_ub)], and each endpoint value is enclosed
 # by R(alpha_end, tight q*(alpha_end)), with the tight q*(alpha_end) re-certified by sign changes
 # of T(alpha_end, q) - q exactly as in certify_1d.tight().
-import sys, json
-sys.path.insert(0, '/home/claude/work')
+import os, sys, json
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'code'))
 from certify_1d import KM, fixed_point_mid, box
 from arbgauss import ub
 from flint import arb, ctx
