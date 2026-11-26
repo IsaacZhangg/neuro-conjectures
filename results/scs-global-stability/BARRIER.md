@@ -8,6 +8,14 @@ every fixed g > 1/√2, with probability tending to 1 exponentially fast, J − 
 is not LDS, so no diagonal weight works. Any proof of the conjecture for
 1/√2 < g < 1 therefore has to use something other than this family.
 
+In the random-matrix and ecology literature this was an explicitly open
+question. Gibbs, Grilli, Rogers and Allesina (Phys. Rev. E 98, 022410, 2018,
+arXiv:1708.08837) write: "Under which conditions they are also diagonally
+stable is an important open problem", and list as one possibility that
+"negative definiteness is almost surely a necessary condition for diagonal
+stability". Theorem 3 proves that possibility for iid Gaussian matrices, and
+the elliptic remark below extends it to correlated pairs (J_ij, J_ji).
+
 This is a theorem about the method, not about the network. It does not show
 that the network fails to be globally stable for g > 1/√2.
 
@@ -156,6 +164,20 @@ dV_D/dt ≥ −C′ε⁴ at x = εu, so dV_D/dt / |x|² is not bounded above by 
   (AX)_ii ≥ (a − 1 − |ξ_i|) P_ii + T_i, and max_i |ξ_i| ≤ g√(4 log N / N)
   with probability at least 1 − 2/N. So the conclusion holds with probability
   tending to 1 (we did not check the exponential rate in this case).
+- **Elliptic couplings.** Suppose instead that the pairs (G_ij, G_ji), i < j,
+  are iid centred Gaussian pairs with unit variances and correlation
+  ρ ∈ (−1, 1), independent of the diagonal (any distribution with
+  max_i |G_ii| ≤ √(4 log N) w.h.p.). Then G_ij + G_ji and G_ij − G_ji are
+  still independent, the off-diagonal part of H has iid N(0, g²(1 + ρ)/(2N))
+  entries, and K has iid N(0, g²(1 − ρ)/(2N)) entries above the diagonal.
+  Repeating the no-self-coupling argument (an auxiliary independent diagonal
+  ξ ~ N(0, g²(1 + ρ)/N) makes the matrix GOE, and the true diagonal of J and
+  ξ are both O(√(log N / N))), J − I fails to be LDS with probability
+  tending to 1 for every fixed g > 1/√(2(1 + ρ)). The negative-definiteness
+  threshold is g < 1/√(2(1 + ρ)), the constant in Clenet, El Ferchichi and
+  Najim (arXiv:2205.15591, Prop. 2.3), so for every ρ ∈ (−1, 1) the two
+  thresholds coincide. (ρ = 1 is the symmetric case, where they coincide
+  trivially.) Nonzero mean interactions are not covered.
 - **Other activations.** Lemma 4 and Theorem 3 are about the matrix J − I
   only, so the barrier applies to the Matsuoka / Forti–Tesi criterion for any
   slope-restricted activation, and to every argument that reduces to Lyapunov
@@ -197,5 +219,9 @@ This check is a guide, not part of the proof.
   Matrices*, CUP 2010 (semicircle law; Hoffman–Wielandt, Lemma 2.1.19).
 - S. Boucheron, G. Lugosi, P. Massart, *Concentration Inequalities*, OUP 2013,
   Thm 5.6.
+- T. Gibbs, J. Grilli, T. Rogers, S. Allesina, "Effect of population
+  abundances on the stability of large random ecosystems", *Phys. Rev. E* 98
+  (2018) 022410, arXiv:1708.08837, Section VII.
+- M. Clenet, H. El Ferchichi, J. Najim, arXiv:2205.15591, Prop. 2.3.
 - M. Clenet, F. Massol, J. Najim, *J. Math. Biol.* (2023), arXiv:2205.00735,
   Theorem 2 (via the Takeuchi–Adachi criterion).
