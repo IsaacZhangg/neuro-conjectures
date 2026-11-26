@@ -1,0 +1,3 @@
+N=10 seed=1 alpha(J0)=0.6294 lmax sym=0.8914 g_LDS=1.1999 g_P=I=1.0651
+  lo=1.1799 feasible=True {'rounds': 2, 'heur_missed': 0, 'status': 'optimal', 's': 0.4796746031089148, 'exh_max': -0.08398037361207873, 'heur_max': -0.08398037361207873, 'cert_margin': 0.08398037361207873}
+RESULT {'N': 10, 'seed': 1, 'mode': 'full', 'alpha_J0': 0.6293941579835421, 'lmax_symJ0': 0.8913567553705185, 'g_LDS': (1.199945068359375, 1.2), 'g_PI': np.float64(1.0651045431822364), 'g_cqlf': [1.179945068359375, 1.0], 'W_size': 18, 'P_cond': 13.74864107722468, 'P_offdiag_frac': 0.5619927964631072, 'final_exhaustive_max': -0.08398037361207873, 'time': 0.601698637008667}

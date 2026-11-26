@@ -1,0 +1,7 @@
+N=10 seed=3 alpha(J0)=0.9606 lmax sym=1.1979 g_LDS=0.9192 g_P=I=0.8271
+/home/claude/push2/numerics/cqlf.py:30: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  prob.solve(solver=solver)
+  lo=0.8992 feasible=True {'rounds': 8, 'heur_missed': 0, 'status': 'optimal', 's': 0.08812263977577622, 'exh_max': -0.013813357291643364, 'heur_max': -0.013813357291643364, 'cert_margin': 0.013813357291643364}
+  g=0.9192 feasible=True |W|=43 t=1.6s {'rounds': 4, 'heur_missed': 0, 'status': 'optimal', 's': 0.014989210959137878, 'exh_max': -0.0024776535701496677, 'heur_max': -0.0024776535701496677, 'cert_margin': 0.0024776535701496677}
+  g=0.9292 feasible=False |W|=43 t=0.4s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal_inaccurate', 's': -2.1625589364352194e-07}
+  g=0.9242 feasible=True |W|=49 t=1.0s {'rounds': 2, 'heur_missed': 0, 'status': 'optimal', 's': 0.0018165375067371182, 'exh_max': -0.0018165374699335654, 'heur_max': -0.0018165374699335654, 'cert_margin': 0.0018165374699335654}

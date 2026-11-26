@@ -47,7 +47,7 @@ def feasible_at(J0, g, W, rng, diag=False, max_rounds=200, exhaustive=False, log
             return False, P, info
         info["s"] = float(sv)
         cands = heuristic_max(P, J0, g, extra_starts=W[-5:], n_random=20 if N > 40 else 30, rng=rng)
-        viol = [m for f, m in cands if f > -0.25 * sv][:6]
+        viol = [m for f, m in cands if f > -0.25 * sv][:10]
         worst = cands[0][0]
         if worst >= 0:
             W.extend(viol if viol else [cands[0][1]])
@@ -67,7 +67,7 @@ def feasible_at(J0, g, W, rng, diag=False, max_rounds=200, exhaustive=False, log
     return None, P, info
 
 
-def bisect(J0, lo, hi, rng, diag=False, tol=2e-3, exhaustive=False, log=print):
+def bisect(J0, lo, hi, rng, diag=False, tol=2e-3, exhaustive=False, log=print, tcap=1e9):
     N = J0.shape[0]
     W = [np.zeros(N), np.ones(N)] + [np.eye(N)[i] for i in range(N)]
     # top-eigvec sign patterns of sym(J0)
@@ -79,7 +79,8 @@ def bisect(J0, lo, hi, rng, diag=False, tol=2e-3, exhaustive=False, log=print):
     if not ok:
         return None, lo, W, P
     Pbest = P
-    while hi - lo > tol:
+    tstart = time.time()
+    while hi - lo > tol and time.time() - tstart < tcap:
         g = (lo + hi) / 2
         t = time.time()
         ok, P, info = feasible_at(J0, g, W, rng, diag=diag, exhaustive=exhaustive)
@@ -137,7 +138,14 @@ if __name__ == "__main__":
         f"g_LDS={out['g_LDS'][0]:.4f} g_P=I={out['g_PI']:.4f}")
     diag = (mode == "diag")
     hi0 = min(1.0, 0.999 / out["alpha_J0"])
-    lo, hi, W, P = bisect(J0, 0.45, hi0, rng, diag=diag, exhaustive=(N <= 16), log=log)
+    gl = out["g_LDS"][0]
+    tcap = float(sys.argv[4]) if len(sys.argv) > 4 else 600
+    lo, hi, W, P = bisect(J0, gl - 0.02, min(gl + 0.02, hi0), rng, diag=diag, tol=2.5e-3,
+                          exhaustive=(N <= 16), log=log, tcap=tcap)
+    if lo is None:
+        log("  lower bracket infeasible -> restart bracket from 0.45")
+        lo, hi, W, P = bisect(J0, 0.45, gl - 0.02, rng, diag=diag, tol=2.5e-3,
+                              exhaustive=(N <= 16), log=log, tcap=tcap)
     out["g_cqlf"] = [lo, hi]
     out["W_size"] = len(W)
     if P is not None and lo is not None:
