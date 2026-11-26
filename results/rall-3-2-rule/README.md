@@ -72,6 +72,9 @@ minutes, downloads about 550 MB into `./data/`, ignored by git).
   the analysis from that cache.
 - manifest.json: neuron ids, archives, PubMed ids and SHA-256 of every analysed
   file (written by the full run).
+- [colab_run.ipynb](colab_run.ipynb): runs the full NeuroMorpho check on
+  Google Colab, with the download cache in Google Drive so a disconnect only
+  pauses it, then re-runs `--offline` and compares.
 - check-output.json: recorded full run (added after the run).
 - check-output-bluebrain.json and manifest-bluebrain.json: recorded secondary
   run on Blue Brain Open Data (CC BY 4.0), with S3 key, size and SHA-256 of
