@@ -34,11 +34,11 @@
     "stage3: A_UP + (beta-A_UP)*e2_upper < 2 (Cover)": true
   },
   "pass": true,
-  "mode": "full",
+  "mode": "quick",
   "software": {
-    "python": "3.13.18",
+    "python": "3.12.3",
     "python-flint": "0.9.0",
     "arb_prec_bits": 200
   },
-  "runtime_s": 0.006
+  "runtime_s": 0.008
 }

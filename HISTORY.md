@@ -76,3 +76,14 @@ K = 3 tree committee machine with Gaussian patterns, the first explicit proved
 lower bound we found. Status Partial: the exact capacity is still open (best
 proved upper bound 3.43). Agent-drafted, review pending. NOVELTY.md
 verdict: new as far as we can find; Wendemuth (1994) could not be read.
+
+## 2026-11-26: SCS global stability, diagonal-weight barrier
+
+Added results/scs-global-stability/BARRIER.md (Theorem 3), barrier_check.py and
+its output. New result: for every fixed g > 1/√2, (g/√N)G − I is not Lyapunov
+diagonally stable with probability ≥ 1 − exp(−cN), so no diagonal Lyapunov
+weight can push the SCS stability proof past 1/√2. This settles, for zero-mean
+Gaussian matrices, the open question in Gibbs, Grilli, Rogers and Allesina
+(2018) on when large random matrices are diagonally stable. Independent agent
+review, fixes applied. Conjecture status unchanged (Partial).
+

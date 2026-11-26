@@ -117,6 +117,9 @@ for λ_max(−W) instead.) ∎
   below 1. The same open question governs the random Lotka–Volterra model
   (see SOURCES.md; we did not check that this
   equivalence is stated there in exactly this form).
+  **Update 2026-11-26:** BARRIER.md, Theorem 3, proves that the threshold is
+  exactly 1/√2: for every fixed g > 1/√2, J − I is not Lyapunov diagonally
+  stable with probability ≥ 1 − exp(−cN), so the finite-N gain above vanishes.
 - **Multiplier methods (not proved here, a remark).** Lur'e–Postnikov
   functions x ᵀPx + Σ d_i ∫φ with S-procedure constraints, and frequency-domain
   Zames–Falb multipliers for repeated odd monotone nonlinearities, at

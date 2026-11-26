@@ -32,7 +32,7 @@ medical advice.
 | 1 | [Hopfield network storage capacity, α_c ≈ 0.138](results/hopfield-capacity/) | Model claim (replication) | Supported, finite-size simulation | 🟡 |
 | 2 | [Neuropeptide links and C. elegans signal propagation](results/celegans-neuropeptides/) | Empirical claim | Partial: helps only for pairs with no wired path, one peptide model | 🟡 |
 | 3 | [All-pattern capacity of dense associative memory, Gaussian patterns](results/dense-am-capacity/) | Theorem | Proved (static retrieval criterion): α_c = union bound for all λ, (log 2)/4 for λ ≥ 0.70092 | 🟡 |
-| 4 | [SCS random network: silent state globally stable for g < 1/√2](results/scs-global-stability/) | Theorem | Partial: proved for g < 1/√2 (method known from random Lotka–Volterra), open for 1/√2 ≤ g < 1 | 🟡 |
+| 4 | [SCS random network: silent state globally stable for g < 1/√2](results/scs-global-stability/) | Theorem | Partial: proved for g < 1/√2 (method known from random Lotka–Volterra), open for 1/√2 ≤ g < 1; proved that diagonal Lyapunov weights cannot pass 1/√2 | 🟡 |
 | 5 | [Rigorous Hopfield energy-barrier bound, α ≥ 0.1295 for ±1 patterns](results/hopfield-rigorous-bound/) | Theorem | Partial: ±1 barrier proof written, passed independent agent review (previous rigorous barrier bound 0.08). The barrier is a different, stronger notion than the AGS capacity 0.1382 claimed by Zhou (2026); Gaussian cases proved; 0.1347 fixed point superseded if Zhou (2026, unrefereed) holds | 🟡 |
 | 6 | [Tree committee machine, K = 3: capacity at least 1.55 (new proved lower bound)](results/tree-committee-k3/) | Theorem | Partial, lower bound only, Gaussian patterns | 🟡 |
 

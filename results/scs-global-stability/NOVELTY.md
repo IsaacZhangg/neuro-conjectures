@@ -54,3 +54,30 @@ known method. The window 1/√2 ≤ g < 1 is the genuinely open part.
 The result stays Partial for the conjecture (proved for g < 1/√2, open for
 1/√2 ≤ g < 1). README.md and the catalogue row now say that the method is
 known from the Lotka–Volterra literature.
+
+## Addendum 2026-11-26: the diagonal-weight barrier (BARRIER.md)
+
+**Verdict: new as far as we can find.** BARRIER.md, Theorem 3, proves that for
+every fixed g > 1/√2, J − I = (g/√N)G − I is not Lyapunov diagonally stable
+with probability ≥ 1 − exp(−cN), so the threshold for diagonal stability of
+Ginibre-type matrices is exactly 1/√2 (and 1/√(2(1+ρ)) for zero-mean Gaussian
+elliptic pairs). The question was posed as open by Gibbs, Grilli, Rogers and
+Allesina, Phys. Rev. E 98, 022410 (2018), arXiv:1708.08837, Section VII
+(read; both quoted sentences checked in the paper): "Under which conditions
+they are also diagonally stable is an important open problem." A second agent
+search (Firecrawl paper index and web, 2014–2026; Exa unavailable) found no
+paper that proves or refutes it. Searched and not relevant: Clenet–Massol–Najim
+arXiv:2205.00735 and Akjouj–Hachem–Maïda–Najim arXiv:2302.07820 (use D = I,
+do not discuss optimality); Akjouj et al. arXiv:2212.06136 (say the √2
+condition "might not be necessary" without addressing diagonal weights);
+Chen–Wang–Liu, Phys. Rep. 2024, arXiv:2312.07737; Stone 2018 (D-stability
+only); Clenet–Gueddari arXiv:2603.01774; Hachem arXiv:2302.09847;
+Gueddari–Hachem arXiv:2510.15754; Bizeul–Najim arXiv:1904.04559;
+Ben Arous–Fyodorov–Khoruzhenko arXiv:2008.00690; Kozachkov and
+Davydov–Bullo contraction papers. The proof's ingredients (the easy direction
+of Barker–Berman–Plemmons 1978, GOE invariance, independence of symmetric and
+antisymmetric Gaussian parts) are classical; the combination and the result
+appear to be new. This does not change the conjecture's status: the window
+1/√2 ≤ g < 1 is still open, and Theorem 3 shows that closing it needs a
+Lyapunov function outside the diagonal family.
+
