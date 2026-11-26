@@ -1,0 +1,3 @@
+/home/claude/push2/numerics/cqlf.py:30: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  prob.solve(solver=solver)
+N=16 seed=2 alpha(J0)=0.6618 lmax sym=1.0905 g_LDS=1.0812 g_P=I=0.8551

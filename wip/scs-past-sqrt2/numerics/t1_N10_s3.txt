@@ -5,3 +5,6 @@ N=10 seed=3 alpha(J0)=0.9606 lmax sym=1.1979 g_LDS=0.9192 g_P=I=0.8271
   g=0.9192 feasible=True |W|=43 t=1.6s {'rounds': 4, 'heur_missed': 0, 'status': 'optimal', 's': 0.014989210959137878, 'exh_max': -0.0024776535701496677, 'heur_max': -0.0024776535701496677, 'cert_margin': 0.0024776535701496677}
   g=0.9292 feasible=False |W|=43 t=0.4s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal_inaccurate', 's': -2.1625589364352194e-07}
   g=0.9242 feasible=True |W|=49 t=1.0s {'rounds': 2, 'heur_missed': 0, 'status': 'optimal', 's': 0.0018165375067371182, 'exh_max': -0.0018165374699335654, 'heur_max': -0.0018165374699335654, 'cert_margin': 0.0018165374699335654}
+  g=0.9267 feasible=False |W|=49 t=0.5s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': -7.156838030179392e-08}
+  g=0.9255 feasible=False |W|=49 t=0.6s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': -2.2815327697928548e-08}
+RESULT {'N': 10, 'seed': 3, 'mode': 'full', 'alpha_J0': 0.9606471234993066, 'lmax_symJ0': 1.1979153664278201, 'g_LDS': (np.float64(0.9192195013969764), np.float64(0.9193099512218956)), 'g_PI': np.float64(0.8271485748792304), 'g_cqlf': [np.float64(0.9242195013969764), np.float64(0.9254695013969765)], 'W_size': 49, 'P_cond': 26.543991603652312, 'P_offdiag_frac': 0.41418842702476494, 'final_exhaustive_max': -0.0018165374699335654, 'time': 6.131118535995483}

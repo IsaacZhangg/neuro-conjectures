@@ -1,0 +1,15 @@
+/home/claude/push2/numerics/cqlf.py:30: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  prob.solve(solver=solver)
+N=16 seed=1 alpha(J0)=0.8254 lmax sym=1.0858 g_LDS=1.0953 g_P=I=0.8338
+  lo=1.0753 feasible=False {'rounds': 7, 'heur_missed': 0, 'status': 'optimal', 's': -1.8042221320274896e-07}
+  lower bracket infeasible -> restart bracket from 0.45
+  lo=0.4500 feasible=True {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': 1.5012965976623664, 'exh_max': -1.2499291949710465, 'heur_max': -1.2499291949710465, 'cert_margin': 1.2499291949710465}
+  g=0.7627 feasible=True |W|=21 t=1.7s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': 0.9984261440155211, 'exh_max': -0.37208597572566887, 'heur_max': -0.37208597572566887, 'cert_margin': 0.37208597572566887}
+  g=0.9190 feasible=True |W|=34 t=4.9s {'rounds': 4, 'heur_missed': 0, 'status': 'optimal', 's': 0.3831852276607357, 'exh_max': -0.08268105657524041, 'heur_max': -0.08268105657524041, 'cert_margin': 0.08268105657524041}
+  g=0.9971 feasible=True |W|=55 t=8.5s {'rounds': 4, 'heur_missed': 0, 'status': 'optimal', 's': 0.13426668005235856, 'exh_max': -0.0387338236347431, 'heur_max': -0.0387338236347431, 'cert_margin': 0.0387338236347431}
+  g=1.0362 feasible=True |W|=67 t=8.5s {'rounds': 3, 'heur_missed': 0, 'status': 'optimal', 's': 0.045270661428815265, 'exh_max': -0.00046754508739790563, 'heur_max': -0.00046754508739790563, 'cert_margin': 0.00046754508739790563}
+  g=1.0558 feasible=True |W|=85 t=13.4s {'rounds': 4, 'heur_missed': 0, 'status': 'optimal', 's': 0.010514892986231929, 'exh_max': -0.0032826819696120104, 'heur_max': -0.0032826819696120104, 'cert_margin': 0.0032826819696120104}
+  g=1.0655 feasible=True |W|=103 t=17.8s {'rounds': 4, 'heur_missed': 0, 'status': 'optimal', 's': 0.00028182951634946724, 'exh_max': -0.0002818295364607211, 'heur_max': -0.0002818295364607211, 'cert_margin': 0.0002818295364607211}
+  g=1.0704 feasible=False |W|=103 t=4.4s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': -1.348386571397344e-07}
+  g=1.0680 feasible=False |W|=103 t=4.6s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': -1.2310451389286158e-07}
+RESULT {'N': 16, 'seed': 1, 'mode': 'full', 'alpha_J0': 0.8253827051116646, 'lmax_symJ0': 1.0858182222937671, 'g_LDS': (1.0953002929687499, 1.0953552246093747), 'g_PI': np.float64(0.8338370540292583), 'g_cqlf': [1.065529975891113, 1.0679725551605221], 'W_size': 103, 'P_cond': 15.492904259235205, 'P_offdiag_frac': 0.635499447098889, 'final_exhaustive_max': -0.0002818295364607211, 'time': 78.90045475959778}

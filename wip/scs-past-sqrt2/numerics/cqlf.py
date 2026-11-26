@@ -96,7 +96,7 @@ def lds_threshold(J0, tol=1e-4):
     """Largest g with diagonal D>0: D(gJ0 - I) + (.)^T D < 0  (single LMI, Lambda = I)."""
     N = J0.shape[0]
     lo, hi = 0.3, 1.0 / max(np.max(np.linalg.eigvals(J0).real), 1e-9)
-    hi = min(hi, 1.2)
+    hi = min(hi, 2.0)
     while hi - lo > tol:
         g = (lo + hi) / 2
         st, sv, P = solve_ws(J0, g, [np.ones(N), np.zeros(N)], diag=True)
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     log(f"N={N} seed={seed} alpha(J0)={out['alpha_J0']:.4f} lmax sym={out['lmax_symJ0']:.4f} "
         f"g_LDS={out['g_LDS'][0]:.4f} g_P=I={out['g_PI']:.4f}")
     diag = (mode == "diag")
-    hi0 = min(1.0, 0.999 / out["alpha_J0"])
+    hi0 = min(2.0, 0.999 / out["alpha_J0"])
     gl = out["g_LDS"][0]
     tcap = float(sys.argv[4]) if len(sys.argv) > 4 else 600
     lo, hi, W, P = bisect(J0, gl - 0.02, min(gl + 0.02, hi0), rng, diag=diag, tol=2.5e-3,

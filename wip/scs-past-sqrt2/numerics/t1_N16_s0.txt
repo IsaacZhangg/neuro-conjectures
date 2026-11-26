@@ -1,3 +1,8 @@
 /home/claude/push2/numerics/cqlf.py:30: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
   prob.solve(solver=solver)
 N=16 seed=0 alpha(J0)=0.9307 lmax sym=1.0828 g_LDS=1.0078 g_P=I=0.8374
+  lo=0.9878 feasible=True {'rounds': 6, 'heur_missed': 0, 'status': 'optimal', 's': 0.11688633932046645, 'exh_max': -0.029516450281081543, 'heur_max': -0.029516450281081543, 'cert_margin': 0.029516450281081543}
+  g=0.9939 feasible=True |W|=60 t=3.0s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': 0.10017212639163961, 'exh_max': -0.012118114914057343, 'heur_max': -0.012118114914057343, 'cert_margin': 0.012118114914057343}
+  g=0.9970 feasible=True |W|=60 t=2.9s {'rounds': 1, 'heur_missed': 0, 'status': 'optimal', 's': 0.0918587962632227, 'exh_max': -0.003549449210746219, 'heur_max': -0.003549449210746219, 'cert_margin': 0.003549449210746219}
+  g=0.9985 feasible=True |W|=65 t=5.7s {'rounds': 2, 'heur_missed': 0, 'status': 'optimal', 's': 0.07795861379416405, 'exh_max': -0.014233999757087404, 'heur_max': -0.014233999757087404, 'cert_margin': 0.014233999757087404}
+RESULT {'N': 16, 'seed': 0, 'mode': 'full', 'alpha_J0': 0.9306823574605929, 'lmax_symJ0': 1.0827596542652944, 'g_LDS': (np.float64(1.007828996974793), np.float64(1.0079235380455789)), 'g_PI': np.float64(0.8373984702847276), 'g_cqlf': [np.float64(0.9984786246218491), 1.0], 'W_size': 65, 'P_cond': 14.05034068541047, 'P_offdiag_frac': 0.5398313995736501, 'final_exhaustive_max': -0.014233999757087404, 'time': 22.803666830062866}
