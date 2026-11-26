@@ -14,9 +14,33 @@ rigorous upper bound on S on each box, showing
     S(λ) < 0   for all λ in [λ_min, −δ] ∪ [δ, 1 − ε]
 
 for the (δ, ε) recorded in each certificate, simultaneously for every
-(α, q, ψ) in the certified parameter box (`params_<κ>_tight.json`). The
-parameter box contains (α⋆, q⋆(α⋆), ψ⋆(α⋆)) and also (α, q⋆(α), ψ⋆(α)) for every
-α in an interval of width ~2·10⁻⁹ around α⋆ (see "Parameters").
+(α, q, ψ) in that certificate's parameter box (`params` field; `params_<κ>*_tight.json`).
+Each parameter box contains (α⋆, q⋆(α⋆), ψ⋆(α⋆)) and (α, q⋆(α), ψ⋆(α)) for every α
+in an interval around α⋆ (width 2·10⁻⁹ for the `_tight` boxes, 2·10⁻¹² for the
+`_narrow_tight` boxes; see "Parameters").
+
+## Results
+
+| κ | δ | ε | parameter box | boxes | worst certified bound on S | where (λ) | wall time |
+|---|---|---|---|---|---|---|---|
+| 0.05 | 0.05 | 0.01 | `params_0.05_tight.json` | 24 | −2.89·10⁻⁴ | [0.05, 0.068] | 5.4 min |
+| 0.05 | 0.005 | 0.001 | `params_0.05_tight.json` | 41 (1 bisected) | −2.72·10⁻⁶ | [0.005, 0.0068] | 9.2 min |
+| 0.13 | 0.005 | 0.001 | `params_0.13_tight.json` | 42 (2 bisected) | −2.78·10⁻⁶ | [0.005, 0.0068] | 12.4 min |
+| 0.05 | 0.001 | 0.0001 | `params_0.05_narrow_tight.json` | 55 | −1.22·10⁻⁷ | [0.001, 0.00136] | 9.3 min |
+| 0.13 | 0.001 | 0.0001 | `params_0.13_narrow_tight.json` | 55 | −1.21·10⁻⁷ | [0.001, 0.00136] | 9.5 min |
+
+Every box of every certificate passed (no unresolved boxes). "Bisected" boxes
+first failed (design too wide near λ ≈ 0.91–0.99) and both halves then passed;
+the failed parents are listed under `failed_then_bisected` and are not part of
+the cover. On the negative side the worst bound is at the box ending at −δ
+(e.g. −1.30·10⁻⁷ at κ = 0.05, δ = 0.001). Near λ = 1 the last box (ending at 1 − ε)
+has bound ≈ −4.7·10⁻³ (ε = 10⁻⁴), so ε is not the binding constraint. Wall times
+are on 2 worker processes.
+
+The certificates for δ ∈ {0.05, 0.005} were produced by an earlier revision of
+`certify_bulk.py` that differs from the committed one only in two float design
+choices (box half-width cap 0.6(1−λ) instead of 0.3(1−λ); λ-sub-ball width floor
+2·10⁻⁴ instead of 10⁻⁷). The rigorous bound per box is the same code.
 
 The neighbourhoods of λ = 0 and λ = 1 are not covered here; they are handled by
 a separate analytic argument (another work item).
@@ -105,6 +129,12 @@ replaces ψ0 = R(α-box, Q0) by the tighter box [R(α_lb, q⋆(α_lb)), R(α_ub,
 valid because q⋆(α) is increasing (T = P∘R increasing in α, sup ∂T/∂q < 1 on
 the certified box) and ψ⋆ = P⁻¹(q⋆) with P increasing.
 
+`params_<κ>_narrow.json` is the same certification run on an α-box of width
+2·10⁻¹² centred at the root of the linear interpolation of G between the endpoints of
+the wide box (and q-box ±10⁻¹⁰); it lies inside the wide α-box. The narrow box shrinks the
+parameter-induced width of H(λ) from ~6·10⁻⁷ to ~5·10⁻¹⁰, which is what allows
+δ = 0.001 (S(0.001) ≈ −1.4·10⁻⁷).
+
 On whether α⋆ alone suffices: Ding–Sun's proof of Theorem 1.4 (Section 7 of v1,
 the paragraph after the display that re-derives (47)) needs S_{0,α}(λ) uniquely maximized at 0 for α in a left
 neighbourhood (α′, α⋆), and obtains it from Condition 1.2 at α⋆ plus
@@ -114,17 +144,28 @@ either reading.
 
 ## Files
 
-- `dsarb.py` — rigorous evaluation of ℓ, H, H′, P⋆, H⋆, λ_min, I_s and its λ-derivatives.
+- `dsarb.py` — rigorous evaluation of ℓ, H, H′, P⋆, H⋆, λ_min; I_s and I_s′ at a point
+  (`Igen('p01')` for λ⋆ < 0.6, `Ip01_y` for λ⋆ ≥ 0.6); PB″ on a λ-ball (`PB2_range`, via
+  `I2_real` / `I2_y`). `Igen(2, ...)` and `I2_range` are earlier attempts at PB″ that
+  the certificates do not use.
 - `certify_bulk.py` — box design (float), per-box bound (Arb), bisection of failed boxes, coverage check.
-- `tighten_params.py`, `run_cert.py` — parameter enclosures.
-- `params_*.json` — parameter certificates. `certificate_kappa*.json` — every box with all enclosures and its bound.
-- `log_*.txt`, `run_*.log` — run logs.
+- `tighten_params.py`, `run_cert.py` — parameter enclosures (`run_cert.py` imports
+  `certify_1d.py` from `/home/claude/work`, which is not in this folder).
+- `kmf.py` — float α⋆, q⋆, ψ⋆ (starting values only).
+- `float_design/ds_S.py` — float reference, used only to place boxes and choose s.
+- `params_*.json` — parameter certificates. `certificate_kappa<κ>_delta<δ>_eps<ε>.json` —
+  every box with all enclosures and its bound, the coverage check, timings.
+- `logs/` — run logs. `logs/old*_superseded.txt` are logs of aborted earlier runs with superseded PB″ code (one box there ended with bound +inf); they certify nothing.
 
 ## Reproduce
 
+    export DS_FLOAT_DIR=$PWD/float_design
     /home/claude/venv-ising/bin/python run_cert.py 0.05 0.781074328272 0.57205355
     /home/claude/venv-ising/bin/python tighten_params.py params_0.05.json
-    /home/claude/venv-ising/bin/python certify_bulk.py 0.05 params_0.05_tight.json <delta> <eps> out <tag>
-
-(`certify_bulk.py` imports the float reference `ds_S.py` for box design only;
-set `DS_FLOAT_DIR` to its folder.)
+    /home/claude/venv-ising/bin/python certify_bulk.py 0.05 params_0.05_tight.json 0.005 0.001 out d005e001
+    # narrow box (centre from the wide box's G values) and the delta = 0.001 run
+    /home/claude/venv-ising/bin/python run_cert.py 0.05 0.7810743282532177 0.572053536013 1e-12 1e-10 _narrow
+    /home/claude/venv-ising/bin/python tighten_params.py params_0.05_narrow.json
+    /home/claude/venv-ising/bin/python certify_bulk.py 0.05 params_0.05_narrow_tight.json 0.001 0.0001 out narrow
+    # kappa = 0.13: run_cert.py 0.13 0.7059325315484992 0.5847018890457119 (wide),
+    #               run_cert.py 0.13 0.7059325315101112 0.5847018482133 1e-12 1e-10 _narrow

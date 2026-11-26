@@ -62,7 +62,7 @@ def design(ds, lo, hi, frac=0.45, rmax=0.04, first_at_lammin=False):
             # want |Sp| r + Mx r^2/2 <= frac |S0|
             a, b, c = Mx / 2, abs(Sp), -frac * abs(S0)
             rn = (-b + math.sqrt(b * b - 4 * a * c)) / (2 * a)
-            rn = min(rn, rmax, 0.6 * (1 - la))
+            rn = min(rn, rmax, 0.3 * (1 - la))
             if abs(rn - r) < 0.05 * r:
                 r = rn
                 break
@@ -117,7 +117,7 @@ def certify_box(spec):
     cuts = [lo_]
     while cuts[-1] < hi_:
         x = cuts[-1]
-        step = max(min(MWMAX, 0.1 * (1.0 - min(hi_, x + MWMAX))), 2e-4)
+        step = max(min(MWMAX, 0.1 * (1.0 - min(hi_, x + MWMAX))), 1e-7)
         cuts.append(min(hi_, x + step))
     nsub = len(cuts) - 1
     PB2 = None
