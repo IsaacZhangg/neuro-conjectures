@@ -1,0 +1,112 @@
+{
+  "result": "hopfield-rigorous-bound",
+  "mode": "full",
+  "seed": 20261125,
+  "decision": {
+    "rule": "certified lower bound on A(tau0) exceeds 0.113",
+    "tau0": "18259/10000",
+    "A_tau0_lower": "0.129489982621328",
+    "A_tau0_upper": "0.129489982621329",
+    "delta_tau0": [
+      "0.033932663104416",
+      "0.033932663104417"
+    ],
+    "phi_tau0": [
+      "0.075328710281580",
+      "0.075328710281581"
+    ],
+    "passed": true,
+    "method": "exact rational arithmetic with explicit series tail bounds"
+  },
+  "arb_crosscheck": {
+    "ran": true,
+    "A_lower": 0.12948998262132877,
+    "A_upper": 0.12948998262132877,
+    "agrees": true
+  },
+  "theorem3": {
+    "rule": "certified lower bound on A2(tau0, theta0) with side conditions (reported; added after the original decision rule)",
+    "tau0": "9711/5000",
+    "theta0": "1582/625",
+    "A2_lower": "0.134716551489815",
+    "A2_upper": "0.134716551489816",
+    "checks": {
+      "0 < tau0 < theta0": true,
+      "Q(theta0) < Q(tau0)": true,
+      "1 - 2Q(theta0) > 0": true,
+      "Num > 0": true,
+      "D > 0": true,
+      "A2(tau0, theta0) >= 33679/250000": true
+    },
+    "passed": true,
+    "arb_crosscheck": {
+      "ran": true,
+      "A2_lower": 0.1347165514898156,
+      "A2_upper": 0.1347165514898156,
+      "agrees": true
+    }
+  },
+  "float_scan": {
+    "tau_star": 1.8258694969,
+    "delta_star": 0.0339349609,
+    "sup_A_float": 0.1294899827,
+    "stojnic_x": 1.2910847,
+    "stojnic_expression_at_x": 0.1294899854,
+    "note": "floating point, not certified; sup A is not used by the theorem"
+  },
+  "simulation": {
+    "ran": true,
+    "rows": [
+      {
+        "model": "G",
+        "alpha": 0.1,
+        "N": 1000,
+        "trials": 10,
+        "mean_final_overlap": 0.9974,
+        "min_final_overlap": 0.992
+      },
+      {
+        "model": "G",
+        "alpha": 0.12,
+        "N": 1000,
+        "trials": 10,
+        "mean_final_overlap": 0.9938,
+        "min_final_overlap": 0.982
+      },
+      {
+        "model": "G",
+        "alpha": 0.129,
+        "N": 1000,
+        "trials": 10,
+        "mean_final_overlap": 0.99,
+        "min_final_overlap": 0.98
+      },
+      {
+        "model": "R",
+        "alpha": 0.1,
+        "N": 1000,
+        "trials": 10,
+        "mean_final_overlap": 0.9974,
+        "min_final_overlap": 0.994
+      },
+      {
+        "model": "R",
+        "alpha": 0.12,
+        "N": 1000,
+        "trials": 10,
+        "mean_final_overlap": 0.9962,
+        "min_final_overlap": 0.986
+      },
+      {
+        "model": "R",
+        "alpha": 0.129,
+        "N": 1000,
+        "trials": 10,
+        "mean_final_overlap": 0.9894,
+        "min_final_overlap": 0.96
+      }
+    ],
+    "note": "exploratory evidence only; finite N, not a proof"
+  },
+  "scope": "Theorem 1 (Gaussian interference) is proved; the +-1 Hopfield statement (Theorem 2) is conditional on hypothesis (U) and is not proved."
+}

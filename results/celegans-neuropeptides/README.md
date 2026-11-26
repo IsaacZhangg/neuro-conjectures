@@ -93,6 +93,12 @@ Output: [followup-proximity-output.json](followup-proximity-output.json).
 
 ## What was open and what this settles
 
+Prior work (see [NOVELTY.md](NOVELTY.md)): the wired path-score baseline with a
+degree-preserving null, and the one-line negative for peptide networks, are
+already in Sale and Richardson (2026), doi:10.64898/2026.11.03.762695. Verdict:
+partly known; what is new is the peptide-specific pre-registered test, the
+no-wired-path gain and the proximity control.
+
 Open: whether a neuropeptide connectome adds predictive information about the
 measured signal propagation beyond wiring. Randi et al. checked 53 pairs one
 by one with no null; Sale and Richardson (2026) reported a negative in one
@@ -107,6 +113,7 @@ pair-specific part is indistinguishable from zero.
 
 - [CLAIM.md](CLAIM.md): exact statement and decision rule.
 - [SOURCES.md](SOURCES.md): primary sources, later work, searches.
+- [NOVELTY.md](NOVELTY.md): what is already known, what is new, verdict (partly known).
 - [METHODS.md](METHODS.md): data, analysis plan, robustness checks, deviations.
 - [fetch_data.py](fetch_data.py): downloads the public data from PyPI and checks SHA-256.
 - [check.py](check.py): `python check.py` (about 12 minutes on one core) or
