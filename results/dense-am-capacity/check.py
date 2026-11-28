@@ -112,8 +112,11 @@ for lam_s in ("0.1", "0.5", "0.7"):
 
 # ---------- Part 2: cross-check against the definition (floats, grids) ----------
 def A_num(alpha, lam, s_grid, ny):
-    """LM eq. (9): inf_s [I(s) + inf_{phi >= s} I_{alpha,s,lam}(phi)], with
-    I_{alpha,s,lam}(phi) = 0 for phi <= phi_typ(s) and phi^2/(2s) - alpha above.
+    """LM eq. (9): inf_s [I(s) + inf_{phi > s} I_{alpha,s,lam}(phi)], with
+    I_{alpha,s,lam}(phi) = +inf below phi_typ(s), 0 at phi_typ(s) and
+    phi^2/(2s) - alpha above it (LM eq. 64). So the inner infimum is 0 where
+    phi_typ(s) > s and s/2 - alpha elsewhere (the code's <= differs only at
+    the single point s = s0, which does not change the infimum over s).
     phi_typ(s) (REM free energy) is found by grid maximization of
     (1/lam)(alpha - y^2/(2s)) + y over 0 <= y <= sqrt(2 alpha s); it is
     sqrt(2 alpha s) at lam = inf."""

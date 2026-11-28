@@ -2,6 +2,7 @@
 
 Checked 2026-11-25. Exa was unavailable (connection failure); searches used
 Firecrawl paper search, Firecrawl's citation graph and web search instead.
+Checked again 2026-11-27 with Exa; see "Second check" below.
 
 ## Verdict
 
@@ -19,6 +20,10 @@ as new here.
   "It remains an open question whether we have α_c^lb = α_c or not." Our
   Section 1 (lower bound) re-proves this bound rigorously; the value is
   theirs.
+- **Numerical indication that the bound is tight.** Lucibello and Mézard,
+  App. F.2 and Fig. 8: Monte Carlo at large λ puts the all-pattern
+  transition close to α_c^lb = (log 2)/4 and far from α_1 = 1/2. So the
+  value was expected. What was missing was a proof.
 - **Typical-pattern threshold (one random pattern), Gaussian.** Lucibello and
   Mézard (2024); re-derived by Sumedha and Singh, arXiv:2607.19195 (2026),
   α_c = λ(1 − λ/2) for λ ≤ 1. Different question from ours (one pattern,
@@ -50,6 +55,10 @@ as new here.
   with λ_x certified by interval arithmetic (check.py).
 - A **sharp transition**: below α_c all patterns are retrieved with
   probability tending to 1, above it with probability tending to 0.
+- A **closed form** for the small-λ branch, α_a(λ) = −c W0(−a/e)/a
+  (PROOF.md Lemma 0). Minor: in the text we read (App. D.2), Lucibello and
+  Mézard obtain α_c^lb by solving A(α, λ) = α and state its large-λ value
+  and small-λ behaviour, with no closed form.
 
 ## Not covered
 
@@ -92,6 +101,30 @@ second-moment upper bound is in the same spirit as their exponential-case
 argument. We also screened 40 papers citing Cai, Fan and Jiang (including
 Kai Zhang, arXiv:1306.0623 and arXiv:1511.06198, on maximal inner products
 of normalized vectors) and found none treating the unnormalized event.
+
+## Second check, 2026-11-27
+
+Run by a second AI agent (the 2026-11-27 reviewer in REVIEW.md),
+independently of the first check and with Exa available.
+
+- Exa searches for a resolution of the open question: all-pattern threshold
+  for Gaussian patterns, union bound tight, (log 2)/4, second moment, and
+  rigorous follow-ups to Lucibello and Mézard.
+- Semantic Scholar list of papers citing arXiv:2304.14964: about 105
+  entries screened by title. The retrieved list was cut off near its end,
+  so the screen is not complete. Abstracts or excerpts were read for the
+  closest ones: arXiv:2503.09518, 2606.07757, 2607.19195, 2607.29554,
+  2609.10976, 2610.22191 and 2610.34553.
+- Result: none addresses the all-pattern threshold for Gaussian patterns.
+  arXiv:2609.10976 (September 2026) mentions the all-pattern requirement
+  only as a stricter demand met at lower loads and cites one reference for
+  it (Lucibello and Mézard, from context), with no later result.
+
+Verdict unchanged, with this calibration. The threshold value is Lucibello
+and Mézard's and their simulations already pointed to it. The new part is
+the matching upper bound and the sharp transition. The method (first and
+second moments) is standard, so the result is incremental. A literature
+search cannot rule out unpublished work; asking the authors would.
 
 ## Searches run
 

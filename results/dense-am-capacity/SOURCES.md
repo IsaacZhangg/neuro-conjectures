@@ -1,6 +1,7 @@
 # Sources
 
-Checked 2026-11-25.
+Checked 2026-11-25. Citing papers screened again 2026-11-27 (NOVELTY.md,
+"Second check").
 
 ## Primary
 
@@ -46,3 +47,6 @@ Checked 2026-11-25.
   and abstract.
 - Web search: "dense associative memory Gaussian patterns 'all patterns'
   capacity 'log 2' union bound tight proof Lucibello Mézard open question".
+- 2026-11-27: Exa search for a resolution of the open question, and the
+  Semantic Scholar list of papers citing arXiv:2304.14964 (about 105 titles;
+  the retrieved list was cut off near its end).

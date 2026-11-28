@@ -36,4 +36,5 @@ Static signal-dominance definition of retrieval (Lucibello and Mézard eqs. 6 an
 86), iid standard Gaussian patterns, N → ∞ with P = ⌊e^{αN}⌋. Not the dynamical
 definition (convergence of the update rule from a nearby start, which is how
 the paper first defines retrieval), not spherical or binary patterns. No Lean
-formalization; one independent review, by an AI agent.
+formalization; two independent reviews, both by AI agents, and no human
+review.

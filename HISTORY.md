@@ -1,5 +1,9 @@
 # History
 
+## 2026-11-27: Dense associative memory capacity, second agent review
+
+A second AI agent, independent of the drafting, read every step of [PROOF.md](results/dense-am-capacity/PROOF.md), recomputed the constants and ran its own simulations at λ = ∞ and λ = 0.3. It found no gap that affects the theorem. Six minor points were fixed: a wrong remark about the witness, a misquoted rate function, a missing line in Lemma 1, the order of constants in Section 1, the definition of λ_x, and integer rounding. A remark was added that a margin in the retrieval criterion does not move the threshold; it is a sketch and has not been independently reviewed. A second novelty check, with Exa and the list of citing papers, found no earlier proof. The status stays Proved, agent-reviewed only, until a person checks the proof.
+
 ## 2026-11-26: Hopfield bound, ±1 proof passes agent review
 
 A separate agent reviewed the ±1 energy-barrier proof ([PROOF-pm1.md](results/hopfield-rigorous-bound/PROOF-pm1.md)) and its certificate independently and found no gap. Six cosmetic issues were fixed. The status stays Partial until a person checks the proof.
